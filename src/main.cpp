@@ -1,100 +1,22 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <cmath>
-
-class Point
-{
-    float m_x {}, m_y {};
-
-public:
-
-    // Ctors
-    Point (float x, float y) : m_x{x}, m_y{y} {std::cout << "[CALL] Float ctor:" << m_x << ' ' << m_y << std::endl;}
-    Point () : m_x{}, m_y{} {std::cout << "[CALL] Default ctor\n";}
-    Point (const Point& pnt) : m_x{pnt.m_x}, m_y{pnt.m_y} {std::cout << "[CALL] Copy ctor\n";} // const here express our wish not to change donor object
-
-    // Dtor
-    ~Point () {std::cout << "[CALL] Dtor:" << m_x << ' ' << m_y << std::endl;}
-
-    // Overload
-    friend std::ostream& operator<< (std::ostream &cout, Point &pnt);
-    friend Point operator- (Point &pnt1, Point &pnt2);
-    Point& operator= (const Point& pnt);
-};
-
- Point& Point::operator= (const Point& pnt)
- {
-    m_x = pnt.m_x;
-    m_y = pnt.m_y;
-
-    return *this;   // Dereference of current object -> but ret type is refrence and
-                    // casting will happen
- }
-
-Point operator- (Point &pnt1, Point &pnt2)
-{
-    return Point(pnt1.m_x - pnt2.m_x, pnt1.m_y - pnt2.m_y);
-}
-
-std::ostream& operator<< (std::ostream &cout, Point &pnt)
-{
-    return cout << '(' << pnt.m_x << ',' << pnt.m_y << ')';
-}
-
-class Vector
-{
-    Point m_start {}, m_end {};
-    float m_len {};
-
-    void update_len ();
-
-public:
-
-    // Ctors
-    Vector (Point &start, Point &end) : m_start {start}, m_end {end} {}
-
-    // Overload
-    friend std::ostream& operator<< (std::ostream &cout, Vector &vec);
-
-    // Functionality
-    void to_center ();
-};
-
-void Vector::to_center (void)
-{
-    m_end = m_end - m_start;
-    m_start = Point(0.f, 0.f);
-}
-
-std::ostream& operator<< (std::ostream &cout, Vector &vec)
-{
-    return cout << vec.m_start << "--->" << vec.m_end << std::endl;
-}
-
-void Vector::update_len ()
-{
-    m_len = sqrt(1);
-}
+#include <Chertila.hpp>
 
 int main()
 {
-    Point pnt1{-1,-1}, pnt2{2,2};
+    FreeVector vec1{1, 1}, vec2{1, -1};
 
-    Point dif_pnt {pnt2 - pnt1};
+    // "(1,1)"
+    std::cout << vec1 << std::endl;
 
-    // dif_pnt = pnt1 - pnt2;
+    FreeVector vec3{vec1 + vec2}; // cpy ctor
+    vec3 = vec3 + vec3; // assignment
+    // expected: "(4,0) 0 2"
+    std::cout << vec3 << ' ' << vec1 * vec2 << ' ' << vec1 * vec1 << std::endl;
 
-    // std::cout << dif_pnt << std::endl; // But here Point&
-
-    // std::cout << pnt2 - pnt1 << std::endl; // why here Point
-
-    // std::cout << pnt1 << ' ' << pnt2 << std::endl;
+    float k = 4;
+    // expected: "(4, 4)"
+    FreeVector vec4{k * vec1};
     
-    Vector vec{pnt1, pnt2};
-    std::cout << vec << std::endl;
-
-    vec.to_center();
-    std::cout << vec << std::endl;
+    std::cout << vec4 + vec1 << std::endl;
 
     // sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     // sf::CircleShape shape(100.f);

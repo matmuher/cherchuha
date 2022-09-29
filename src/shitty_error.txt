@@ -1,0 +1,27 @@
+where to use references? 
+
+main.cpp:19:15: error: no match for ‘operator<<’ (operand types are ‘std::ostream’ {aka ‘std::basic_ostream<char>’} and ‘FreeVector’)
+   19 |     std::cout << vec4 + vec1 << std::endl;
+      |     ~~~~~~~~~ ^~ ~~~~~~~~~~~
+      |          |            |
+      |          |            FreeVector
+      |          std::ostream {aka std::basic_ostream<char>}
+In file included from ./Chertila.hpp:8,
+                 from main.cpp:1:
+./Vector.hpp:43:26: note: candidate: ‘std::ostream& operator<<(std::ostream&, FreeVector&)’ <near match>
+   43 |     friend std::ostream& operator<< (std::ostream &cout, FreeVector &vec); // output
+      |                          ^~~~~~~~
+./Vector.hpp:43:26: note:   conversion of argument 2 would be ill-formed:
+main.cpp:19:23: error: cannot bind non-const lvalue reference of type ‘FreeVector&’ to an rvalue of type ‘FreeVector’
+   19 |     std::cout << vec4 + vec1 << std::endl;
+
+   Point of this error is: if we want to be able to cout just object
+   cout << object; // it's okat to overload in way: operator<<(&cout, &object_class)
+
+   but if we want to support printing of some operations:
+   cout << object1 + object2; // we need to overload like this: operator<<(&cout, object_class)
+
+   as operator+ returns value
+
+   and problem is we cant overload operator<< for refrence and value at the same time
+   (cause it's impossible to detemine from the context which one to use)

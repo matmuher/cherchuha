@@ -2,7 +2,7 @@ INC_DIR = .
 SRC_DIR =
 OBJ_DIR = ./obj
 
-SRC		= main.cpp
+SRC		= main.cpp Vector.cpp Point.cpp
 EXEC 	= chertila.exe
 LIBS 	= -lsfml-graphics -lsfml-window -lsfml-system
 OBJ		= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
