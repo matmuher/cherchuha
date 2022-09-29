@@ -47,7 +47,7 @@ float Point::get_y ()
     return m_y;
 }
 
-std::ostream& operator<< (std::ostream &cout, Point &pnt)
+std::ostream& operator<< (std::ostream &cout, Point pnt)
 {
     return cout << '(' << pnt.m_x << ',' << pnt.m_y << ')';
 }

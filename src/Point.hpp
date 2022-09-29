@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 
 class Point // I have hesitations about class naming, cause all operations belong to radius Vector class
@@ -16,7 +17,7 @@ public:
     ~Point ();
 
     // Overload
-    friend std::ostream& operator<< (std::ostream &cout, Point &pnt);
+    friend std::ostream& operator<< (std::ostream &cout, Point pnt);
     friend Point operator- (Point &pnt1, Point &pnt2);
     Point& operator= (const Point& pnt);
 

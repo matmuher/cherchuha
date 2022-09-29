@@ -2,39 +2,40 @@
 
 int main()
 {
-    FreeVector vec1{1, 1}, vec2{1, -1};
+    #if 0
+        FreeVector vec1{1, 1}, vec2{1, -1};
 
-    // "(1,1)"
-    std::cout << vec1 << std::endl;
+        // "(1,1)"
+        std::cout << vec1 << std::endl;
 
-    FreeVector vec3{vec1 + vec2}; // cpy ctor
-    vec3 = vec3 + vec3; // assignment
-    // expected: "(4,0) 0 2"
-    std::cout << vec3 << ' ' << vec1 * vec2 << ' ' << vec1 * vec1 << std::endl;
+        FreeVector vec3{vec1 + vec2}; // cpy ctor
+        vec3 = vec3 + vec3; // assignment
+        // expected: "(4,0) 0 2"
+        std::cout << vec3 << ' ' << vec1 * vec2 << ' ' << vec1 * vec1 << std::endl;
 
-    float k = 4;
-    // expected: "(4, 4)"
-    FreeVector vec4{k * vec1};
-    
-    std::cout << vec4 + vec1 << std::endl;
+        float k = 4;
+        // expected: "(4, 4)"
+        FreeVector vec4{k * vec1};
 
-    // sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    // sf::CircleShape shape(100.f);
-    // shape.setFillColor(sf::Color::Green);
+        std::cout << vec4 + vec1 << std::endl;
+    #endif
 
-    // while (window.isOpen())
-    // {
-    //     sf::Event event;
-    //     while (window.pollEvent(event))
-    //     {
-    //         if (event.type == sf::Event::Closed)
-    //             window.close();
-    //     }
+    Point cnvs_center{100, 100};
+    Canvas cnvs{cnvs_center};
 
-    //     window.clear();
-    //     window.draw(shape);
-    //     window.display();
-    // }
+    Point pnt{0, 0};
+
+    std::cout << apply_canvas(cnvs, pnt) << std::endl; // Add borders for transformation
+
+    Drawer drwr{};
+    drwr.draw(apply_canvas(cnvs, pnt));
+
+    while (drwr.is_opened())
+    {
+        drwr.clear();
+        drwr.draw(pnt);
+        drwr.display();
+    }
 
     return 0;
 }

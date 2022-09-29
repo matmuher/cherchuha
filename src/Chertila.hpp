@@ -1,9 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
-#include <complex.h>
 
-#include <Vector.hpp>
+#include <FreeVector.hpp>
 #include <Point.hpp>
+#include <ConcreteVector.hpp>
+#include <Canvas.hpp>
+#include <Drawer.hpp>

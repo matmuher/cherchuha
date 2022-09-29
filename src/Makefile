@@ -2,7 +2,7 @@ INC_DIR = .
 SRC_DIR =
 OBJ_DIR = ./obj
 
-SRC		= main.cpp Vector.cpp Point.cpp
+SRC		= main.cpp FreeVector.cpp Point.cpp Canvas.cpp ConcreteVector.cpp Drawer.cpp
 EXEC 	= chertila.exe
 LIBS 	= -lsfml-graphics -lsfml-window -lsfml-system
 OBJ		= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
@@ -13,7 +13,7 @@ LDFLAGS =
 
 all: $(EXEC)
 	
-$(EXEC): clean $(OBJ)
+$(EXEC): $(OBJ)
 	$(CXX) $(OBJ) -o $@ $(LIBS)
 
 # https://www.gnu.org/software/make/manual/make.html#Static-Pattern

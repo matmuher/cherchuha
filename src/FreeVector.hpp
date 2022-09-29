@@ -1,6 +1,7 @@
 #pragma once
-#include <Chertila.hpp>
+
 #include <Point.hpp>
+#include <cmath>
 
 /*
 Usability:
@@ -22,10 +23,10 @@ std::cout << vec4{k * vec1} << std::endl;
 Point pnt{5,5};
 ConcreteVector cvec1{pnt, vec4};
 
-Point cnvs_center{100, 100};
+Point cnvs_center{100, 100}; // these coords are tied to the screen
 Canvas cnvs{cnvs_center};
 
-draw(cnvs, cvek1);
+draw(cnvs, cvek1); // we can implement striaght interaction with window object only here
 */
 
 class FreeVector
@@ -42,11 +43,12 @@ public:
     // Overload
     friend std::ostream& operator<< (std::ostream &cout, FreeVector vec); // output: check shitty_error.txt
 
-    friend float operator* (FreeVector &vec1, FreeVector &vec2); // scalar mlt
+    friend float operator* (FreeVector vec1, FreeVector vec2); // scalar mlt
     friend FreeVector operator* (float k, FreeVector &vec); 
     friend FreeVector operator* (FreeVector &vec, float k);
-    friend FreeVector operator+ (FreeVector &vec1, FreeVector &vec2); // sum
+    friend FreeVector operator+ (FreeVector vec1, FreeVector vec2); // sum
 
     // Functionality
     float get_len ();
+    Point get_pos ();
 };
