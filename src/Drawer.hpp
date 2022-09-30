@@ -28,8 +28,9 @@ drwr.draw(cvec);
 class Drawer
 {
     const size_t defaultSize = 1000; // Dont use m_ with consts
-    const float pointRadius = 10;    // cause there shouldn't be any mess with assignments
-    const float lineLength = 20;
+    const float pointRadius = 10 / 5;    // cause there shouldn't be any mess with assignments
+    const float lineWidth = 20;
+
 
     sf::RenderWindow m_window{};
 

@@ -16,3 +16,4 @@ public:
 };
 
 Point apply_canvas(Canvas &cnvs, Point &pnt);
+ConcreteVector apply_canvas(Canvas &cnvs, ConcreteVector &cvec);

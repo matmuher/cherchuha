@@ -20,20 +20,22 @@ int main()
         std::cout << vec4 + vec1 << std::endl;
     #endif
 
+    // Set coords in user system
+    Point pnt{0, 0};
+    FreeVector vec{200, -200};
+    ConcreteVector cvec{pnt, vec};
+    
+    // Set user system
     Point cnvs_center{100, 100};
     Canvas cnvs{cnvs_center};
 
-    Point pnt{0, 0};
-
-    std::cout << apply_canvas(cnvs, pnt) << std::endl; // Add borders for transformation
-
     Drawer drwr{};
-    drwr.draw(apply_canvas(cnvs, pnt));
 
     while (drwr.is_opened())
     {
         drwr.clear();
-        drwr.draw(pnt);
+        // drwr.draw(pnt);
+        drwr.draw(apply_canvas(cnvs, cvec));
         drwr.display();
     }
 
