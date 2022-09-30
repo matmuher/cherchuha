@@ -55,6 +55,11 @@ FreeVector operator+ (FreeVector vec1, FreeVector vec2)
     return FreeVector(end_pnt);
 }
 
+FreeVector operator- (FreeVector vec1, FreeVector vec2)
+{
+    return vec1 + (-1) * vec2;
+}
+
 // [FUNCTIONS]
 
 float FreeVector::get_len () // I made it member function as it changes condition of object

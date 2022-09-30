@@ -48,6 +48,7 @@ public:
     friend FreeVector operator* (float k, FreeVector &vec); 
     friend FreeVector operator* (FreeVector &vec, float k);
     friend FreeVector operator+ (FreeVector vec1, FreeVector vec2); // sum
+    friend FreeVector operator- (FreeVector vec1, FreeVector vec2);
 
     // Functionality
     float get_len ();

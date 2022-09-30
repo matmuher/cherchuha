@@ -30,9 +30,15 @@ int main()
     Canvas cnvs{cnvs_center};
 
     Drawer drwr{};
+    float t = 0;
+    float dt = 1E-2;
+    const float R = 200;
 
     while (drwr.is_opened())
     {
+        cvec.set_fvec(FreeVector{R * sin(t), R * cos(t)});
+        t += dt;
+
         drwr.clear();
         // drwr.draw(pnt);
         drwr.draw(apply_canvas(cnvs, cvec));
