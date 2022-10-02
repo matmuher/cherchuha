@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <ConcreteVector.hpp>
 #include <Point.hpp>
+#include <Canvas.hpp>
 
 /*
 This class should get geometric primitives and draw it on the screen
@@ -39,6 +40,7 @@ public:
     Drawer(Point &screeSize);
     void draw(ConcreteVector cvec);
     void draw(Point pnt);
+    void draw(Canvas cnvs);
     bool is_opened();
     void display();
     void clear();

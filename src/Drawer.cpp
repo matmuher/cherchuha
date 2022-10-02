@@ -29,13 +29,24 @@ void Drawer::draw (ConcreteVector cvec)
 
 void Drawer::draw (Point pnt)
 {
-    sf::CircleShape pnt_graphic(pointRadius);
+    sf::CircleShape pnt_graphic(pointRadius); // graphic implementation of point
 
     pnt_graphic.setFillColor(sf::Color::Green);
     pnt_graphic.setOrigin(pointRadius/2, pointRadius/2);
     pnt_graphic.setPosition(pnt.get_x(), pnt.get_y());
 
     m_window.draw(pnt_graphic);
+}
+
+void Drawer::draw (Canvas cnvs)
+{
+    edge_type edges = cnvs.get_edges();
+
+    // draw({edges.left_up, edges.right_up}); // It ot okey to ignore type which i cast to?
+    draw(ConcreteVector{edges.left_up, edges.right_up});
+    draw(ConcreteVector{edges.right_up, edges.right_down});
+    draw(ConcreteVector{edges.right_down, edges.left_down});
+    draw(ConcreteVector{edges.left_down, edges.left_up});
 }
 
 bool Drawer::is_opened()

@@ -12,8 +12,24 @@ Canvas::Canvas () :
 
 Canvas::Canvas(Point &center, Point &real_size, Point &pixel_size) :
     m_center{center},
-    m_prop_coefs{ pixel_size.get_x() / real_size.get_x(), pixel_size.get_y() / real_size.get_y()}
+    m_prop_coefs{ pixel_size.get_x() / real_size.get_x(), pixel_size.get_y() / real_size.get_y()},
+    m_edges{set_edges(center, pixel_size)}
 {}
+
+edge_type Canvas::set_edges (Point &center, Point &pixel_size)
+{
+    edge_type edges = {};
+
+    edges.left_up       =   Point{center.get_x() - pixel_size.get_x() / 2, center.get_y() - pixel_size.get_y() / 2};
+    edges.left_down     =   Point{center.get_x() - pixel_size.get_x() / 2, center.get_y() + pixel_size.get_y() / 2};
+    edges.right_up      =   Point{center.get_x() + pixel_size.get_x() / 2, center.get_y() - pixel_size.get_y() / 2};
+    edges.right_down    =   Point{center.get_x() + pixel_size.get_x() / 2, center.get_y() + pixel_size.get_y() / 2};
+
+    // std::cout << "Edges:\n";
+    // std::cout << edges.left_up << ' ' << edges.left_down << ' ' << edges.right_up << ' ' << edges.right_down << std::endl;
+
+    return edges;
+}
 
 // [FUNCS]
 
@@ -25,6 +41,11 @@ Point Canvas::get_center ()
 Point Canvas::get_prop_coefs ()
 {
     return m_prop_coefs;
+}
+
+edge_type Canvas::get_edges()
+{
+    return m_edges;
 }
 
 Point apply_canvas(Canvas &cnvs, Point pnt)

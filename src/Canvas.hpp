@@ -4,11 +4,23 @@
 
 // Implements transforamtion from user's coord system to window's
 
+struct edge_type // How to incapsulate it in class?
+    {
+    Point   left_up, 
+            left_down, 
+            right_up, 
+            right_down;
+    }; 
+
 class Canvas
 {
     Point m_center {}; // In windows coords
     Point m_prop_coefs{1, 1}; // Proportion coefs for x&y axes
+
+    edge_type m_edges;
     
+    edge_type set_edges(Point &center, Point &pixel_size);
+
 public:
 
     Canvas(Point &center);
@@ -16,6 +28,7 @@ public:
     Canvas();
     Point get_center();
     Point get_prop_coefs();
+    edge_type get_edges();
 };
 
 Point apply_canvas(Canvas &cnvs, Point &pnt);

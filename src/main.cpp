@@ -3,7 +3,8 @@
 /*
 Nearest roadmap:
 
-- Change Canvas class to get pixels and real sizes
+- [OK] Change Canvas class to get pixels and real sizes
+    - Draw Canvas borders
 - Make a cat from arrow side of vector
 - Make the second canvas with interactive vector
 */
@@ -39,27 +40,30 @@ int main()
 
     // Set coords in user system
     Point pnt{0, 0};
-    FreeVector vec{-3, 2};
+    FreeVector vec{0.5, 0.5};
     ConcreteVector cvec{pnt, vec};
     
     // Set user system
-    Point cnvs_center{1280 / 2, 720 / 2};
-    Point real_size{6,4};
-    Point pixel_size{1280, 720};
+    Point real_size{2,2};
+    Point pixel_size{500, 500};
+    Point window_size{1280, 720};
+
+    Point cnvs_center{window_size.get_x() / 2, window_size.get_y() / 2};
     Canvas cnvs{cnvs_center, real_size, pixel_size};
 
-    Drawer drwr{pixel_size};
-    // float t = 0;
-    // float dt = 1E-2;
-    // const float R = 200;
+    Drawer drwr{window_size};
+    float t = 0;
+    float dt = 1E-2;
+    const float R = 0.5;
 
     while (drwr.is_opened())
     {
-        // cvec.set_fvec(FreeVector{R * sin(t), R * cos(t)});
-        // t += dt;
+        cvec.set_fvec(FreeVector{R * sin(t), R * cos(t)});
+        t += dt;
 
         drwr.clear();
         // drwr.draw(pnt);
+        drwr.draw(cnvs);
         drwr.draw(apply_canvas(cnvs, cvec));
         drwr.display();
     }
