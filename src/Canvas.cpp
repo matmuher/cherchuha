@@ -10,11 +10,21 @@ Canvas::Canvas () :
     m_center{}
 {}
 
+Canvas::Canvas(Point &center, Point &real_size, Point &pixel_size) :
+    m_center{center},
+    m_prop_coefs{ pixel_size.get_x() / real_size.get_x(), pixel_size.get_y() / real_size.get_y()}
+{}
+
 // [FUNCS]
 
 Point Canvas::get_center ()
 {
     return m_center;
+}
+
+Point Canvas::get_prop_coefs ()
+{
+    return m_prop_coefs;
 }
 
 Point apply_canvas(Canvas &cnvs, Point pnt)
@@ -27,7 +37,8 @@ Point apply_canvas(Canvas &cnvs, Point pnt)
     Point cnvs_center = cnvs.get_center();
     FreeVector center_vec{cnvs_center};
     
-    FreeVector pnt_vec{pnt};
+    Point prop_coefs = cnvs.get_prop_coefs();
+    FreeVector pnt_vec{pnt.get_x() * prop_coefs.get_x(), pnt.get_y() * prop_coefs.get_y()};
 
     // [!] Cringe form of matrix mlt
     FreeVector transformed_point = FreeVector{FreeVector{1, 0} * pnt_vec, FreeVector{0, -1} * pnt_vec} + center_vec;

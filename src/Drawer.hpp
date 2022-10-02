@@ -28,15 +28,15 @@ drwr.draw(cvec);
 class Drawer
 {
     const size_t defaultSize = 1000; // Dont use m_ with consts
-    const float pointRadius = 10 / 5;    // cause there shouldn't be any mess with assignments
+    const float pointRadius = 2;    // cause there shouldn't be any mess with assignments
     const float lineWidth = 20;
-
 
     sf::RenderWindow m_window{};
 
 public:
 
     Drawer();
+    Drawer(Point &screeSize);
     void draw(ConcreteVector cvec);
     void draw(Point pnt);
     bool is_opened();

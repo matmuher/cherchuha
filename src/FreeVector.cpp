@@ -34,14 +34,12 @@ float operator* (FreeVector vec1, FreeVector vec2)
 
 FreeVector operator* (float k, FreeVector &vec)
 {
-    std::cout << "left scalar\n";
     // Vector is created and then copied to place of function call
     return FreeVector{k * vec.m_end.get_x(), k * vec.m_end.get_y()};
 }
 
 FreeVector operator* (FreeVector &vec, float k)
 {
-    std::cout << "right scalar\n";
     return k * vec;
 }
 

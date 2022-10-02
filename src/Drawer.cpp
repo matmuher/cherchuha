@@ -4,6 +4,10 @@ Drawer::Drawer () :
     m_window{sf::VideoMode(defaultSize, defaultSize), "Drawer window"} // redundant? can use default value
 {}
 
+Drawer::Drawer(Point &screenSize) :
+    m_window{sf::VideoMode(screenSize.get_x(), screenSize.get_y()), "Drawer window"} // redundant? can use default value
+{}
+
 void Drawer::draw (ConcreteVector cvec)
 {
     Point start_pnt = cvec.get_start();
