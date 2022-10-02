@@ -5,6 +5,10 @@
 #include <Point.hpp>
 #include <Canvas.hpp>
 
+// Wrapper on SFML's event class
+class Event : public sf::Event
+{};
+
 /*
 This class should get geometric primitives and draw it on the screen
 
@@ -35,13 +39,20 @@ class Drawer
     sf::RenderWindow m_window{};
 
 public:
-
+    // [Ctors]
     Drawer();
     Drawer(Point &screeSize);
+
+    // [Drawing]
     void draw(ConcreteVector cvec);
     void draw(Point pnt);
     void draw(Canvas cnvs);
-    bool is_opened();
     void display();
     void clear();
+
+
+    // [Events]
+    bool is_opened();
+    void close();
+    void poll_event(Event& event);
 };

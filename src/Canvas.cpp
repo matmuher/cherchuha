@@ -10,7 +10,7 @@ Canvas::Canvas () :
     m_center{}
 {}
 
-Canvas::Canvas(Point &center, Point &real_size, Point &pixel_size) :
+Canvas::Canvas(Point center, Point real_size, Point pixel_size) :
     m_center{center},
     m_prop_coefs{ pixel_size.get_x() / real_size.get_x(), pixel_size.get_y() / real_size.get_y()},
     m_edges{set_edges(center, pixel_size)}
@@ -48,7 +48,7 @@ edge_type Canvas::get_edges()
     return m_edges;
 }
 
-Point apply_canvas(Canvas &cnvs, Point pnt)
+Point to_window_coords(Canvas &cnvs, Point pnt)
 {
     // is it okay to constantly make transforamtions point-abstract vector only because 
     // there are no sensible ariphmetic operations for point
@@ -67,10 +67,25 @@ Point apply_canvas(Canvas &cnvs, Point pnt)
     return transformed_point.get_pos();
 }
 
-ConcreteVector apply_canvas(Canvas &cnvs, ConcreteVector &cvec)
+ConcreteVector to_window_coords(Canvas &cnvs, ConcreteVector &cvec)
 {
-    Point new_start = apply_canvas(cnvs, cvec.get_start());
-    Point new_end   = apply_canvas(cnvs, cvec.get_end());
+    Point new_start = to_window_coords(cnvs, cvec.get_start());
+    Point new_end   = to_window_coords(cnvs, cvec.get_end());
 
     return ConcreteVector{new_start, new_end};
+}
+
+Point to_canvas_coords(Canvas &cnvs, Point pnt)
+{
+    Point cnvs_center = cnvs.get_center();
+    FreeVector center_vec{cnvs_center};
+    FreeVector pnt_vec{pnt};
+
+    FreeVector result_vec = center_vec - pnt_vec;
+
+    Point prop_coefs = cnvs.get_prop_coefs();
+    // [!] Cringe form of matrix mlt
+    Point result_point = Point{FreeVector{-1, 0} * result_vec / prop_coefs.get_x(), FreeVector{0, 1} * result_vec / prop_coefs.get_y()};
+
+    return result_point;
 }

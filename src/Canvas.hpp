@@ -24,12 +24,13 @@ class Canvas
 public:
 
     Canvas(Point &center);
-    Canvas(Point &center, Point &real_size, Point &pixel_size);
+    Canvas(Point center, Point real_size, Point pixel_size);
     Canvas();
     Point get_center();
     Point get_prop_coefs();
     edge_type get_edges();
 };
 
-Point apply_canvas(Canvas &cnvs, Point &pnt);
-ConcreteVector apply_canvas(Canvas &cnvs, ConcreteVector &cvec);
+Point to_window_coords(Canvas &cnvs, Point &pnt);
+ConcreteVector to_window_coords(Canvas &cnvs, ConcreteVector &cvec);
+Point to_canvas_coords(Canvas &cnvs, Point pnt);

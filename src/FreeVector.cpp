@@ -4,7 +4,7 @@
 
 FreeVector::FreeVector () : m_end{} {};
 
-FreeVector::FreeVector (Point &end) : m_end{end} // Construct by end point
+FreeVector::FreeVector (Point end) : m_end{end} // Construct by end point
 {
     //std::cout << "[VectorCtor] by end point" << m_end << std::endl;
 }

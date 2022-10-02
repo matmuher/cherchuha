@@ -41,30 +41,62 @@ int main()
     // Set coords in user system
     Point pnt{0, 0};
     FreeVector vec{0.5, 0.5};
-    ConcreteVector cvec{pnt, vec};
+    ConcreteVector cvec_click{pnt, vec};
+    ConcreteVector cvec_rotate{pnt, vec};
     
     // Set user system
     Point real_size{2,2};
-    Point pixel_size{500, 500};
-    Point window_size{1280, 720};
 
-    Point cnvs_center{window_size.get_x() / 2, window_size.get_y() / 2};
-    Canvas cnvs{cnvs_center, real_size, pixel_size};
+    float screen_width = 1280;
+    float prop_coef = 1.f / 11.f;
 
-    Drawer drwr{window_size};
+    Point pixel_resolution{(4 * prop_coef) * screen_width, screen_width * (4 * prop_coef)};
+    Point window_resolution{screen_width, 720};
+
+    Point cnvs_rotate_center{(3 * prop_coef) * screen_width, window_resolution.get_y() / 2};
+    Canvas cnvs_rotate{cnvs_rotate_center, real_size, pixel_resolution};
+
+    Point cnvs_click_center{(8 * prop_coef) * screen_width, window_resolution.get_y() / 2};
+    Canvas cnvs_click{cnvs_click_center, real_size, pixel_resolution};
+
+    Drawer drwr{window_resolution};
     float t = 0;
     float dt = 1E-2;
     const float R = 0.5;
 
     while (drwr.is_opened())
     {
-        cvec.set_fvec(FreeVector{R * sin(t), R * cos(t)});
+        // Events
+        Event event;
+        drwr.poll_event(event);
+        switch (event.type)
+        {
+            case Event::EventType::Closed:
+                drwr.close();
+                break;
+
+            case Event::EventType::MouseButtonPressed:
+                {
+                    Point click_pnt{(float) event.mouseButton.x, (float) event.mouseButton.y};
+                    cvec_click.set_fvec(to_canvas_coords(cnvs_click, click_pnt));
+                    break;
+                }
+
+            default:
+                break;
+        }
+
+        // Rotation
+        cvec_rotate.set_fvec(FreeVector{R * (float) sin(t), R * (float) cos(t)});
         t += dt;
 
+        // Draw
         drwr.clear();
         // drwr.draw(pnt);
-        drwr.draw(cnvs);
-        drwr.draw(apply_canvas(cnvs, cvec));
+        drwr.draw(cnvs_click);
+        drwr.draw(cnvs_rotate);
+        drwr.draw(to_window_coords(cnvs_click, cvec_click));
+        drwr.draw(to_window_coords(cnvs_rotate, cvec_rotate));
         drwr.display();
     }
 

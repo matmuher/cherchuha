@@ -37,7 +37,7 @@ class FreeVector
 public:
 
     FreeVector ();
-    FreeVector (Point &end); // by end point
+    FreeVector (Point end); // by end point
     FreeVector (float x, float y); // by end point coords
     FreeVector (const FreeVector &vec); // cpy ctor
 

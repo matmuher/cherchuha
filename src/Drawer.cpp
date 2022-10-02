@@ -49,18 +49,19 @@ void Drawer::draw (Canvas cnvs)
     draw(ConcreteVector{edges.left_down, edges.left_up});
 }
 
-bool Drawer::is_opened()
+bool Drawer::is_opened ()
 {
-    sf::Event event;
-    while (m_window.pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-        {
-            m_window.close();
-            return false;
-        }
-    }
-    return true;
+    return m_window.isOpen();
+}
+
+void Drawer::poll_event (Event& event)
+{
+    m_window.pollEvent(event);
+}
+
+void Drawer::close ()
+{
+    m_window.close();
 }
 
 void Drawer::display()
