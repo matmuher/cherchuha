@@ -74,31 +74,7 @@ void Drawer::clear()
     m_window.clear();
 }
 
-// void Vector::correct_rotation(sf::Vector2f start_point, sf::Vector2f end_point)
-// {
-// 	sf::Vector2f diff = end_point - start_point; // normalize to use switch? can i switch on structs?
-
-// 	float angle = atan(diff.x / diff.y);
-
-// 	if (diff.x > 0 && diff.y > 0)
-// 	{
-// 		angle *= -1;
-// 	}
-// 	else if (diff.x < 0 && diff.y > 0)
-// 	{
-// 		angle *= -1;
-// 	}
-// 	else if (diff.x < 0 && diff.y < 0)
-// 	{
-// 		angle *= -1;
-// 		angle += M_PI;
-// 	}
-// 	else if (diff.x > 0 && diff.y < 0)
-// 	{
-// 		angle *= -1;
-// 		angle += M_PI;
-// 	}
-
-// 	angle = angle / M_PI * 180.f; // to degress
-// 	m_line_body.setRotation(angle);
-// }
+sf::RenderWindow& Drawer::get_window()
+{
+    return m_window;
+}

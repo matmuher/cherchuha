@@ -31,6 +31,6 @@ public:
     edge_type get_edges();
 };
 
-Point to_window_coords(Canvas &cnvs, Point &pnt);
-ConcreteVector to_window_coords(Canvas &cnvs, ConcreteVector &cvec);
-Point to_canvas_coords(Canvas &cnvs, Point pnt);
+Point to_window_coords(Canvas cnvs, Point pnt);
+ConcreteVector to_window_coords(Canvas cnvs, ConcreteVector cvec);
+Point to_canvas_coords(Canvas cnvs, Point pnt);

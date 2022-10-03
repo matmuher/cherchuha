@@ -4,9 +4,10 @@
 Nearest roadmap:
 
 - [OK] Change Canvas class to get pixels and real sizes
-    - Draw Canvas borders
+    - [OK] Draw Canvas borders
+- [OK] Make the second canvas with interactive vector
 - Make a cat from arrow side of vector
-- Make the second canvas with interactive vector
+- README
 */
 
 /*

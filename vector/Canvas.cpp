@@ -48,7 +48,7 @@ edge_type Canvas::get_edges()
     return m_edges;
 }
 
-Point to_window_coords(Canvas &cnvs, Point pnt)
+Point to_window_coords(Canvas cnvs, Point pnt)
 {
     // is it okay to constantly make transforamtions point-abstract vector only because 
     // there are no sensible ariphmetic operations for point
@@ -67,7 +67,7 @@ Point to_window_coords(Canvas &cnvs, Point pnt)
     return transformed_point.get_pos();
 }
 
-ConcreteVector to_window_coords(Canvas &cnvs, ConcreteVector &cvec)
+ConcreteVector to_window_coords(Canvas cnvs, ConcreteVector cvec)
 {
     Point new_start = to_window_coords(cnvs, cvec.get_start());
     Point new_end   = to_window_coords(cnvs, cvec.get_end());
@@ -75,7 +75,7 @@ ConcreteVector to_window_coords(Canvas &cnvs, ConcreteVector &cvec)
     return ConcreteVector{new_start, new_end};
 }
 
-Point to_canvas_coords(Canvas &cnvs, Point pnt)
+Point to_canvas_coords(Canvas cnvs, Point pnt)
 {
     Point cnvs_center = cnvs.get_center();
     FreeVector center_vec{cnvs_center};

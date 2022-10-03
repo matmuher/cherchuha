@@ -50,9 +50,11 @@ public:
     void display();
     void clear();
 
-
     // [Events]
     bool is_opened();
     void close();
     void poll_event(Event& event);
+
+    // [Getters]
+    sf::RenderWindow& get_window();
 };
