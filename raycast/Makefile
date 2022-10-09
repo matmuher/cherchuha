@@ -22,12 +22,15 @@ $(EXEC): $(OBJ)
 # https://www.gnu.org/software/make/manual/make.html#Static-Pattern
 $(OBJ): $(OBJ_DIR)/%.o: %.cpp
 	$(DIR_GUARD)
-	$(CXX) -c $< -o $@ -I $(INC_DIR)
+	$(CXX) -c -g $< -o $@ -I $(INC_DIR)
 
 lib: $(OBJ)
 	mkdir -p $(LIB_DIR))
 	ar rvs $(LIB_DIR)/libraycast.a $(OBJ)
 	ar dv $(LIB_DIR)/libraycast.a main.o
+
+rebuild_all:
+	cd ../vector && make && make lib && cd ../raycast && make
 
 clean:
 	clear

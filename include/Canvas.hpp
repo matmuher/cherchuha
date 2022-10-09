@@ -14,10 +14,12 @@ struct edge_type // How to incapsulate it in class?
 
 class Canvas
 {
-    Point m_center {}; // In windows coords
+    Point m_center{}; // In windows coords
     Point m_prop_coefs{1, 1}; // Proportion coefs for x&y axes
 
     edge_type m_edges;
+    float m_width{};
+    float m_height{};
     
     edge_type set_edges(Point &center, Point &pixel_size);
 
@@ -26,9 +28,12 @@ public:
     Canvas(Point &center);
     Canvas(Point center, Point real_size, Point pixel_size);
     Canvas();
+
     Point get_center();
     Point get_prop_coefs();
     edge_type get_edges();
+    float get_width();
+    float get_height();
 };
 
 Point to_window_coords(Canvas cnvs, Point pnt);

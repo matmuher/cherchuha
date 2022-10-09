@@ -13,7 +13,9 @@ Canvas::Canvas () :
 Canvas::Canvas(Point center, Point real_size, Point pixel_size) :
     m_center{center},
     m_prop_coefs{ pixel_size.get_x() / real_size.get_x(), pixel_size.get_y() / real_size.get_y()},
-    m_edges{set_edges(center, pixel_size)}
+    m_edges{set_edges(center, pixel_size)},
+    m_width{pixel_size.get_x()},
+    m_height{pixel_size.get_y()}
 {}
 
 edge_type Canvas::set_edges (Point &center, Point &pixel_size)
@@ -88,4 +90,14 @@ Point to_canvas_coords(Canvas cnvs, Point pnt)
     Point result_point = Point{FreeVector{-1, 0} * result_vec / prop_coefs.get_x(), FreeVector{0, 1} * result_vec / prop_coefs.get_y()};
 
     return result_point;
+}
+
+float Canvas::get_width()
+{
+    return m_width;
+}
+
+float Canvas::get_height()
+{
+    return m_height;
 }
