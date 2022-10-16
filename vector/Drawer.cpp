@@ -49,6 +49,18 @@ void Drawer::draw (Canvas cnvs)
     draw(ConcreteVector{edges.left_down, edges.left_up});
 }
 
+void Drawer::draw(const Rectangle& rect)
+{
+    edge_type edges = rect.get_edges();
+    float width  = fabs(edges.left_up.get_x() - edges.right_down.get_x());
+    float height = fabs(edges.left_up.get_y() - edges.right_down.get_y());
+
+    sf::RectangleShape rect_graphic(sf::Vector2f(width, height));
+    rect_graphic.setFillColor(sf::Color((unsigned) rect.get_color()));
+    rect_graphic.setPosition(edges.left_up.get_x(), edges.left_up.get_y());
+    m_window.draw(rect_graphic);
+}
+
 bool Drawer::is_opened ()
 {
     return m_window.isOpen();

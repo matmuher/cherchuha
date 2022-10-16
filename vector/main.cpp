@@ -19,7 +19,62 @@ Poinr pixel_size{1280, 720}; // {x,y}: 1280 x 720
 Canvas cnvs{cnvs_center, real_size, pixel_size};
 */
 
+/*
+Usecase for rectangl:
+
+Point left_up{};
+Point right_down{};
+Rectangle rect{left_up, right_down};
+
+drwr.draw(rect);
+*/
+
 int main()
+{
+    // Set coords in user system
+    Point left_up{0, 0};
+    Point right_down{1, 1};
+    Colors rect_color = Colors::GREEN;
+    Rectangle rect{left_up, right_down, rect_color};
+
+    // Set user system
+    Point real_size{2,2};
+    float screen_width = 1280;
+    Point pixel_resolution{screen_width / 3, screen_width / 3};
+    Point window_resolution{screen_width, 720};
+
+    Point cnvs_center{window_resolution.get_x() / 2, window_resolution.get_y() / 2};
+    Canvas cnvs{cnvs_center, real_size, pixel_resolution};
+
+    Drawer drwr{window_resolution};
+
+    while (drwr.is_opened())
+    {
+        // Events
+        Event event;
+        drwr.poll_event(event);
+        switch (event.type)
+        {
+            case Event::EventType::Closed:
+                drwr.close();
+                break;
+
+            default:
+                break;
+        }
+
+        // Draw
+        drwr.clear();
+        drwr.draw(cnvs);
+        drwr.draw(to_window_coords(cnvs, rect));
+        drwr.display();
+    }
+
+    return 0;
+    // two_vectors();
+}
+
+int two_vectors()
 {
     #if 0
         FreeVector vec1{1, 1}, vec2{1, -1};

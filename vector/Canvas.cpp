@@ -77,6 +77,14 @@ ConcreteVector to_window_coords(Canvas cnvs, ConcreteVector cvec)
     return ConcreteVector{new_start, new_end};
 }
 
+Rectangle to_window_coords(const Canvas& cnvs, const Rectangle& rect)
+{
+    edge_type edges = rect.get_edges();
+    Rectangle new_rect{to_window_coords(cnvs, edges.left_up), to_window_coords(cnvs, edges.right_down), rect.get_color()};
+
+    return new_rect;
+}
+
 Point to_canvas_coords(Canvas cnvs, Point pnt)
 {
     Point cnvs_center = cnvs.get_center();

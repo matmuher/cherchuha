@@ -31,23 +31,23 @@ Point::~Point ()
                     // casting will happen
  }
 
-Point operator- (Point &pnt1, Point &pnt2)
+Point operator- (const Point& pnt1,const Point& pnt2)
 {
     //std::cout << "Minus operator" << std::endl;
     return Point(pnt1.m_x - pnt2.m_x, pnt1.m_y - pnt2.m_y);
 }
 
-float Point::get_x ()
+float Point::get_x () const
 {
     return m_x;
 }
 
-float Point::get_y ()
+float Point::get_y () const
 {
     return m_y;
 }
 
-std::ostream& operator<< (std::ostream &cout, Point pnt)
+std::ostream& operator<< (std::ostream &cout, const Point& pnt)
 {
     return cout << '(' << pnt.m_x << ',' << pnt.m_y << ')';
 }
