@@ -7,6 +7,12 @@ Work on painting a sphere:
 
 Create an class of colored canvas with which I will be able to interact
 as with array.
+
+Okay now I need to add Z argument to my Vector class to make scalar multiplication 
+look beautiful
+
+May be inherit ConcreteVector from FreeVector?
+It seem to be easier to add Z-coord
 */
 
 bool is_close(int a, int b)
@@ -73,6 +79,11 @@ Point to_canvas_coords(Canvas cnvs, size_t pixel_id) // from associated with thi
     Point left_up = edges.left_up;
 
     return to_canvas_coords(cnvs, Point(left_up.get_x() + x_id, left_up.get_y() + y_id));
+}
+
+FreeVector get_normal_to_sphere(float sph_radius, Point sph_center, Point sph_pnt)
+{
+    return FreeVector{sph_pnt.get_x() - sph_center.get_x(), sph_pnt.get_y() - sph_center.get_y()};
 }
 
 int main()

@@ -1,8 +1,8 @@
 OBJ_DIR = ./obj
 SRC_DIR = .
 
-SRC		= $(shell find $(SOURCEDIR) -name '*.cpp')
-PROG    = raycast
+SRC		= $(shell find $(SRC_DIR) -name '*.cpp')
+PROG    = gui
 LIBS 	:= -lvector $(LIBS)
 OBJ		= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
