@@ -2,7 +2,9 @@
 
 Drawer::Drawer () : 
     m_window{sf::VideoMode(defaultSize, defaultSize), "Drawer window"} // redundant? can use default value
-{}
+{
+    m_window.setKeyRepeatEnabled(false);
+}
 
 Drawer::Drawer(Point &screenSize) :
     m_window{sf::VideoMode(screenSize.get_x(), screenSize.get_y()), "Drawer window"} // redundant? can use default value
@@ -61,6 +63,17 @@ void Drawer::draw(const Rectangle& rect)
     m_window.draw(rect_graphic);
 }
 
+void Drawer::draw(const Canvas& cnvs, const ButtonManager& btn_mngr)
+{
+    size_t btn_num = btn_mngr.get_size();
+
+    for (size_t btn_id = 0; btn_id < btn_num; btn_id++)
+    {
+        Button& btn = btn_mngr.get_button(btn_id);
+        draw(to_window_coords(cnvs, btn));
+    }
+}
+
 bool Drawer::is_opened ()
 {
     return m_window.isOpen();
@@ -89,4 +102,10 @@ void Drawer::clear()
 sf::RenderWindow& Drawer::get_window()
 {
     return m_window;
+}
+
+Point Drawer::get_mouse_pos()
+{
+    sf::Vector2i sfml_mouse_pos = sf::Mouse::getPosition(m_window);
+    return Point(sfml_mouse_pos.x, sfml_mouse_pos.y);
 }

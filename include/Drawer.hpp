@@ -5,6 +5,7 @@
 #include <Point.hpp>
 #include <Canvas.hpp>
 #include <Rectangle.hpp>
+#include <ButtonManager.hpp>
 
 // Wrapper on SFML's event class
 class Event : public sf::Event
@@ -49,6 +50,7 @@ public:
     void draw(Point pnt);
     void draw(Canvas cnvs);
     void draw(const Rectangle& rect);
+    void draw(const Canvas& cnvs, const ButtonManager& btn_mngr);
     void display();
     void clear();
 
@@ -59,4 +61,5 @@ public:
 
     // [Getters]
     sf::RenderWindow& get_window();
+    Point get_mouse_pos();
 };
