@@ -4,6 +4,7 @@
 #include <ConcreteVector.hpp>
 #include <Point.hpp>
 #include <Canvas.hpp>
+#include <Rectangle.hpp>
 
 // Wrapper on SFML's event class
 class Event : public sf::Event
@@ -47,6 +48,7 @@ public:
     void draw(ConcreteVector cvec);
     void draw(Point pnt);
     void draw(Canvas cnvs);
+    void draw(const Rectangle& rect);
     void display();
     void clear();
 

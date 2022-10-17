@@ -1,23 +1,16 @@
 #pragma once
 
+#include <ConcreteVector.hpp>
 #include <Point.hpp>
-
-// Implements transforamtion from user's coord system to window's
-
-struct edge_type // How to incapsulate it in class?
-    {
-    Point   left_up, 
-            left_down, 
-            right_up, 
-            right_down;
-    }; 
+#include <Rectangle.hpp>
+#include <VectorService.hpp>
 
 class Canvas
 {
     Point m_center{}; // In windows coords
     Point m_prop_coefs{1, 1}; // Proportion coefs for x&y axes
 
-    edge_type m_edges;
+    edge_type m_edges{};
     float m_width{};
     float m_height{};
     
@@ -38,4 +31,7 @@ public:
 
 Point to_window_coords(Canvas cnvs, Point pnt);
 ConcreteVector to_window_coords(Canvas cnvs, ConcreteVector cvec);
+// I set const type& as I am not intendet to chane object
+// neigher I want to copy it. It's like passing const pointer
+Rectangle to_window_coords(const Canvas& cnvs, const Rectangle& rect);
 Point to_canvas_coords(Canvas cnvs, Point pnt);

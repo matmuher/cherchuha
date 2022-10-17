@@ -29,7 +29,8 @@ $(OBJ): $(OBJ_DIR)/%.o: %.cpp
 
 lib: $(OBJ)
 	mkdir -p $(LIB_SRCH_PATH:-L%=%)
-	ar rvs $(LIB_SRCH_PATH:-L%=%)/lib$(PROG).a $($(OBJ):main.o=)
+	ar rvs $(LIB_SRCH_PATH:-L%=%)/lib$(PROG).a $(OBJ)
+	ar dv  $(LIB_SRCH_PATH:-L%=%)/lib$(PROG).a main.o
 
 clean:
 	rm -rf $(OBJ_DIR)/*.o $(PROG)

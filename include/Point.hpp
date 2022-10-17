@@ -17,11 +17,11 @@ public:
     ~Point ();
 
     // Overload
-    friend std::ostream& operator<< (std::ostream &cout, Point pnt);
-    friend Point operator- (Point &pnt1, Point &pnt2);
+    friend std::ostream& operator<< (std::ostream &cout, const Point& pnt);
+    friend Point operator- (const Point& pnt1, const Point& pnt2);
     Point& operator= (const Point& pnt);
 
     // Interface
-    float get_x();
-    float get_y();
+    float get_x() const;
+    float get_y() const;
 };

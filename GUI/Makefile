@@ -1,6 +1,18 @@
 OBJ_DIR = ./obj
 SRC_DIR = .
 
+# [SEARCH PATHS]
+INC_SRCH_PATH ?= -I../include
+LIB_SRCH_PATH ?= -L../libs
+
+# [FLAGS]
+LIBS   ?= -lsfml-graphics -lsfml-window -lsfml-system
+СXX    ?= g++
+CFLAGS ?= -g -Wall
+
+# [SERVICE]
+DIR_GUARD ?= mkdir -p $(@D)
+
 SRC		= $(shell find $(SRC_DIR) -name '*.cpp')
 PROG    = gui
 LIBS 	:= -lvector $(LIBS)
@@ -9,7 +21,7 @@ OBJ		= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 all: $(PROG)
 	
 $(PROG): $(OBJ)
-	$(CXX) $(OBJ) -o $@ $(LIB_SRCH_PATH) $(LIBS) 
+	$(CXX) $(OBJ) -o $@.exe $(LIB_SRCH_PATH) $(LIBS) 
 
 # https://www.gnu.org/software/make/manual/make.html#Static-Pattern
 $(OBJ): $(OBJ_DIR)/%.o: %.cpp
