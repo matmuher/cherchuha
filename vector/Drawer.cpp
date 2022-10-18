@@ -79,9 +79,9 @@ bool Drawer::is_opened ()
     return m_window.isOpen();
 }
 
-void Drawer::poll_event (Event& event)
+bool Drawer::poll_event (Event& event)
 {
-    m_window.pollEvent(event);
+    return m_window.pollEvent(event);
 }
 
 void Drawer::close ()
@@ -108,4 +108,23 @@ Point Drawer::get_mouse_pos()
 {
     sf::Vector2i sfml_mouse_pos = sf::Mouse::getPosition(m_window);
     return Point(sfml_mouse_pos.x, sfml_mouse_pos.y);
+}
+
+std::queue<EventGUI> Drawer::EventsQueue;
+
+void Drawer::push_gui_event(const EventGUI& event)
+{
+    EventsQueue.push(event);
+}
+
+bool Drawer::poll_gui_event(EventGUI& event)
+{
+    if (!EventsQueue.empty())
+    {
+        event = EventsQueue.front();
+        EventsQueue.pop();
+        return true;
+    }
+    
+    return false;
 }

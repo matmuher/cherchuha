@@ -12,7 +12,7 @@ public:
 
     // [Ctors]
     Rectangle(const Point& left_up, const Point& right_down, Colors color = Colors::RED);
-    Rectangle(const Point& rect_center, float width, float height, Colors color = Colors::GREEN);
+    Rectangle(const Point& rect_center, float width, float height, Colors color = Colors::RED);
 
     // [Setters]
     edge_type set_edges(const Point& rect_center, float width, float height);

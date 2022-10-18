@@ -6,10 +6,51 @@
 #include <Canvas.hpp>
 #include <Rectangle.hpp>
 #include <ButtonManager.hpp>
+#include <queue>
+
+/*
+OKAY, now it's time to handle my own events.
+I wanna handle event created by button. 
+For now these kind of events would be located in separate
+data structure like queue (because most recent events should be processed firstly).
+*/
 
 // Wrapper on SFML's event class
 class Event : public sf::Event
 {};
+
+class EventGUI
+{
+
+public:
+
+    enum EventType
+    {
+        NoEvent = 0,
+        PenColorChange
+    };
+
+    EventType type;
+
+    // Content
+
+    typedef Colors ChangePenColor;
+
+    union
+    {
+        ChangePenColor color;
+    };
+
+    // [Member functions]
+
+    EventGUI(EventType type) : type{type} {};
+    EventGUI() : type{NoEvent} {};
+
+    // [Member data]
+
+    // Type
+
+};
 
 /*
 This class should get geometric primitives and draw it on the screen
@@ -38,6 +79,8 @@ class Drawer
     const float pointRadius = 2;    // cause there shouldn't be any mess with assignments
     const float lineWidth = 20;
 
+    static std::queue<EventGUI> EventsQueue;
+
     sf::RenderWindow m_window{};
 
 public:
@@ -57,7 +100,9 @@ public:
     // [Events]
     bool is_opened();
     void close();
-    void poll_event(Event& event);
+    bool poll_event(Event& event);
+    static void push_gui_event(const EventGUI& event);
+    static bool poll_gui_event(EventGUI& event);
 
     // [Getters]
     sf::RenderWindow& get_window();

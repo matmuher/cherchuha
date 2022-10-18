@@ -1,7 +1,8 @@
 #include <iostream>
 #include <Chertila.hpp>
-#include "Button.hpp"
-#include "ButtonManager.hpp"
+#include <Button.hpp>
+#include <ButtonManager.hpp>
+#include <LaPintura.hpp>
 #include <bitset>
 
 /*
@@ -38,17 +39,21 @@ Button:
 int main()
 {
     // Set button
-    Colors button_color = Colors::BLUE;
-    Point size{500, 50};
-    Point button_center{0, -50};
-    Button btn{button_center, size.get_x(), size.get_y(), Colors::RED};
-    Button btn1{Point{0, 50}, size.get_x(), size.get_y(), Colors::GREEN};
-    Button btn2{Point{0, 0}, size.get_x(), size.get_y(), Colors::BLUE};
+    Point button_size{80, 40};
+    Point button_center{550, -50};
+    Button btn{button_center, button_size.get_x(), button_size.get_y(), Colors::RED};
+    Button btn1{Point{550, 50}, button_size.get_x(), button_size.get_y(), Colors::GREEN};
+    Button btn2{Point{550, 0}, button_size.get_x(), button_size.get_y(), Colors::BLUE};
 
     ButtonManager btn_mngr{3};
     btn_mngr.add_button(btn);
     btn_mngr.add_button(btn1);
     btn_mngr.add_button(btn2);
+
+    // Set LaPintura
+    Point pintura_size{500, 500};
+    Point pintura_center{-100, 0};
+    LaPintura pintura{pintura_center, pintura_size.get_x(), pintura_size.get_y(), Colors::WHITE};
 
     // Set user system
     Point real_size{1280,720};
@@ -65,6 +70,7 @@ int main()
         // Events
         Event event;
         drwr.poll_event(event);
+        std::cout << "Poll events" << std::endl;
         switch (event.type)
         {
             case Event::EventType::Closed:
@@ -80,10 +86,26 @@ int main()
             default:
                 break;
         }
+        std::cout << "Stop polling events" << std::endl;
+        EventGUI gui_event;
 
+        drwr.poll_gui_event(gui_event);
+        std::cout << "Poll GUI events" << std::endl;
+        switch (gui_event.type)
+        {
+            case EventGUI::EventType::PenColorChange:
+                std::cout << "Pen colour change to: " << std::hex << (int) gui_event.color << std::endl;
+                break;
+
+            default:
+                break;
+        }
+        std::cout << "Stop polling GUI events" << std::endl;
+    
         // Draw
         drwr.clear();
         drwr.draw(cnvs);
+        drwr.draw(to_window_coords(cnvs, pintura));
         drwr.draw(cnvs, btn_mngr);
         drwr.display();
     }

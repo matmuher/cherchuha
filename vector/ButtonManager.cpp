@@ -1,4 +1,5 @@
 #include <ButtonManager.hpp>
+#include <Drawer.hpp>
 
 ButtonManager::ButtonManager(size_t collection_capacity) : 
     m_collection_capacity{collection_capacity}
@@ -45,6 +46,11 @@ void ButtonManager::catch_click(const Point& mouse_position)
         {
             if (!btn.is_pressed())
             {   
+                EventGUI event{EventGUI::EventType::PenColorChange};
+                event.color = btn.get_color();
+
+                Drawer::push_gui_event(event);
+
                 std::cout << "Pressed button with id " << btn_id << std::endl;
                 mutex_press(btn_id);
             }
