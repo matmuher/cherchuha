@@ -4,6 +4,7 @@
 #include <Point.hpp>
 #include <Rectangle.hpp>
 #include <VectorService.hpp>
+#include <LaPintura.hpp>
 
 class Canvas
 {
@@ -31,6 +32,7 @@ public:
 
 Point to_window_coords(Canvas cnvs, Point pnt);
 ConcreteVector to_window_coords(Canvas cnvs, ConcreteVector cvec);
+LaPintura to_window_coords(const Canvas& cnvs, const LaPintura& pintura);
 // I set const type& as I am not intendet to chane object
 // neigher I want to copy it. It's like passing const pointer
 Rectangle to_window_coords(const Canvas& cnvs, const Rectangle& rect);

@@ -12,13 +12,13 @@ class PinturaManager
 
 public:
 
-    PinturaManager(size_t collection_capacity = 3);
+    PinturaManager(size_t collection_capacity = 1);
     ~PinturaManager();
 
     void add_pintura(LaPintura& pintura);
     void catch_click(const Point& mouse_position);
     void mutex_press(size_t pressed_button_id);
 
-    Button& get_pintura(size_t index) const;
+    LaPintura& get_pintura(size_t index) const;
     size_t get_size() const;
 };

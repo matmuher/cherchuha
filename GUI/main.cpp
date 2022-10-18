@@ -4,6 +4,7 @@
 #include <ButtonManager.hpp>
 #include <LaPintura.hpp>
 #include <bitset>
+#include <PinturaManager.hpp>
 
 /*
 Version 1: MaPaint
@@ -55,6 +56,9 @@ int main()
     Point pintura_center{-100, 0};
     LaPintura pintura{pintura_center, pintura_size.get_x(), pintura_size.get_y(), Colors::WHITE};
 
+    PinturaManager pnt_mngr;
+    pnt_mngr.add_pintura(pintura);
+
     // Set user system
     Point real_size{1280,720};
     Point pixel_resolution{real_size.get_x(), real_size.get_y()};
@@ -64,6 +68,8 @@ int main()
     Canvas cnvs{cnvs_center, real_size, pixel_resolution};
 
     Drawer drwr{window_resolution};
+
+    bool MousePressed = false;
 
     while (drwr.is_opened())
     {
@@ -77,15 +83,32 @@ int main()
                 drwr.close();
                 break;
 
+            case Event::EventType::MouseButtonPressed:
+                if(event.mouseButton.button == sf::Mouse::Left)
+                    {
+                        MousePressed = true;
+                        std::cout << "MousePressed" << std::endl;
+                    }
+                break;
+
             case Event::EventType::MouseButtonReleased:
-                if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                    {std::cout << "MousePressed\n";
-                    btn_mngr.catch_click(to_canvas_coords(cnvs, drwr.get_mouse_pos()));}
+                if(event.mouseButton.button == sf::Mouse::Left)
+                    {
+                        MousePressed = false;
+                        std::cout << "MouseRealesed" << std::endl;
+                    }
                 break;
 
             default:
                 break;
         }
+
+        if (MousePressed)
+        {
+            btn_mngr.catch_click(to_canvas_coords(cnvs, drwr.get_mouse_pos()));
+            pnt_mngr.catch_click(to_canvas_coords(cnvs, drwr.get_mouse_pos()));
+        }
+
         std::cout << "Stop polling events" << std::endl;
         EventGUI gui_event;
 
@@ -95,6 +118,7 @@ int main()
         {
             case EventGUI::EventType::PenColorChange:
                 std::cout << "Pen colour change to: " << std::hex << (int) gui_event.color << std::endl;
+                pintura.set_pen_color(gui_event.color);
                 break;
 
             default:

@@ -74,6 +74,22 @@ void Drawer::draw(const Canvas& cnvs, const ButtonManager& btn_mngr)
     }
 }
 
+void Drawer::draw(const LaPintura& pintura)
+{
+    sf::Texture pintura_texture;
+    pintura_texture.create(pintura.get_width(), pintura.get_height());
+    pintura_texture.update((const sf::Uint8*) pintura.get_array());
+    sf::Sprite pintura_sprite{pintura_texture};
+    
+    // Sprite init
+    pintura_sprite.setOrigin(pintura.get_width() / 2, pintura.get_height() / 2);
+
+    Point pintura_center = pintura.get_center();
+    pintura_sprite.setPosition(pintura_center.get_x(), pintura_center.get_y());
+
+    m_window.draw(pintura_sprite);
+}
+
 bool Drawer::is_opened ()
 {
     return m_window.isOpen();

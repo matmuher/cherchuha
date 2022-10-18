@@ -7,6 +7,7 @@
 #include <Rectangle.hpp>
 #include <ButtonManager.hpp>
 #include <queue>
+#include <LaPintura.hpp>
 
 /*
 OKAY, now it's time to handle my own events.
@@ -94,6 +95,7 @@ public:
     void draw(Canvas cnvs);
     void draw(const Rectangle& rect);
     void draw(const Canvas& cnvs, const ButtonManager& btn_mngr);
+    void draw(const LaPintura& pintura);
     void display();
     void clear();
 

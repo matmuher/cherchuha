@@ -85,6 +85,16 @@ Rectangle to_window_coords(const Canvas& cnvs, const Rectangle& rect)
     return new_rect;
 }
 
+// All previous to_window_coords created new entity to draw it
+// as LaPintura is large array it is not well to copy it each time
+// So to draw we will only change position 
+LaPintura to_window_coords(const Canvas& cnvs, const LaPintura& pintura)
+{
+    LaPintura new_pintura{pintura};
+    new_pintura.set_center(to_window_coords(cnvs, pintura.get_center()));
+    return new_pintura;
+}
+
 Point to_canvas_coords(Canvas cnvs, Point pnt)
 {
     Point cnvs_center = cnvs.get_center();

@@ -2,6 +2,7 @@
 
 #include <Point.hpp>
 
+// in RGBA
 enum class Colors : unsigned
 {
     RED   = 0xFF0000FF,
@@ -11,6 +12,21 @@ enum class Colors : unsigned
     BLACK = 0x000000FF
 };
 
+typedef char color_component;
+class ParsedColor
+{
+public:
+    color_component r, g, b, a;
+
+    ParsedColor(Colors color)
+    {
+        color_component* color_ptr = (color_component*) &color;
+        a = color_ptr[0];
+        b = color_ptr[1];
+        g = color_ptr[2];
+        r = color_ptr[3];
+    }
+};
 
 // Implements transforamtion from user's coord system to window's
 
