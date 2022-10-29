@@ -29,7 +29,7 @@ Rectangle rect{left_up, right_down};
 drwr.draw(rect);
 */
 
-int main()
+int main1()
 {
     // Set coords in user system
     Point left_up{0, 0};
@@ -74,9 +74,9 @@ int main()
     // two_vectors();
 }
 
-int two_vectors()
+int main()
 {
-    #if 0
+    #if 1
         FreeVector vec1{1, 1}, vec2{1, -1};
 
         // "(1,1)"

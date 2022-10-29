@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Rectangle.hpp>
-#include <SFML/Graphics.hpp>
 #include <VectorService.hpp>
 
 /*

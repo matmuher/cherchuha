@@ -101,7 +101,7 @@ size_t LaPintura::get_pixel_id(const Point& pnt)
 void LaPintura::paint_dot(const Point& pnt)
 {
     std::cout << "Paint dot" << std::endl;
-    const size_t DotSize = 50;
+    const size_t DotSize = 5;
     size_t pixel_id = get_pixel_id(pnt);
     std::cout << "Got pixel with id: " << pixel_id << std::endl;
 

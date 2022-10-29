@@ -2,11 +2,11 @@ OBJ_DIR = ./obj
 SRC_DIR = .
 
 # [SEARCH PATHS]
-INC_SRCH_PATH ?= -I../include
-LIB_SRCH_PATH ?= -L../libs
+INC_SRCH_PATH ?= -I../../include
+LIB_SRCH_PATH ?= -L../../libs
 
 # [FLAGS]
-LIBS   ?= -lsfml-graphics -lsfml-window -lsfml-system
+LIBS   = -ldrawer -lvector -lsfml-graphics -lsfml-window -lsfml-system
 СXX    ?= g++
 CFLAGS ?= -g -Wall
 
@@ -24,13 +24,8 @@ $(PROG): $(OBJ)
 
 # https://www.gnu.org/software/make/manual/make.html#Static-Pattern
 $(OBJ): $(OBJ_DIR)/%.o: %.cpp
-	$(DIR_GUARD)
+	mkdir -p $(OBJ_DIR)
 	$(CXX) -c $(CFLAGS) $< -o $@ $(INC_SRCH_PATH)
 
-lib: $(OBJ)
-	mkdir -p $(LIB_SRCH_PATH:-L%=%)
-	ar rvs $(LIB_SRCH_PATH:-L%=%)/lib$(PROG).a $(OBJ)
-	ar dv  $(LIB_SRCH_PATH:-L%=%)/lib$(PROG).a main.o
-
 clean:
-	rm -rf $(OBJ_DIR)/*.o $(PROG)
+	rm -rf $(OBJ_DIR)/*.o $(PROG).exe
