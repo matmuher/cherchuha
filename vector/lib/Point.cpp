@@ -37,6 +37,12 @@ Point operator- (const Point& pnt1,const Point& pnt2)
     return Point(pnt1.m_x - pnt2.m_x, pnt1.m_y - pnt2.m_y);
 }
 
+Point operator+ (const Point& pnt1,const Point& pnt2)
+{
+    //std::cout << "Minus operator" << std::endl;
+    return Point(pnt1.m_x + pnt2.m_x, pnt1.m_y + pnt2.m_y);
+}
+
 float Point::get_x () const
 {
     return m_x;

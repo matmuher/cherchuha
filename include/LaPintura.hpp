@@ -14,7 +14,6 @@ draw on texture
 
 update texture / sprite
 */
-typedef unsigned pixel_color;
 
 class LaPintura
 {

@@ -12,7 +12,7 @@ Canvas::Canvas () :
 
 Canvas::Canvas(Point center, Point real_size, Point pixel_size) :
     m_center{center},
-    m_prop_coefs{ pixel_size.get_x() / real_size.get_x(), pixel_size.get_y() / real_size.get_y()},
+    m_prop_coefs{pixel_size.get_x() / real_size.get_x(), pixel_size.get_y() / real_size.get_y()},
     m_edges{set_edges(center, pixel_size)},
     m_width{pixel_size.get_x()},
     m_height{pixel_size.get_y()}
@@ -33,22 +33,41 @@ edge_type Canvas::set_edges (Point &center, Point &pixel_size)
     return edges;
 }
 
-// [FUNCS]
+// [GETTERS]
 
-Point Canvas::get_center ()
+Point Canvas::get_center () const
 {
     return m_center;
 }
 
-Point Canvas::get_prop_coefs ()
+Point Canvas::get_prop_coefs () const
 {
     return m_prop_coefs;
 }
 
-edge_type Canvas::get_edges()
+edge_type Canvas::get_edges() const
 {
     return m_edges;
 }
+
+float Canvas::get_width() const
+{
+    return m_width;
+}
+
+float Canvas::get_height() const
+{
+    return m_height;
+}
+
+// [SETTERS]
+
+void Canvas::set_center(const Point& new_center)
+{
+    m_center = new_center;
+}
+
+// [FUNCS]
 
 Point to_window_coords(Canvas cnvs, Point pnt)
 {
@@ -108,14 +127,4 @@ Point to_canvas_coords(Canvas cnvs, Point pnt)
     Point result_point = Point{FreeVector{-1, 0} * result_vec / prop_coefs.get_x(), FreeVector{0, 1} * result_vec / prop_coefs.get_y()};
 
     return result_point;
-}
-
-float Canvas::get_width()
-{
-    return m_width;
-}
-
-float Canvas::get_height()
-{
-    return m_height;
 }

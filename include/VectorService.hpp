@@ -3,7 +3,10 @@
 #include <Point.hpp>
 
 // in RGBA
-enum class Colors : unsigned
+
+typedef unsigned pixel_color;
+
+enum class Colors : pixel_color
 {
     RED   = 0xFF0000FF,
     GREEN = 0x00FF00FF,
@@ -26,6 +29,8 @@ public:
         g = color_ptr[2];
         r = color_ptr[3];
     }
+
+    ParsedColor() : ParsedColor(Colors::BLUE) {};
 };
 
 // Implements transforamtion from user's coord system to window's

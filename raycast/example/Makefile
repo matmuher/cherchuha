@@ -6,7 +6,7 @@ INC_SRCH_PATH ?= -I../../include
 LIB_SRCH_PATH ?= -L../../libs
 
 # [FLAGS]
-LIBS   = -ldrawer -lvector -lsfml-graphics -lsfml-window -lsfml-system
+LIBS   = -ldrawer -lgui -lvector -lsfml-graphics -lsfml-window -lsfml-system
 СXX    ?= g++
 CFLAGS ?= -g -Wall
 
@@ -17,7 +17,7 @@ SRC		= $(shell find $(SOURCEDIR) -name '*.cpp')
 PROG    = raycast
 OBJ		= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
-all: $(PROG)
+all: clean $(PROG)
 	
 $(PROG): $(OBJ)
 	$(CXX) $(OBJ) -o $@.exe $(LIB_SRCH_PATH) $(LIBS) 

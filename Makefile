@@ -44,6 +44,24 @@ lib:
 
 .PHONY: vector gui drawer raycast clean
 
+vector_lib:
+	@$(MAKE) -C $(VECTOR_DIR)/lib
+
+gui_lib:
+	@$(MAKE) -C $(GUI_DIR)/lib
+	
+drawer_lib:
+	@$(MAKE) -C $(DRAWER_DIR)/lib
+
+raycast: vector_lib gui_lib drawer_lib
+	@$(MAKE) -C $(RAYCAST_DIR)/example	
+
+gui: vector_lib gui_lib drawer_lib
+	@$(MAKE) -C $(GUI_DIR)/example
+
+vector: vector_lib
+	@$(MAKE) -C $(VECTOR_DIR)/example
+
 drawer_clean:
 	@$(MAKE) -C $(DRAWER_DIR)/lib clean
 
@@ -60,22 +78,3 @@ raycast_clean:
 
 clean: drawer_clean vector_clean gui_clean raycast_clean
 	@echo "Clean performed"
-
-raycast:
-	@$(MAKE) -C $(VECTOR_DIR)/lib
-	@$(MAKE) -C $(DRAWER_DIR)/lib
-	@$(MAKE) -C $(RAYCAST_DIR)/example	
-
-gui:
-	@$(MAKE) -C $(VECTOR_DIR)/lib
-	@$(MAKE) -C $(DRAWER_DIR)/lib
-	@$(MAKE) -C $(GUI_DIR)/lib
-	@$(MAKE) -C $(GUI_DIR)/example
-
-drawer:
-	@$(MAKE) -C $(DRAWER_DIR)/lib
-
-vector:
-	@$(MAKE) -C $(VECTOR_DIR)/lib
-	@$(MAKE) -C $(DRAWER_DIR)/lib
-	@$(MAKE) -C $(VECTOR_DIR)/example

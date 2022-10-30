@@ -18,7 +18,9 @@ public:
 
     // Overload
     friend std::ostream& operator<< (std::ostream &cout, const Point& pnt);
-    friend Point operator- (const Point& pnt1, const Point& pnt2);
+    friend Point operator- (const Point& pnt1, const Point& pnt2);  // more logical minus operation can be performed
+                                                                    // with freevector traslation
+    friend Point operator+ (const Point& pnt1,const Point& pnt2);                                                                
     Point& operator= (const Point& pnt);
 
     // Interface

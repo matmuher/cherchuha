@@ -10,3 +10,4 @@
 #include <Canvas.hpp>
 #include <Drawer.hpp>
 #include <Rectangle.hpp>
+#include <PixeledCanvas.hpp>

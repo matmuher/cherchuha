@@ -14,7 +14,7 @@ class Canvas
     edge_type m_edges{};
     float m_width{};
     float m_height{};
-    
+
     edge_type set_edges(Point &center, Point &pixel_size);
 
 public:
@@ -23,11 +23,13 @@ public:
     Canvas(Point center, Point real_size, Point pixel_size);
     Canvas();
 
-    Point get_center();
-    Point get_prop_coefs();
-    edge_type get_edges();
-    float get_width();
-    float get_height();
+    Point get_center() const;
+    Point get_prop_coefs() const;
+    edge_type get_edges() const;
+    float get_width() const;
+    float get_height() const;
+
+    void set_center(const Point& new_center);
 };
 
 Point to_window_coords(Canvas cnvs, Point pnt);

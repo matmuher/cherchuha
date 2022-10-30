@@ -6,7 +6,7 @@ INC_SRCH_PATH ?= -I../../include
 LIB_SRCH_PATH ?= -L../../libs
 
 # [FLAGS]
-LIBS   = -ldrawer -lvector -lsfml-graphics -lsfml-window -lsfml-system
+LIBS   = -ldrawer -lgui -lvector -lsfml-graphics -lsfml-window -lsfml-system
 СXX    ?= g++
 CFLAGS ?= -g -Wall
 
