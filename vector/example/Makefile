@@ -29,3 +29,5 @@ $(OBJ): $(OBJ_DIR)/%.o: %.cpp
 
 clean:
 	rm -rf $(OBJ_DIR)/*.o $(PROG).exe
+
+#--tool=exp-sgcheck

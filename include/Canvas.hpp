@@ -15,12 +15,12 @@ class Canvas
     float m_width{};
     float m_height{};
 
-    edge_type set_edges(Point &center, Point &pixel_size);
+    edge_type set_edges(const Point &center, const Point &pixel_size);
 
 public:
 
     Canvas(Point &center);
-    Canvas(Point center, Point real_size, Point pixel_size);
+    Canvas(const Point& center, const Point& real_size, const Point& pixel_size);
     Canvas();
 
     Point get_center() const;

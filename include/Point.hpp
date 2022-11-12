@@ -4,12 +4,13 @@
 
 class Point // I have hesitations about class naming, cause all operations belong to radius Vector class
 {
-    float m_x {}, m_y {};
+    float m_x {}, m_y {}, m_z{};
 
 public:
 
     // Ctors
     Point (float x, float y);
+    Point (float x, float y, float z);
     Point ();
     Point (const Point& pnt);
 
@@ -26,4 +27,5 @@ public:
     // Interface
     float get_x() const;
     float get_y() const;
+    float get_z() const;
 };

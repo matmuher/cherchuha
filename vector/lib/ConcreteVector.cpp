@@ -26,12 +26,9 @@ Point ConcreteVector::get_end ()
     return m_end;
 }
 
-float ConcreteVector::get_len () // Can be done via FreeVector, but seems tough
+float ConcreteVector::get_len ()
 {
-    float diff_x = m_start.get_x() - m_end.get_x(),
-          diff_y = m_start.get_y() - m_end.get_y();
-
-    return m_len = sqrt(diff_x * diff_x + diff_y * diff_y);
+    return m_len = sqrt(m_fvec * m_fvec);
 }
 
  void ConcreteVector::set_fvec (FreeVector fvec)

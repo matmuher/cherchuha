@@ -31,7 +31,7 @@ class PixeledCanvas
 
 public:
 
-    PixeledCanvas(const Canvas& cnvs, int DotSize = 20);
+    PixeledCanvas(const Canvas& cnvs, int DotSize = 1);
     ~PixeledCanvas();
 
     // [Getters]
@@ -40,5 +40,5 @@ public:
     float get_height() const;
     const ParsedColor* get_array() const;
 
-    void make_dot(const Point& dot, Colors color);
+    void make_dot(const Point& dot, ParsedColor color);
 };

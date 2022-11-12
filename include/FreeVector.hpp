@@ -51,6 +51,8 @@ public:
     friend FreeVector operator- (FreeVector vec1, FreeVector vec2);
 
     // Functionality
+    FreeVector& norm();
+    void set_end(const Point& end);
     float get_len ();
     Point get_pos ();
 };

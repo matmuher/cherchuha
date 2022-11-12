@@ -39,10 +39,9 @@ public:
 
     LaPintura(const Point& pintura_center, float width, float height, 
               Colors pintura_color = Colors::WHITE, Colors pen_color = Colors::RED);
-    
+     LaPintura(const LaPintura& pintura);
+     
     ~LaPintura();
-    
-    LaPintura(const LaPintura& pintura);
 
     // [Functions]
 
