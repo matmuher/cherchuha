@@ -1,5 +1,6 @@
 #include <Chertila.hpp>
 #include <cmath>
+#include <assert.h>
 
 /*
 Roadmap:
@@ -33,10 +34,32 @@ ParsedColor whitescale (float coef) // 1 - totally white, 0 - totally black
     return ParsedColor{grayscale, grayscale, grayscale, (char) 0xFF};
 }
 
+/*
+    Clamp value to [0;1] range
+*/
+double clamp(double val)
+{
+    if  (val < 0)
+    {
+        return 0;
+    }
+    else if (val <= 1) 
+    {
+        return val;
+    }
+
+    return 1;
+}
+
+FreeVector reflect_surface (FreeVector surface_norm, FreeVector ray)
+{
+    return ray - 2.0 * (ray * surface_norm) * surface_norm;
+}
+
 int main()
 {    
     // Set coord system
-    Point real_size{2,2};
+    Point real_size{1,1};
 
     float screen_width = 1280;
     float screen_height = 720;
@@ -56,8 +79,6 @@ int main()
     float dx = 1 / prop_coefs.get_x();
     float dy = 1 / prop_coefs.get_y();
 
-    FreeVector light{{0, 1, -1}};
-    light.norm();
     Sphere sphr{{0, 0}, 0.5}; // as our light is like light wall 
 
     // it doesnt make any sense to choose specific z-coord
@@ -67,6 +88,14 @@ int main()
     float dt = 0.01;
 
     Drawer drwr{window_resolution};
+
+
+    FreeVector light{{-1, 0}};
+    light.norm();
+    double ambient_light = 0.2;
+    double material_exp = 17;
+    double diffuse_coef = 0.5;
+    FreeVector view_point{{0, 0, 1}};
 
     while (drwr.is_opened())
     {
@@ -84,11 +113,12 @@ int main()
 
 
 
-    light.set_end({sin(t), -0.4, cos(t)});
+    light.set_end({-1, -0.7, -1});
     light.norm();
     t += dt;
-    for (float y =  -real_size.get_y() / 2; y <  real_size.get_y() / 2; y += 3*dy)
-        for (float x =  -real_size.get_x() / 2; x <  real_size.get_x() / 2; x += 3*dx)
+    float skip_factor = 1;
+    for (float y =  -real_size.get_y() / 2; y <  real_size.get_y() / 2; y += skip_factor*dy)
+        for (float x =  -real_size.get_x() / 2; x <  real_size.get_x() / 2; x += skip_factor*dx)
             {
 
                 ParsedColor pixel_color = Colors::GREEN;
@@ -97,30 +127,39 @@ int main()
                 float z = sphr.m_R*sphr.m_R - x*x - y*y; // without shift
                 float z_closest = sphr.m_R * sphr.m_R;
                 float closeness_coef = z / z_closest;
-                
+                float intensity = 0;
+
                 if (z > 0) // --> <---; kiss)
                 {
                     z = sqrt(z);
                     Point pnt{x, y, z};
+                    FreeVector vec{pnt};
                     FreeVector vec_norm = sphr.get_norm(pnt);
                     float illumination = vec_norm * light;
-                    // std::cout << vec_norm << std::endl;
-                    // std::cout << light << std::endl;
-                    // std::cout << illumination << std::endl;
+                    FreeVector view_dir = view_point - vec;
+                    float specular_light = view_dir.norm() * reflect_surface(vec_norm, light);
+                    
+                    if (specular_light < 0)
+                        specular_light = 0;
+                    specular_light = powf(specular_light, material_exp);
+
+                    intensity += clamp(ambient_light);
+
                     if (illumination <= 0)
                     {
                         //std::cout << illumination << std::endl;
-                        pixel_color = whitescale(-illumination);
+                        intensity += clamp(specular_light);
+                        intensity += diffuse_coef * clamp(-illumination);
+                        // pixel_color = whitescale(clamp(-illumination + ambient_light + specular_light));
                     }
-                    else
-                    {
-                        pixel_color = whitescale(0);
-                    }
+
+                    pixel_color = whitescale(clamp(intensity));
                 }
                 else
                 {
                     pixel_color = Colors::BLACK;
                 }
+
 
                 pxl_cnvs.make_dot({x, y}, pixel_color);
             }
