@@ -116,7 +116,7 @@ int main()
     light.set_end({-1, -0.7, -1});
     light.norm();
     t += dt;
-    float skip_factor = 1;
+    float skip_factor = 3;
     for (float y =  -real_size.get_y() / 2; y <  real_size.get_y() / 2; y += skip_factor*dy)
         for (float x =  -real_size.get_x() / 2; x <  real_size.get_x() / 2; x += skip_factor*dx)
             {

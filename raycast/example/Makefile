@@ -2,7 +2,7 @@ OBJ_DIR = ./obj
 SRC_DIR = .
 
 # [SEARCH PATHS]
-INC_SRCH_PATH ?= -I../../include
+INC_SRCH_PATH ?= -I../../gui/include -I../../drawer/include -I../../vector/include
 LIB_SRCH_PATH ?= -L../../libs
 
 # [FLAGS]
@@ -30,7 +30,12 @@ $(OBJ): $(OBJ_DIR)/%.o: %.cpp
 	$(CXX) -c $(CFLAGS) $< -o $@ $(INC_SRCH_PATH)
 
 valgrind:
-	valgrind --tool=exp-sgcheck ./$(PROG).exe 
+	valgrind --leak-check=full \
+			--show-leak-kinds=all \
+			--track-origins=yes \
+			--verbose \
+			--log-file=valgrind-out.txt \
+         	./$(PROG).exe 
 
 clean:
 	rm -rf $(OBJ_DIR)/*.o $(PROG).exe

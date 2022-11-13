@@ -1,7 +1,7 @@
 MAKE_DIR = $(PWD)
 
 # [SEARCH PATHS]
-INC_SRCH_PATH = -I$(MAKE_DIR)/include
+INC_SRCH_PATH ?=
 LIB_SRCH_PATH = -L$(MAKE_DIR)/libs
 
 # [FLAGS]
@@ -16,9 +16,16 @@ DIR_GUARD = mkdir -p $(@D)
 # difference ':=' and '='
 # https://stackoverflow.com/questions/4879592/whats-the-difference-between-and-in-makefile
 GUI_DIR 	:= $(MAKE_DIR)/gui
+INC_SRCH_PATH += -I$(GUI_DIR)/include
+
 RAYCAST_DIR := $(MAKE_DIR)/raycast
+INC_SRCH_PATH += -I$(RAYCAST_DIR)/include
+
 VECTOR_DIR 	:= $(MAKE_DIR)/vector
+INC_SRCH_PATH += -I$(VECTOR_DIR)/include
+
 DRAWER_DIR 	:= $(MAKE_DIR)/drawer
+INC_SRCH_PATH += -I$(DRAWER_DIR)/include
 
 export CFLAGS CXX LIBS INC_SRCH_PATH LIB_SRCH_PATH DIR_GUARD
 
