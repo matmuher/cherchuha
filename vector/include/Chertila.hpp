@@ -11,3 +11,4 @@
 #include <Drawer.hpp>
 #include <Rectangle.hpp>
 #include <PixeledCanvas.hpp>
+#include <Sphere.hpp>

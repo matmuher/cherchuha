@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+class FreeVector;
 class Point // I have hesitations about class naming, cause all operations belong to radius Vector class
 {
     float m_x {}, m_y {}, m_z{};
@@ -13,6 +14,7 @@ public:
     Point (float x, float y, float z);
     Point ();
     Point (const Point& pnt);
+    Point (FreeVector vec);
 
     // Dtor
     ~Point ();
@@ -24,8 +26,12 @@ public:
     friend Point operator+ (const Point& pnt1,const Point& pnt2);                                                                
     Point& operator= (const Point& pnt);
 
-    // Interface
+    // Interface: both variants are left for reverse compatibility
     float get_x() const;
     float get_y() const;
     float get_z() const;
+
+    float x() const;
+    float y() const;
+    float z() const;
 };

@@ -2,60 +2,6 @@
 #include <cmath>
 #include <assert.h>
 
-/*
-Roadmap:
-- Light like flashlight
-- DIffused light
-
-*/
-
-class Sphere
-{
-public:
-    // why use getters if i can make variables const?
-    Point m_center;
-    const float m_R;
-
-    Sphere(const Point& center, float R) : m_center{center}, m_R{R} {};
-    FreeVector get_norm(const Point& pnt); // no belong check
-};
-
-FreeVector Sphere::get_norm(const Point& pnt)
-{
-    FreeVector vec{pnt - m_center};
-    vec.norm();
-
-    return vec;
-}
-
-ParsedColor whitescale (float coef) // 1 - totally white, 0 - totally black
-{
-    char grayscale = 255.0 * (coef);
-    return ParsedColor{grayscale, grayscale, grayscale, (char) 0xFF};
-}
-
-/*
-    Clamp value to [0;1] range
-*/
-double clamp(double val)
-{
-    if  (val < 0)
-    {
-        return 0;
-    }
-    else if (val <= 1) 
-    {
-        return val;
-    }
-
-    return 1;
-}
-
-FreeVector reflect_surface (FreeVector surface_norm, FreeVector ray)
-{
-    return ray - 2.0 * (ray * surface_norm) * surface_norm;
-}
-
 int main()
 {    
     // Set coord system

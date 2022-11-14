@@ -26,6 +26,9 @@ class PixeledCanvas
 
     Canvas m_cnvs;
 
+    Point m_real_size{};
+    Point m_pixel_size{};
+
     ParsedColor* m_pixels;
     size_t m_resolution;
 
@@ -39,6 +42,10 @@ public:
     float get_width() const;
     float get_height() const;
     const ParsedColor* get_array() const;
+    Canvas get_canvas();
+
+    Point get_real_size();
+    Point get_pixel_size();
 
     void make_dot(const Point& dot, ParsedColor color);
 };

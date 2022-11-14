@@ -19,6 +19,7 @@ public:
     Point get_start ();
     Point get_end ();
     float get_len ();
+    FreeVector get_fvec();
 
     void set_fvec (FreeVector fvec);
 };

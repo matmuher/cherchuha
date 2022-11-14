@@ -1,4 +1,5 @@
 #include <Point.hpp>
+#include <FreeVector.hpp>
 
 Point::Point () : m_x{}, m_y{}, m_z{}
 {
@@ -15,10 +16,15 @@ Point::Point (float x, float y, float z) : m_x{x}, m_y{y}, m_z{z}
     //std::cout << "[CALL] Float ctor: " << m_x << ' ' << m_y << ' ' << this << std::endl;
 }
 
-Point::Point (const Point &pnt) : m_x{pnt.m_x}, m_y{pnt.m_y}, m_z{pnt.m_z} // const here express our wish not to change donor object
+Point::Point (const Point &pnt) : 
+    m_x{pnt.m_x}, m_y{pnt.m_y}, m_z{pnt.m_z} // const here express our wish not to change donor object
 {
     //std::cout << "[CALL] Copy ctorL: \n" << pnt.m_y << "->" << m_y << std::endl;
 }
+
+Point::Point (FreeVector vec) :
+    Point(vec.get_pos())
+{}
 
 Point::~Point () 
 {
@@ -60,6 +66,21 @@ float Point::get_y () const
 }
 
 float Point::get_z () const
+{
+    return m_z;
+}
+
+float Point::x () const
+{
+    return m_x;
+}
+
+float Point::y () const
+{
+    return m_y;
+}
+
+float Point::z () const
 {
     return m_z;
 }

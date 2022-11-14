@@ -1,10 +1,13 @@
 #include <PixeledCanvas.hpp>
 #include <cmath>
+#include <assert.h>
 
 PixeledCanvas::PixeledCanvas(const Canvas& cnvs, int DotSize) :
 
     m_DotSize{DotSize},
     m_cnvs{cnvs},
+    m_real_size{cnvs.get_real_size()},
+    m_pixel_size{cnvs.get_pixel_size()},
     m_resolution{cnvs.get_width() * cnvs.get_height()}
 {
     std::cout << "Ordinary constructor" << std::endl;
@@ -37,7 +40,9 @@ void PixeledCanvas::make_dot(const Point& dot, ParsedColor color)
         m_cnvs.set_center(m_cnvs.get_center() + edges.left_up);
 
         int pixel_id = dot_wc.get_y() * m_cnvs.get_width() + dot_wc.get_x();
-        m_pixels[pixel_id] = color;
+
+        if(pixel_id <  m_resolution)
+            m_pixels[pixel_id] = color;
 
             // for (int dot_y_shift = -m_DotSize; dot_y_shift <= m_DotSize; dot_y_shift++)
             //     for (int dot_x_shift = -m_DotSize; dot_x_shift <= m_DotSize; dot_x_shift++)
@@ -69,4 +74,19 @@ float PixeledCanvas::get_height() const
 const ParsedColor* PixeledCanvas::get_array() const
 {
     return m_pixels;
+}
+
+Canvas PixeledCanvas::get_canvas()
+{
+    return m_cnvs;
+}
+
+Point PixeledCanvas::get_real_size()
+{
+    return m_real_size;
+}
+
+Point PixeledCanvas::get_pixel_size()
+{
+    return m_pixel_size;
 }

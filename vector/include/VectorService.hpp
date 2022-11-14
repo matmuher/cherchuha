@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Point.hpp>
+#include <FreeVector.hpp>
 
 // in RGBA
 
@@ -14,6 +15,14 @@ enum class Colors : pixel_color
     WHITE = 0xFFFFFFFF,
     BLACK = 0x000000FF,
     GRAY  = 0x7D7D7DFF
+};
+
+struct Material
+{
+    Colors diffuse_color{};
+
+    Material(Colors color) : diffuse_color{color} {};
+    Material() : diffuse_color{Colors::BLUE} {};
 };
 
 typedef char color_component;
@@ -31,18 +40,32 @@ public:
         r = color_ptr[3];
     }
 
-    ParsedColor(char r_arg, char g_arg, char b_arg, char a_arg) :
+    ParsedColor (char r_arg, char g_arg, char b_arg, char a_arg) :
         r{r_arg}, g{g_arg}, b{b_arg}, a{a_arg} {};
 
-    ParsedColor() : ParsedColor(Colors::BLACK) {};
+    ParsedColor () : ParsedColor(Colors::BLACK) {};
+
+    ParsedColor (Material m) : ParsedColor{m.diffuse_color} {};
+
+    ParsedColor (FreeVector vec);
+
+    ParsedColor& set_intensity(float coef) 
+    {
+        a = 255 * coef;
+        return *this;
+    }
 };
 
 // Implements transforamtion from user's coord system to window's
 
-struct edge_type // How to incapsulate it in class?
+struct edge_type
     {
     Point   left_up, 
             left_down, 
             right_up, 
             right_down;
-    }; 
+    };
+
+double clamp(double val);
+
+ParsedColor whitescale (float coef);

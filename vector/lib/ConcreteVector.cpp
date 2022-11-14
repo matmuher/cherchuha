@@ -36,3 +36,8 @@ float ConcreteVector::get_len ()
     m_fvec = fvec;
     m_end = (FreeVector(m_start) + fvec).get_pos();
 }
+
+FreeVector ConcreteVector::get_fvec()
+{
+    return m_fvec;
+}

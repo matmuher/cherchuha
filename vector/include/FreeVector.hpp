@@ -40,19 +40,32 @@ public:
     FreeVector (Point end); // by end point
     FreeVector (float x, float y); // by end point coords
     FreeVector (const FreeVector &vec); // cpy ctor
+    FreeVector (float x, float y, float z); // by end point coords
 
     // Overload
     friend std::ostream& operator<< (std::ostream &cout, FreeVector vec); // output: check shitty_error.txt
 
     friend float operator* (FreeVector vec1, FreeVector vec2); // scalar mlt
-    friend FreeVector operator* (float k, FreeVector &vec); 
-    friend FreeVector operator* (FreeVector &vec, float k);
+    friend FreeVector operator* (float k, FreeVector vec); 
+    friend FreeVector operator* (FreeVector vec, float k); 
     friend FreeVector operator+ (FreeVector vec1, FreeVector vec2); // sum
     friend FreeVector operator- (FreeVector vec1, FreeVector vec2);
+
+    FreeVector& operator-()
+        {
+            *this = *this * (-1);
+            return *this;
+        }
 
     // Functionality
     FreeVector& norm();
     void set_end(const Point& end);
     float get_len ();
     Point get_pos ();
+    float x() {return m_end.get_x();}
+    float y() {return m_end.get_y();}
+    float z() {return m_end.get_z();}
 };
+
+FreeVector reflect_surface (FreeVector surface_norm, FreeVector ray);
+float get_len (FreeVector vec);

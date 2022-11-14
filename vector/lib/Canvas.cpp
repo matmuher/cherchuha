@@ -12,10 +12,13 @@ Canvas::Canvas () :
 
 Canvas::Canvas(const Point& center, const Point& real_size, const Point& pixel_size) :
     m_center{center},
-    m_prop_coefs{pixel_size.get_x() / real_size.get_x(), pixel_size.get_y() / real_size.get_y()},
+    m_prop_coefs{pixel_size.get_x() / real_size.get_x(), 
+                 pixel_size.get_y() / real_size.get_y()},
     m_edges{set_edges(center, pixel_size)},
     m_width{pixel_size.get_x()},
-    m_height{pixel_size.get_y()}
+    m_height{pixel_size.get_y()},
+    m_real_size{real_size},
+    m_pixel_size{pixel_size}
 {}
 
 edge_type Canvas::set_edges (const Point &center, const Point &pixel_size)
@@ -58,6 +61,17 @@ float Canvas::get_width() const
 float Canvas::get_height() const
 {
     return m_height;
+}
+
+Point Canvas::get_real_size() const
+{
+    return m_real_size;
+}
+
+
+Point Canvas::get_pixel_size() const
+{
+    return m_pixel_size;
 }
 
 // [SETTERS]
