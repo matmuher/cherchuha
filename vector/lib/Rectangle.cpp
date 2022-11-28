@@ -54,3 +54,20 @@ Colors Rectangle::get_color() const
 {
     return m_color;
 }
+
+bool Rectangle::is_in_area(const Point& pnt) const
+{
+    std::cout << "edges\n:";
+    std::cout << m_edges.left_up << std::endl;
+    std::cout << m_edges.right_down << std::endl;
+
+    if (m_edges.left_up.get_x() <= pnt.get_x() && pnt.get_x() <= m_edges.right_up.get_x())
+        if (m_edges.left_down.get_y() <= pnt.get_y() && pnt.get_y() <= m_edges.left_up.get_y())
+            return true;
+        else
+            std::cout << "Not y\n";
+    else
+        std::cout << "Not x\n";
+    
+    return false;
+}

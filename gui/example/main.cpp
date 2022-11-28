@@ -1,7 +1,7 @@
 #include <iostream>
 #include <Chertila.hpp>
-#include <Button.hpp>
-#include <ButtonManager.hpp>
+#include <MaButton.hpp>
+//#include <ButtonManager.hpp>
 #include <LaPintura.hpp>
 #include <bitset>
 #include <PinturaManager.hpp>
@@ -38,6 +38,66 @@ Button:
 */
 
 int main()
+{
+    // Set button
+    Point button_size{80, 40};
+    Point button_center{0, 0};
+
+    MaButton btn;
+    MaButtonCntrl btn_cntrl{btn}; 
+    MaButtonView btn_vw{btn, btn_cntrl, button_center, button_size, Colors::GREEN};
+
+    // Set user system
+    Point real_size{1280,720};
+    Point pixel_resolution{real_size};
+    Point window_resolution{real_size};
+
+    Point cnvs_center{window_resolution.get_x() / 2, window_resolution.get_y() / 2};
+    Canvas cnvs{cnvs_center, real_size, pixel_resolution};
+
+    Drawer drwr{window_resolution};
+
+    while (drwr.is_opened())
+    {
+        // Events
+        Event event;
+        drwr.poll_event(event);
+        switch (event.type)
+        {
+            case Event::EventType::Closed:
+                drwr.close();
+                break;
+
+            case Event::EventType::MouseButtonPressed:
+                {
+                    if(event.mouseButton.button == sf::Mouse::Left)
+                    {
+                        Point mouse_pos_cnvs = to_canvas_coords(cnvs, drwr.get_mouse_pos()); 
+                        std::cout << mouse_pos_cnvs << std::endl;
+                        if (btn_vw.is_in_area(mouse_pos_cnvs))
+                        {
+                            std::cout << "In area\n";
+                            btn_vw.proc_click();
+                        }
+
+                        std::cout << "MousePressed" << std::endl;
+                        break;
+                    }
+                }
+            default:
+                break;
+        }
+
+        // Draw
+        drwr.clear();
+        drwr.draw(cnvs);
+        btn_vw.draw(drwr, cnvs);
+        drwr.display();
+    }   
+}
+
+/*
+int main1()
 {
     // Set button
     Point button_size{80, 40};
@@ -137,3 +197,4 @@ int main()
     return 0;
     // two_vectors();
 }
+*/

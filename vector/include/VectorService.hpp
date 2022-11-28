@@ -7,7 +7,7 @@
 
 typedef unsigned pixel_color;
 
-enum class Colors : pixel_color
+enum Colors
 {
     RED   = 0xFF0000FF,
     GREEN = 0x00FF00FF,

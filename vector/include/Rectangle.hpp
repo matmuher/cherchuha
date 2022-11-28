@@ -22,4 +22,6 @@ public:
     // [Getters]
     edge_type get_edges() const;
     Colors get_color() const;
+
+    bool is_in_area(const Point& pnt) const;
 };
