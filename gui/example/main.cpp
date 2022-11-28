@@ -41,11 +41,25 @@ int main()
 {
     // Set button
     Point button_size{80, 40};
-    Point button_center{0, 0};
+    Point btn1_cntr{-200, 0}, btn2_cntr{0, 0}, btn3_cntr{200, 0}; 
 
-    MaButton btn;
-    MaButtonCntrl btn_cntrl{btn}; 
-    MaButtonView btn_vw{btn, btn_cntrl, button_center, button_size, Colors::GREEN};
+    WidgetManager Desktop;
+
+    MaButton btn1;
+    MaButtonCntrl btn_cntrl{btn1}; 
+    MaButtonView btn1_vw{btn1, btn_cntrl, btn1_cntr, button_size, Colors::RED};
+
+    MaButton btn2;
+    MaButtonCntrl btn2_cntrl{btn2}; 
+    MaButtonView btn2_vw{btn2, btn2_cntrl, btn2_cntr, button_size, Colors::GREEN};
+
+    MaButton btn3;
+    MaButtonCntrl btn3_cntrl{btn3}; 
+    MaButtonView btn3_vw{btn3, btn3_cntrl, btn3_cntr, button_size, Colors::BLUE};
+
+    Desktop.addChild(&btn1_vw);
+    Desktop.addChild(&btn2_vw);
+    Desktop.addChild(&btn3_vw);
 
     // Set user system
     Point real_size{1280,720};
@@ -74,11 +88,7 @@ int main()
                     {
                         Point mouse_pos_cnvs = to_canvas_coords(cnvs, drwr.get_mouse_pos()); 
                         std::cout << mouse_pos_cnvs << std::endl;
-                        if (btn_vw.is_in_area(mouse_pos_cnvs))
-                        {
-                            std::cout << "In area\n";
-                            btn_vw.proc_click();
-                        }
+                        Desktop.catch_click(mouse_pos_cnvs);
 
                         std::cout << "MousePressed" << std::endl;
                         break;
@@ -91,7 +101,7 @@ int main()
         // Draw
         drwr.clear();
         drwr.draw(cnvs);
-        btn_vw.draw(drwr, cnvs);
+        Desktop.draw(drwr, cnvs);
         drwr.display();
     }   
 }

@@ -25,11 +25,11 @@ public:
         child->setParent(nullptr); // why not NULL?
     }
 
-    bool is_in_area(const Point& pnt) const override
+    bool catch_click(const Point& pnt) override
     {
         for (auto it = m_children.begin(); it != m_children.end(); it++)
         {
-            if ((*it)->is_in_area(pnt)) return true;    
+            if ((*it)->catch_click(pnt)) return true;    
         }
 
         return false;

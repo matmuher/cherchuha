@@ -12,7 +12,7 @@ private:
 
 public:
 
-    virtual bool is_in_area(const Point& pnt) const = 0;
+    virtual bool catch_click(const Point& pnt) = 0;
     virtual void draw(Drawer& drwr, Canvas& cnvs) const = 0;
 
     virtual ~Widget() {}; // to not make leaks when polymorphism happens

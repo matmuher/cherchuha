@@ -87,9 +87,14 @@ public:
     }
 
     // use global is_in_area for reactangels
-    virtual bool is_in_area(const Point& pnt) const
+    virtual bool catch_click(const Point& pnt)
     {
-        return _rect.is_in_area(pnt);
+        if (_rect.is_in_area(pnt))
+            {
+                proc_click();
+                return true;
+            }
+        else return false;
     }
 
 // [Declare Observers' virtual functions]
@@ -121,3 +126,5 @@ public:
             _ctrl.press();
         }
 };
+
+
