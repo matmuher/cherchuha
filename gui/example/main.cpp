@@ -1,42 +1,82 @@
 #include <iostream>
 #include <Chertila.hpp>
-#include <MaButton.hpp>
+//#include <MaButton.hpp>
+//#include <MaButtonManager.hpp>
 //#include <ButtonManager.hpp>
-#include <LaPintura.hpp>
+//#include <LaPintura.hpp>
 #include <bitset>
-#include <PinturaManager.hpp>
+//#include <PinturaManager.hpp>
+
+#include <LaButton.hpp>
+
+int main()
+{
+    // Set button
+    Point btn_size{80, 40};
+    Point btn_cntr{0, 0}; 
+
+    WidgetManager Desktop;
+
+    LaButtonManagerMutex clr_plt; // pallete
+    Desktop.addChild(&clr_plt);
+
+    LaButton btn_g{btn_cntr, btn_size, Colors::GREEN};
+    clr_plt.addChild(&btn_g);
+
+    LaButton btn_r{btn_cntr + Point{200, 0}, btn_size, Colors::RED};
+    clr_plt.addChild(&btn_r);
+
+    LaButton btn_b{btn_cntr + Point{-200, 0}, btn_size, Colors::BLUE};
+    clr_plt.addChild(&btn_b);
+
+    // Set user system
+    Point real_size{1280,720};
+    Point pixel_resolution{real_size};
+    Point window_resolution{real_size};
+
+    Point cnvs_center{window_resolution.get_x() / 2, window_resolution.get_y() / 2};
+    Canvas cnvs{cnvs_center, real_size, pixel_resolution};
+
+    Drawer drwr{window_resolution};
+
+    while (drwr.is_opened())
+    {
+        // Events
+        Event event;
+        drwr.poll_event(event);
+        switch (event.type)
+        {
+            case Event::EventType::Closed:
+                drwr.close();
+                break;
+
+            case Event::EventType::MouseButtonPressed:
+
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                {
+                    Point mouse_pos_cnvs = to_canvas_coords(cnvs, drwr.get_mouse_pos()); 
+                    
+                    std::cout << mouse_pos_cnvs << std::endl;
+
+                    Desktop.catch_click(mouse_pos_cnvs);
+
+                    std::cout << "MousePressed" << std::endl;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        // Draw
+        drwr.clear();
+        drwr.draw(cnvs);
+        Desktop.draw(drwr, cnvs);
+        drwr.display();
+    }   
+}
 
 /*
-Version 1: MaPaint
-
-features:
--canvas: user can draw on it with set color
--color buttons: clickable, set color (mutual exception)
-
-buttons:
-    make button class with 
-        methods:
-            draw[OK], click
-        member variables:
-            is_pressed[OK]
-            color[OK]
-
-canvas:
-    make canvas class
-    draw with fixed color
-    intaraction with buttons to get this color 
-*/
-
-/*
-Button:
-
-    draw rectangle
-    make wrapper around this rectangle to catch clicks
-    on first click change rectangle's color
-    create event(??) -> catch it from another button
-
-*/
-
 int main()
 {
     // Set button
@@ -57,9 +97,13 @@ int main()
     MaButtonCntrl btn3_cntrl{btn3}; 
     MaButtonView btn3_vw{btn3, btn3_cntrl, btn3_cntr, button_size, Colors::BLUE};
 
-    Desktop.addChild(&btn1_vw);
-    Desktop.addChild(&btn2_vw);
-    Desktop.addChild(&btn3_vw);
+    MutexMaButtonManager btn_mngr;
+
+    btn_mngr.addChild(&btn1_vw);
+    btn_mngr.addChild(&btn2_vw);
+    btn_mngr.addChild(&btn3_vw);
+
+    Desktop.addChild(&btn_mngr);
 
     // Set user system
     Point real_size{1280,720};
@@ -105,6 +149,7 @@ int main()
         drwr.display();
     }   
 }
+*/
 
 /*
 int main1()

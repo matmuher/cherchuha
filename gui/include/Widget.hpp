@@ -12,7 +12,24 @@ private:
 
 public:
 
-    virtual bool catch_click(const Point& pnt) = 0;
+    virtual bool is_in_area(const Point& pnt) {return false;};
+
+    // Will be used by terminal widgets
+    // In manager they will be overriden
+    virtual bool catch_click(const Point& pnt)
+    {
+        bool click_is_here = is_in_area(pnt); 
+
+        if (click_is_here)
+        {
+            proc_click(pnt);
+        }
+        
+        return click_is_here;
+    }
+
+    virtual bool proc_click(const Point& pnt) {}; // TODO: need bool here?
+
     virtual void draw(Drawer& drwr, Canvas& cnvs) const = 0;
 
     virtual ~Widget() {}; // to not make leaks when polymorphism happens

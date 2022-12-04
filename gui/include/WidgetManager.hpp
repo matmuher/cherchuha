@@ -25,7 +25,7 @@ public:
         child->setParent(nullptr); // why not NULL?
     }
 
-    bool catch_click(const Point& pnt) override
+    virtual bool catch_click(const Point& pnt)
     {
         for (auto it = m_children.begin(); it != m_children.end(); it++)
         {
@@ -35,7 +35,7 @@ public:
         return false;
     }
 
-    void draw(Drawer& drwr, Canvas& cnvs) const override
+    virtual void draw(Drawer& drwr, Canvas& cnvs) const
     {
         for (auto it = m_children.begin(); it != m_children.end(); it++)
         {
