@@ -7,6 +7,7 @@ class Rectangle
 {
     edge_type m_edges{};
     Colors m_color{Colors::RED};
+    float _width, _height;
     
 public:
 
@@ -22,6 +23,8 @@ public:
     // [Getters]
     edge_type get_edges() const;
     Colors get_color() const;
+    float width() const {return _width;}
+    float height() const {return _height;}
 
     bool is_in_area(const Point& pnt) const;
 };

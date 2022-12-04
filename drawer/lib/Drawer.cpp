@@ -8,7 +8,9 @@ Drawer::Drawer () :
 
 Drawer::Drawer(Point &screenSize) :
     m_window{sf::VideoMode(screenSize.get_x(), screenSize.get_y()), "Drawer window"} // redundant? can use default value
-{}
+{
+    m_window.setKeyRepeatEnabled(false);
+}
 
 void Drawer::draw (ConcreteVector cvec)
 {

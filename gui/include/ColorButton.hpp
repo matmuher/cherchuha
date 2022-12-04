@@ -26,9 +26,8 @@ public:
 
     bool proc_click(const Point& pnt) 
     {
+        press();
         ManualColorButtonManager* mngr = static_cast<ManualColorButtonManager*>(getParent());
-
-        std::cout << "Set color: " << get_color() << std::endl;
 
         if (mngr) mngr->set_color(get_color());
         else std::cout << "[ERROR] Forget to bind color button to manager" << std::endl;

@@ -10,24 +10,38 @@
 #include <LaButton.hpp>
 #include <ColorButton.hpp>
 #include <Molbert.hpp>
+#include <MolbertTools.hpp>
 
 int main()
 {
     // Set button
     Point btn_size{80, 40};
-    Point btn_cntr{-80, 300}; 
 
     WidgetManager Desktop;
 
     Molbert mlbrt{{0, 0}, {500, 500}, 10};
     Desktop.addChild(&mlbrt);
 
-    ColorButtonManager clr_plt{mlbrt, btn_cntr, btn_size}; // pallete
+    Point color_bar_cntr{-80, 300}; 
+    ColorButtonManager clr_plt{mlbrt, color_bar_cntr, btn_size}; // pallete
     Desktop.addChild(&clr_plt);
 
     clr_plt.add_color_button(Colors::RED);
     clr_plt.add_color_button(Colors::GREEN);
     clr_plt.add_color_button(Colors::BLUE);
+
+    Point tool_bar_center{-300, 200};
+    LaButtonBar tool_bar{tool_bar_center, btn_size, BarMode::V};
+    Desktop.addChild(&tool_bar);
+
+    Brush brsh{mlbrt};
+    Eraser ersr{mlbrt};
+    auto brsh_btn = new ToolButton{mlbrt, brsh, btn_size, Colors::RED};
+    auto ersr_btn = new ToolButton{mlbrt, ersr, btn_size, Colors::BLUE};
+
+    tool_bar.add_button(brsh_btn);
+    tool_bar.add_button(ersr_btn);
+
     // ColorButton btn_g{btn_cntr, btn_size, Colors::GREEN};
     // clr_plt.addChild(&btn_g);
 
@@ -63,12 +77,14 @@ int main()
 
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                     mouse_pressed = true;
+                    std::cout << "Pressed" << std::endl;
                 break;
 
             case Event::EventType::MouseButtonReleased:
 
                 if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
                     mouse_pressed = false;
+                    std::cout << "Realeased" << std::endl;
                 break;
 
             default:

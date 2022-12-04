@@ -4,12 +4,16 @@
 
 Rectangle::Rectangle(const Point& left_up, const Point& right_down, Colors color) :
     m_edges{set_edges(left_up, right_down)},
-    m_color{color}
+    m_color{color},
+    _width{right_down.x() - left_up.x()},
+    _height{left_up.y() - right_down.x()}
 {}
 
 Rectangle::Rectangle(const Point& rect_center, float width, float height, Colors color) :
     m_edges{set_edges(rect_center, width, height)},
-    m_color{color}
+    m_color{color},
+    _width{width},
+    _height{height}
 {}
 
 // [Setters]
@@ -28,14 +32,12 @@ edge_type Rectangle::set_edges(const Point& left_up, const Point& right_down)
 
 edge_type Rectangle::set_edges(const Point& rect_center,  float width, float height)
 {
-    edge_type edges{};
-    
-    edges.left_up    = Point(rect_center.get_x() - width / 2, rect_center.get_y() + height / 2);
-    edges.left_down  = Point(rect_center.get_x() - width / 2, rect_center.get_y() - height / 2);
-    edges.right_up   = Point(rect_center.get_x() + width / 2, rect_center.get_y() + height / 2);
-    edges.right_down = Point(rect_center.get_x() + width / 2, rect_center.get_y() - height / 2);
+    m_edges.left_up    = Point(rect_center.get_x() - width / 2, rect_center.get_y() + height / 2);
+    m_edges.left_down  = Point(rect_center.get_x() - width / 2, rect_center.get_y() - height / 2);
+    m_edges.right_up   = Point(rect_center.get_x() + width / 2, rect_center.get_y() + height / 2);
+    m_edges.right_down = Point(rect_center.get_x() + width / 2, rect_center.get_y() - height / 2);
 
-    return edges;
+    return m_edges;
 }
 
 void Rectangle::set_color(Colors color)
