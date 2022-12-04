@@ -8,6 +8,7 @@
 //#include <PinturaManager.hpp>
 
 #include <LaButton.hpp>
+#include <Molbert.hpp>
 
 int main()
 {
@@ -17,17 +18,20 @@ int main()
 
     WidgetManager Desktop;
 
-    LaButtonManagerMutex clr_plt; // pallete
-    Desktop.addChild(&clr_plt);
 
-    LaButton btn_g{btn_cntr, btn_size, Colors::GREEN};
-    clr_plt.addChild(&btn_g);
+    Molbert mlbrt{{0, 0}, {400, 400}, 10};
+    Desktop.addChild(&mlbrt);
+    // LaButtonManagerMutex clr_plt; // pallete
+    // Desktop.addChild(&clr_plt);
 
-    LaButton btn_r{btn_cntr + Point{200, 0}, btn_size, Colors::RED};
-    clr_plt.addChild(&btn_r);
+    // LaButton btn_g{btn_cntr, btn_size, Colors::GREEN};
+    // clr_plt.addChild(&btn_g);
 
-    LaButton btn_b{btn_cntr + Point{-200, 0}, btn_size, Colors::BLUE};
-    clr_plt.addChild(&btn_b);
+    // LaButton btn_r{btn_cntr + Point{200, 0}, btn_size, Colors::RED};
+    // clr_plt.addChild(&btn_r);
+
+    // LaButton btn_b{btn_cntr + Point{-200, 0}, btn_size, Colors::BLUE};
+    // clr_plt.addChild(&btn_b);
 
     // Set user system
     Point real_size{1280,720};

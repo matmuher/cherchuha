@@ -97,7 +97,7 @@ public:
     void draw(const Rectangle& rect);
     void draw(const Canvas& cnvs, const ButtonManager& btn_mngr);
     void draw(const LaPintura& pintura);
-    void draw(const PixeledCanvas& pxld_canvas);
+    void draw(const Canvas& gui_cnvs, const PixeledCanvas& pxld_canvas);
     void display();
     void clear();
 

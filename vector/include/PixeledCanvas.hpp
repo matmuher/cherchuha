@@ -21,7 +21,6 @@ I wanna make dots on it. Possible usage:
 
 class PixeledCanvas
 {
-
     int m_DotSize; // in pixels
 
     Canvas m_cnvs;

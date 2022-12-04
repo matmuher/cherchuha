@@ -64,9 +64,7 @@ public:
     }
 };
 
-// Add to runs: 1st - is belong to manager, second - belongs to 
-// pressed_but* = null_ptr -> run -> if it is null_ptr, do nothing.
-// else unpress all buttons except pressed_but*
+// TODO optimize
 class LaButtonManagerMutex : public WidgetManager
 {
 public:
@@ -74,8 +72,6 @@ public:
     bool catch_click(const Point& pnt)
     {
         bool is_clicked = false;
-
-        // TODO optimize
 
         for (auto it = m_children.begin(); it != m_children.end(); it++)
         {

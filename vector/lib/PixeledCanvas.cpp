@@ -12,10 +12,6 @@ PixeledCanvas::PixeledCanvas(const Canvas& cnvs, int DotSize) :
 {
     std::cout << "Ordinary constructor" << std::endl;
 
-    // for easier coords traslation let's assume
-    // put "windows center" in left up edge of canvas
-    // now we can use to_window_coords(...) for this purpose
-
     try
     {
         m_pixels = new ParsedColor[ size_t{m_cnvs.get_width() * m_cnvs.get_height()}];
@@ -32,6 +28,9 @@ PixeledCanvas::~PixeledCanvas()
     delete [] m_pixels;
 }
 
+// for easier coords traslation let's assume
+// put "windows center" in left up edge of canvas
+// now we can use to_window_coords(...) for this purpose
 void PixeledCanvas::make_dot(const Point& dot, ParsedColor color)
     {
         edge_type edges = m_cnvs.get_edges();

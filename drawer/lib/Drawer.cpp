@@ -90,7 +90,7 @@ void Drawer::draw(const LaPintura& pintura)
     m_window.draw(pintura_sprite);
 }
 
-void Drawer::draw(const PixeledCanvas& pxl_canvas)
+void Drawer::draw(const Canvas& gui_cnvs, const PixeledCanvas& pxl_canvas)
 {
     sf::Texture pxl_canvas_texture;
     pxl_canvas_texture.create(pxl_canvas.get_width(), pxl_canvas.get_height());
@@ -100,7 +100,7 @@ void Drawer::draw(const PixeledCanvas& pxl_canvas)
     // Sprite init
     pintura_sprite.setOrigin(pxl_canvas.get_width() / 2, pxl_canvas.get_height() / 2);
 
-    Point pintura_center = pxl_canvas.get_center();
+    Point pintura_center = to_window_coords(gui_cnvs, pxl_canvas.get_center());
     pintura_sprite.setPosition(pintura_center.get_x(), pintura_center.get_y());
 
     m_window.draw(pintura_sprite);
