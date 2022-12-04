@@ -46,5 +46,13 @@ public:
     Point get_real_size();
     Point get_pixel_size();
 
+    // [Setters]
+    PixeledCanvas& set_dot_size(int dot_size)
+    {
+        m_DotSize = dot_size;
+        return *this;
+    }
+
+    // [Functions]
     void make_dot(const Point& dot, ParsedColor color);
 };

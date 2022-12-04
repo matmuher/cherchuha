@@ -40,16 +40,16 @@ void PixeledCanvas::make_dot(const Point& dot, ParsedColor color)
 
         int pixel_id = dot_wc.get_y() * m_cnvs.get_width() + dot_wc.get_x();
 
+        // TODO edge cases
         if(pixel_id <  m_resolution)
-            m_pixels[pixel_id] = color;
+            for (int dot_y_shift = -m_DotSize; dot_y_shift <= m_DotSize; dot_y_shift++)
+                for (int dot_x_shift = -m_DotSize; dot_x_shift <= m_DotSize; dot_x_shift++)
+                {
+                    int pixel_pos = pixel_id + dot_y_shift * m_cnvs.get_width() + dot_x_shift;
 
-            // for (int dot_y_shift = -m_DotSize; dot_y_shift <= m_DotSize; dot_y_shift++)
-            //     for (int dot_x_shift = -m_DotSize; dot_x_shift <= m_DotSize; dot_x_shift++)
-            //     {
-            //         int pixel_pos = pixel_id + dot_y_shift * m_cnvs.get_width() + dot_x_shift; 
-            //         if (0 <= pixel_pos && pixel_pos < m_resolution)
-            //             m_pixels[pixel_pos] = color;
-            //     }
+                    if (0 <= pixel_pos && pixel_pos < m_resolution)
+                        m_pixels[pixel_pos] = color;
+                }
     }
 
 // [GETTERS]

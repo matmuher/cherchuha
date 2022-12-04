@@ -10,6 +10,12 @@ class Molbert : public Widget
 
 public:
 
+    // [Ctors]
+    Molbert(Point center, Point size, int dot_size) :
+        pxld_cnvs{Canvas(center, size, size), dot_size},
+        active_color{Colors::GREEN}
+    {}
+
     // [Getters]
     Point get_center() const { return pxld_cnvs.get_center(); }
     float get_width()  const { return pxld_cnvs.get_width(); }
@@ -19,11 +25,13 @@ public:
 
     Point get_size() { return pxld_cnvs.get_pixel_size(); }
 
-    Molbert(Point center, Point size, int dot_size) :
-        pxld_cnvs{Canvas(center, size, size), dot_size},
-        active_color{Colors::GREEN}
-    {}
+    // [Setters]
+    void set_dot_size(int dot_size)
+    {
+        pxld_cnvs.set_dot_size(dot_size);
+    }
 
+    // [Functions]
     virtual bool is_in_area(const Point& pnt) 
     {
         Rectangle tmp_rect{get_center(), get_width(), get_height()};
