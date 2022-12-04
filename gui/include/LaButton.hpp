@@ -23,29 +23,23 @@ class LaButton : public Widget
 public:
 
     LaButton(Point center, Point size, pixel_color clr) :
-        is_pressed{false},
         _rect{center, size.x(), size.y(), static_cast<Colors>(clr)},
         _clr{clr}
-    {
+    {}
 
-    }
+    pixel_color get_color() {return _clr;}
 
     void press() 
     {
         // upd model
         is_pressed = true;
-        _clr = _clr & BTN_MASK::PRESS;
-
-        // upd view
-        _rect.set_color(static_cast<Colors>(_clr));
+        _rect.set_color(static_cast<Colors>(_clr & BTN_MASK::PRESS));
     }
 
     void unpress() 
     {
         is_pressed = false;
-        _clr = _clr | BTN_MASK::UN_PRESS;
-
-        _rect.set_color(static_cast<Colors>(_clr));
+        _rect.set_color(static_cast<Colors>(_clr | BTN_MASK::UN_PRESS));
     }
 
     bool is_in_area(const Point& pnt) override
@@ -71,20 +65,21 @@ public:
 
     bool catch_click(const Point& pnt)
     {
-        bool is_clicked = false;
+        std::_List_iterator<Widget *> clicked_btn = m_children.end();
 
         for (auto it = m_children.begin(); it != m_children.end(); it++)
         {
             if ((*it)->catch_click(pnt))
             {
-                is_clicked = true;
+                clicked_btn = it;
+                break;
             }
         }
 
-        if (is_clicked)
+        if (clicked_btn != m_children.end())
             for (auto it = m_children.begin(); it != m_children.end(); it++)
             {
-                if ((*it)->catch_click(pnt))
+                if (it == clicked_btn)
                 {
                     dynamic_cast<LaButton*>(*it)->press();  
                 }
@@ -94,6 +89,6 @@ public:
                 }
             }
 
-        return is_clicked;
+        return clicked_btn != m_children.end() ? true : false;
     }
 };

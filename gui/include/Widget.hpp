@@ -5,7 +5,6 @@
 
 class Widget
 {
-
 private:
 
     Widget* m_parent = nullptr; // convinient for events handling [chain of responsibility?]

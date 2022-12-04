@@ -8,30 +8,31 @@
 //#include <PinturaManager.hpp>
 
 #include <LaButton.hpp>
+#include <ColorButton.hpp>
 #include <Molbert.hpp>
 
 int main()
 {
     // Set button
     Point btn_size{80, 40};
-    Point btn_cntr{0, 0}; 
+    Point btn_cntr{500, 0}; 
 
     WidgetManager Desktop;
 
-
     Molbert mlbrt{{0, 0}, {400, 400}, 10};
     Desktop.addChild(&mlbrt);
-    // LaButtonManagerMutex clr_plt; // pallete
-    // Desktop.addChild(&clr_plt);
 
-    // LaButton btn_g{btn_cntr, btn_size, Colors::GREEN};
-    // clr_plt.addChild(&btn_g);
+    ColorButtonManager clr_plt{mlbrt}; // pallete
+    Desktop.addChild(&clr_plt);
 
-    // LaButton btn_r{btn_cntr + Point{200, 0}, btn_size, Colors::RED};
-    // clr_plt.addChild(&btn_r);
+    ColorButton btn_g{btn_cntr, btn_size, Colors::GREEN};
+    clr_plt.addChild(&btn_g);
 
-    // LaButton btn_b{btn_cntr + Point{-200, 0}, btn_size, Colors::BLUE};
-    // clr_plt.addChild(&btn_b);
+    ColorButton btn_r{btn_cntr + Point{0, 200}, btn_size, Colors::RED};
+    clr_plt.addChild(&btn_r);
+
+    ColorButton btn_b{btn_cntr + Point{0, -200}, btn_size, Colors::BLUE};
+    clr_plt.addChild(&btn_b);
 
     // Set user system
     Point real_size{1280,720};
@@ -43,6 +44,7 @@ int main()
 
     Drawer drwr{window_resolution};
 
+    bool mouse_pressed = false;
     while (drwr.is_opened())
     {
         // Events
@@ -57,19 +59,28 @@ int main()
             case Event::EventType::MouseButtonPressed:
 
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                {
-                    Point mouse_pos_cnvs = to_canvas_coords(cnvs, drwr.get_mouse_pos()); 
-                    
-                    std::cout << mouse_pos_cnvs << std::endl;
+                    mouse_pressed = true;
+                break;
 
-                    Desktop.catch_click(mouse_pos_cnvs);
+            case Event::EventType::MouseButtonReleased:
 
-                    std::cout << "MousePressed" << std::endl;
-                }
+                if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                    mouse_pressed = false;
                 break;
 
             default:
                 break;
+        }
+
+        if (mouse_pressed)
+        {
+            Point mouse_pos_cnvs = to_canvas_coords(cnvs, drwr.get_mouse_pos()); 
+                    
+            std::cout << mouse_pos_cnvs << std::endl;
+
+            Desktop.catch_click(mouse_pos_cnvs);
+
+            std::cout << "MousePressed" << std::endl;
         }
 
         // Draw
@@ -79,6 +90,7 @@ int main()
         drwr.display();
     }   
 }
+
 
 /*
 int main()

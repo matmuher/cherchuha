@@ -52,7 +52,7 @@ public:
     ParsedColor (char r_arg, char g_arg, char b_arg, char a_arg) :
         r{r_arg}, g{g_arg}, b{b_arg}, a{a_arg} {};
 
-    ParsedColor () : ParsedColor(Colors::RED) {};
+    ParsedColor () : ParsedColor(Colors::WHITE) {};
 
     ParsedColor (Material m) : ParsedColor{m.diffuse_color} {};
 

@@ -26,10 +26,8 @@ public:
     Point get_size() { return pxld_cnvs.get_pixel_size(); }
 
     // [Setters]
-    void set_dot_size(int dot_size)
-    {
-        pxld_cnvs.set_dot_size(dot_size);
-    }
+    void set_dot_size(int dot_size) { pxld_cnvs.set_dot_size(dot_size); }
+    void set_color(pixel_color color) { active_color = color; }
 
     // [Functions]
     virtual bool is_in_area(const Point& pnt) 
