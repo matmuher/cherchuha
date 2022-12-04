@@ -15,24 +15,27 @@ int main()
 {
     // Set button
     Point btn_size{80, 40};
-    Point btn_cntr{500, 0}; 
+    Point btn_cntr{-80, 300}; 
 
     WidgetManager Desktop;
 
-    Molbert mlbrt{{0, 0}, {400, 400}, 10};
+    Molbert mlbrt{{0, 0}, {500, 500}, 10};
     Desktop.addChild(&mlbrt);
 
-    ColorButtonManager clr_plt{mlbrt}; // pallete
+    ColorButtonManager clr_plt{mlbrt, btn_cntr, btn_size}; // pallete
     Desktop.addChild(&clr_plt);
 
-    ColorButton btn_g{btn_cntr, btn_size, Colors::GREEN};
-    clr_plt.addChild(&btn_g);
+    clr_plt.add_color_button(Colors::RED);
+    clr_plt.add_color_button(Colors::GREEN);
+    clr_plt.add_color_button(Colors::BLUE);
+    // ColorButton btn_g{btn_cntr, btn_size, Colors::GREEN};
+    // clr_plt.addChild(&btn_g);
 
-    ColorButton btn_r{btn_cntr + Point{0, 200}, btn_size, Colors::RED};
-    clr_plt.addChild(&btn_r);
+    // ColorButton btn_r{btn_cntr + Point{0, 200}, btn_size, Colors::RED};
+    // clr_plt.addChild(&btn_r);
 
-    ColorButton btn_b{btn_cntr + Point{0, -200}, btn_size, Colors::BLUE};
-    clr_plt.addChild(&btn_b);
+    // ColorButton btn_b{btn_cntr + Point{0, -200}, btn_size, Colors::BLUE};
+    // clr_plt.addChild(&btn_b);
 
     // Set user system
     Point real_size{1280,720};
