@@ -1,6 +1,7 @@
 #include <PixeledCanvas.hpp>
 #include <cmath>
 #include <assert.h>
+#include <ImageProcess.hpp>
 
 PixeledCanvas::PixeledCanvas(const Canvas& cnvs, int DotSize) :
 
@@ -28,20 +29,46 @@ PixeledCanvas::~PixeledCanvas()
     delete [] m_pixels;
 }
 
+Cell PixeledCanvas::get_cell(Point dot)
+{
+    edge_type edges = m_cnvs.get_edges();
+    m_cnvs.set_center(m_cnvs.get_center() - edges.left_up);
+    Point dot_wc = to_window_coords(m_cnvs, dot);
+    m_cnvs.set_center(m_cnvs.get_center() + edges.left_up);
+
+    int x = dot_wc.x();
+    int y = dot_wc.y();
+
+    if (0 <= x < m_cnvs.get_width() &&
+        0 <= y < m_cnvs.get_height())
+        return Cell(dot_wc.x(), dot_wc.y());
+    
+    return ERROR_CELL;
+}
+
+int PixeledCanvas::get_pixel_id(Point dot)
+{
+    Cell cell = get_cell(dot);
+
+    if (cell != ERROR_CELL)
+    {
+        int pixel_id = cell.y * m_cnvs.get_width() + cell.x;
+        return pixel_id;
+    }
+    
+    return -1;
+}
+
 // for easier coords traslation let's assume
 // put "windows center" in left up edge of canvas
 // now we can use to_window_coords(...) for this purpose
+
 void PixeledCanvas::make_dot(const Point& dot, ParsedColor color)
     {
-        edge_type edges = m_cnvs.get_edges();
-        m_cnvs.set_center(m_cnvs.get_center() - edges.left_up);
-        Point dot_wc = to_window_coords(m_cnvs, dot);
-        m_cnvs.set_center(m_cnvs.get_center() + edges.left_up);
-
-        int pixel_id = dot_wc.get_y() * m_cnvs.get_width() + dot_wc.get_x();
+        int pixel_id = get_pixel_id(dot);
 
         // TODO edge cases
-        if(pixel_id <  m_resolution)
+        if(pixel_id > -1)
             for (int dot_y_shift = -m_DotSize; dot_y_shift <= m_DotSize; dot_y_shift++)
                 for (int dot_x_shift = -m_DotSize; dot_x_shift <= m_DotSize; dot_x_shift++)
                 {

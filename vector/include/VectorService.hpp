@@ -31,6 +31,15 @@ class ParsedColor
 public:
     color_component r, g, b, a;
 
+    operator pixel_color()
+    {
+        unsigned int bit_shift = sizeof(color_component) * 8;
+        return  r + 
+                (g << bit_shift) +
+                (b << (bit_shift * 2)) +
+                (a << (bit_shift * 3));
+    }
+
     ParsedColor(pixel_color color)
     {
         color_component* color_ptr = (color_component*) &color;

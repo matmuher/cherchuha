@@ -2,9 +2,11 @@
 
 #include <WidgetManager.hpp>
 #include <Rectangle.hpp>
-// #include <Request.hpp>
 #include <Observer.hpp>
 
+/*
+Well-fucked over engineering
+*/
 class MaButton : public Observable
 {
     bool is_pressed = false;
@@ -15,6 +17,12 @@ public:
     {   
         std::cout << "Change state\n";
         is_pressed = !is_pressed;
+        notify_observers();
+    }
+
+    void unpress()
+    {
+        is_pressed = false;
         notify_observers();
     }
 
@@ -43,6 +51,11 @@ public:
         {
             _mdl.press();
         }
+
+    void unpress()
+    {
+        _mdl.unpress();
+    }
 };
 
 
@@ -59,6 +72,12 @@ enum BTN_MASK
     UN_PRESS = 0x000000FF,
 };
 
+/*
+For clarity of design it would be great to transfer
+user input handling mechanism to controller. Thus
+View would only deal with representation of model and
+some issues that are directly connected with it (like check if point belongs to its area).
+*/
 class MaButtonView : public Widget, public Observer
 {
     Rectangle _rect;
@@ -125,6 +144,16 @@ public:
             std::cout << "Proc click\n";
             _ctrl.press();
         }
+
+    void unpress()
+    {
+        _ctrl.unpress();
+    }
+
+    bool is_pressed() const
+    {
+        return _mdl.get_state();
+    }
 };
 
 

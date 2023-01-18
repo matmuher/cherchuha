@@ -25,9 +25,13 @@ public:
     float get_height() const { return pxld_cnvs.get_height(); }
     pixel_color get_color() const {return active_color;}
 
-    const ParsedColor* get_array() const;
+    const ParsedColor* get_array() const { return pxld_cnvs.get_array(); }
+    int get_pixel_id(Point pnt) {return pxld_cnvs.get_pixel_id(pnt); }
+    Cell get_cell(Point pnt) {return pxld_cnvs.get_cell(pnt); }
 
     Point get_size() { return pxld_cnvs.get_pixel_size(); }
+
+    ParsedColor* operator[] (int k) { return pxld_cnvs[k]; };
 
     // [Setters]
     void set_dot_size(int dot_size) { pxld_cnvs.set_dot_size(dot_size); }

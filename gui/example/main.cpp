@@ -35,7 +35,7 @@ int main()
     Desktop.addChild(&tool_bar);
 
     Brush brsh{mlbrt};
-    Eraser ersr{mlbrt};
+    Pourer ersr{mlbrt};
     auto brsh_btn = new ToolButton{mlbrt, brsh, btn_size, Colors::RED};
     auto ersr_btn = new ToolButton{mlbrt, ersr, btn_size, Colors::BLUE};
 
@@ -73,6 +73,7 @@ int main()
                 drwr.close();
                 break;
 
+            // for smooth drawing
             case Event::EventType::MouseButtonPressed:
 
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))

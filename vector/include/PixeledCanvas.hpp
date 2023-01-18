@@ -2,6 +2,7 @@
 
 #include <Canvas.hpp>
 #include <VectorService.hpp>
+#include <ImageProcess.hpp>
 
 /*
 
@@ -43,8 +44,14 @@ public:
     const ParsedColor* get_array() const;
     Canvas get_canvas();
 
-    Point get_real_size();
-    Point get_pixel_size();
+    Point get_real_size(); // const
+    Point get_pixel_size(); // const
+
+    int get_pixel_id(Point dot); // const
+    Cell get_cell(Point dot);
+
+    ParsedColor* operator[] (int k)
+        { return m_pixels + k * static_cast<int>(m_pixel_size.x()); }
 
     // [Setters]
     PixeledCanvas& set_dot_size(int dot_size)
