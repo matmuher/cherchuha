@@ -23,8 +23,11 @@ enum BarMode
 class LaButton : public Widget
 {
     bool is_pressed = false;
-    Rectangle _rect;
     pixel_color _clr;
+
+protected:
+
+    Rectangle _rect;
 
 public:
 
@@ -114,14 +117,16 @@ class LaButtonBar : public LaButtonManagerMutex
 {
     Point _start, _size, begunok;
     BarMode _mode;
+    int _shift;
 
 public:
 
-    LaButtonBar(Point start, Point size, BarMode mode = BarMode::H) :
+    LaButtonBar(Point start, Point size, BarMode mode = BarMode::H, int shift = 0) :
         _start{start},
         _size{size},
         begunok{start},
-        _mode{mode}
+        _mode{mode},
+        _shift{shift}
     {}
     // TODO set button size = bar icon size
     void add_button(LaButton* btn)
@@ -129,11 +134,11 @@ public:
         std::cout << "begunok is " << begunok << std::endl;
         if (_mode == BarMode::V)
             
-            begunok = begunok - Point{0.0, _size.y()};
+            begunok = begunok - Point{0.0, _size.y() + _shift};
         
         else if (_mode == BarMode::H) 
         
-            begunok = begunok + Point{_size.x(), 0.0};
+            begunok = begunok + Point{_size.x() + _shift, 0.0};
 
         btn->set_center(begunok);
         

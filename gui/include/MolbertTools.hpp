@@ -5,6 +5,8 @@
 #include <LaButton.hpp>
 #include <ImageProcess.hpp>
 #include <queue> // for DFS-filling
+#include <Texture.hpp>
+#include <string>
 
 class MolbertTool
 {
@@ -23,18 +25,26 @@ class ToolButton : public LaButton
 {
     Molbert& _mlbrt;
     MolbertTool& _tool;
+    Texture _texture;
 
 public:
 
-    ToolButton(Molbert& mlbrt, MolbertTool& tool, Point size, pixel_color color) : 
+    ToolButton(Molbert& mlbrt, MolbertTool& tool, Point size, pixel_color color,
+               const std::string& texture_name) : 
         _mlbrt{mlbrt},
         LaButton{size, color},
-        _tool{tool}
+        _tool{tool},
+        _texture{texture_name, size}
     {}
 
     virtual bool proc_click(const Point& pnt) override
     {
         _mlbrt.set_tool(&_tool);
+    }
+
+    virtual void draw(Drawer& drwr, Canvas& cnvs) const override
+    {
+        drwr.draw(to_window_coords(cnvs, _rect), _texture);
     }
 };
 

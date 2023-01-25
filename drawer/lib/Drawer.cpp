@@ -108,6 +108,19 @@ void Drawer::draw(const Canvas& gui_cnvs, const PixeledCanvas& pxl_canvas)
     m_window.draw(pintura_sprite);
 }
 
+void Drawer::draw(const Rectangle& rect, const Texture& rect_texture)
+{
+    edge_type edges = rect.get_edges();
+    float width  = fabs(edges.left_up.get_x() - edges.right_down.get_x());
+    float height = fabs(edges.left_up.get_y() - edges.right_down.get_y());
+
+    sf::RectangleShape rect_graphic(sf::Vector2f(width, height));
+    rect_graphic.setFillColor(sf::Color((unsigned) rect.get_color()));
+    rect_graphic.setPosition(edges.left_up.get_x(), edges.left_up.get_y());
+    rect_graphic.setTexture(&rect_texture.get());
+    m_window.draw(rect_graphic);
+}
+
 bool Drawer::is_opened ()
 {
     return m_window.isOpen();

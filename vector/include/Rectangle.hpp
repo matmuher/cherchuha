@@ -23,8 +23,13 @@ public:
     // [Getters]
     edge_type get_edges() const;
     Colors get_color() const;
+    pixel_color clr() const { return pixel_color(m_color); };
     float width() const {return _width;}
     float height() const {return _height;}
+    int iwidth() const { return static_cast<int>(std::floor(_width)); }
+    int iheight() const { return static_cast<int>(std::floor(_height)); }
+    Point left_up() const { return m_edges.left_up; }
+
 
     bool is_in_area(const Point& pnt) const;
 };
