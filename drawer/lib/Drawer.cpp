@@ -65,33 +65,6 @@ void Drawer::draw(const Rectangle& rect)
     m_window.draw(rect_graphic);
 }
 
-void Drawer::draw(const Canvas& cnvs, const ButtonManager& btn_mngr)
-{
-    size_t btn_num = btn_mngr.get_size();
-
-    for (size_t btn_id = 0; btn_id < btn_num; btn_id++)
-    {
-        Button& btn = btn_mngr.get_button(btn_id);
-        draw(to_window_coords(cnvs, btn));
-    }
-}
-
-void Drawer::draw(const LaPintura& pintura)
-{
-    sf::Texture pintura_texture;
-    pintura_texture.create(pintura.get_width(), pintura.get_height());
-    pintura_texture.update((const sf::Uint8*) pintura.get_array());
-    sf::Sprite pintura_sprite{pintura_texture};
-    
-    // Sprite init
-    pintura_sprite.setOrigin(pintura.get_width() / 2, pintura.get_height() / 2);
-
-    Point pintura_center = pintura.get_center();
-    pintura_sprite.setPosition(pintura_center.get_x(), pintura_center.get_y());
-
-    m_window.draw(pintura_sprite);
-}
-
 void Drawer::draw(const Canvas& gui_cnvs, const PixeledCanvas& pxl_canvas)
 {
     sf::Texture pxl_canvas_texture;

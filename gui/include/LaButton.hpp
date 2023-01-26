@@ -20,7 +20,28 @@ enum BarMode
     V  // Vertical
 };
 
-class LaButton : public Widget
+class Button : public Widget
+{
+
+public:
+
+    virtual void set_center(Point new_center) = 0;
+
+    virtual pixel_color get_color() = 0;
+
+    virtual void press() = 0;
+
+    virtual void unpress() = 0;
+
+    virtual bool is_in_area(const Point& pnt) = 0;
+
+    virtual bool proc_click(const Point& pnt) = 0;
+
+    virtual void draw(Drawer& drwr, Canvas& cnvs) const = 0;
+};
+
+// ConcreteButton
+class LaButton : public Button
 {
     bool is_pressed = false;
     pixel_color _clr;
@@ -78,7 +99,7 @@ public:
 };
 
 // TODO optimize
-class LaButtonManagerMutex : public WidgetManager
+class ButtonManagerMutex : public WidgetManager
 {
 public:
 
@@ -101,11 +122,11 @@ public:
             {
                 if (it != clicked_btn)
                 {
-                    dynamic_cast<LaButton*>(*it)->unpress();
+                    dynamic_cast<Button*>(*it)->unpress();
                 }
                 else
                 {
-                    dynamic_cast<LaButton*>(*it)->press();
+                    dynamic_cast<Button*>(*it)->press();
                 }
             }
 
@@ -113,7 +134,7 @@ public:
     }
 };
 
-class LaButtonBar : public LaButtonManagerMutex
+class ButtonBar : public ButtonManagerMutex
 {
     Point _start, _size, begunok;
     BarMode _mode;
@@ -121,7 +142,7 @@ class LaButtonBar : public LaButtonManagerMutex
 
 public:
 
-    LaButtonBar(Point start, Point size, BarMode mode = BarMode::H, int shift = 0) :
+    ButtonBar(Point start, Point size, BarMode mode = BarMode::H, int shift = 0) :
         _start{start},
         _size{size},
         begunok{start},
@@ -145,7 +166,7 @@ public:
         addChild(btn);
     }
 
-    ~LaButtonBar()
+    ~ButtonBar()
     {
         for (auto it = m_children.begin(); it != m_children.end(); it++)
             delete *it;

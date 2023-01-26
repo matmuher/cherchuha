@@ -31,7 +31,7 @@ int main()
     clr_plt.add_color_button(Colors::BLUE);
 
     Point tool_bar_center{-300, 200};
-    LaButtonBar tool_bar{tool_bar_center, btn_size, BarMode::V, 10};
+    ButtonBar tool_bar{tool_bar_center, btn_size, BarMode::V, 10};
     Desktop.addChild(&tool_bar);
 
     Brush brsh{mlbrt};

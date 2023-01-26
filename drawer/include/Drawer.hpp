@@ -5,9 +5,9 @@
 #include <Point.hpp>
 #include <Canvas.hpp>
 #include <Rectangle.hpp>
-#include <ButtonManager.hpp>
+//#include <ButtonManager.hpp>
 #include <queue>
-#include <LaPintura.hpp>
+//#include <LaPintura.hpp>
 #include <PixeledCanvas.hpp>
 #include <Texture.hpp>
 
@@ -96,8 +96,8 @@ public:
     void draw(Point pnt);
     void draw(Canvas cnvs);
     void draw(const Rectangle& rect);
-    void draw(const Canvas& cnvs, const ButtonManager& btn_mngr);
-    void draw(const LaPintura& pintura);
+    // void draw(const Canvas& cnvs, const ButtonManager& btn_mngr);
+    //void draw(const LaPintura& pintura);
     void draw(const Canvas& gui_cnvs, const PixeledCanvas& pxld_canvas);
     void draw(const Rectangle& rect, const Texture& texture);
     void display();

@@ -3,7 +3,7 @@
 #include <LaButton.hpp>
 #include <Molbert.hpp>
 
-class ManualColorButtonManager : public LaButtonManagerMutex
+class ManualColorButtonManager : public ButtonManagerMutex
 {
     Molbert& _mlbrt;
     pixel_color active_color = Colors::GREEN; // TODO Hexspeak for default colors
