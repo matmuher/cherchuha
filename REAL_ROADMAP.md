@@ -27,7 +27,7 @@ results:
 results:
 * point is drawn when click on button
 
-## ver 0.3: connect canvas-buttons [@currently here]
+## ver 0.3: connect canvas-buttons
 
 results:
 * draw on canvas with active color
@@ -35,22 +35,31 @@ results:
 
 Buttons:
 - red, green, blue - set canvas active color 
-- brush, eraser [const white brush], pouring - set canvas active instrument
+- brush, eraser [const white brush], pouring [check pouring algo] - set canvas active instrument
 
 Parameterize canvas with instrument (make class from instrument).
 
 ```
 [Instrument]
 
-propertiesL size...
+properties: size...
 
 	funcs:
 
 apply(position)
 ```
 
+## ver 0.*: step-to-filters [@currently here]
+
+results:
+* textured widget
+* text on widget
+* load picture
+
+Use decorator pattern to implement decorations.
 
 ## ver 0.4: filters
+
 results:
 * Drop-down menu when click on filter button
 * Apply filter to every pixel when click on concrete filter
@@ -58,11 +67,12 @@ results:
 Filters:
 - B&W [R=G=B = average(R,G,B)]
 - inverse [R=255-R ...]
+- Blur (check B2B1 video about convolution)
 
 ## ver ??: serialization
 
 Tree traverse and dump
-Restore from dump
+Restore from dump (check factory pattern)
 
 ## ver ??: raytracer
 
@@ -70,15 +80,20 @@ Restore from dump
 * canvas works as screen for raytracer
 * paint
 
-Objects can be added to the scene on air
+Objects can be added to the scene on air with
+special menu. Also spheres can be dragged directly
+by touching image.
+
+(for spheres managing MVC may be applied)
 
 ## features:
 
-* undo opearation
-* save picture
-* load picture
+* undo opearation (history of operations? queue of instruments applied? and
+should be considered - how to reverse them)
+* save picture (guess smth with sfml)
+* load picture (guess smth with sfml and OS interaction)
 * help panel
 * plugins
-* instruments to toolbox: line, rectangle
+* instruments to toolbox: line, rectangle (!!)
 * set properties for instruments (size for brush)
 * filters with curves
