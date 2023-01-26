@@ -30,3 +30,14 @@ ParsedColor whitescale (float coef) // 1 - totally white, 0 - totally black
     char grayscale = 255.0 * (coef);
     return ParsedColor{grayscale, grayscale, grayscale, (char) 0xFF};
 }
+
+std::ostream& operator<< (std::ostream& cout, ParsedColor clr)
+{
+    cout  << '{' <<
+    int(clr.r) << ' ' <<
+    int(clr.g) << ' ' <<
+    int(clr.b) << ' ' <<
+    int(clr.a) << '}' << std::endl;
+
+    return cout;
+}

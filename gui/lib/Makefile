@@ -8,7 +8,7 @@ LIB_SRCH_PATH ?= -L../../libs
 # [FLAGS]
 LIBS   = -lvector
 СXX    ?= g++
-CFLAGS ?= -g -Wall
+CFLAGS ?= -g -Wall -fsanitize=address
 
 # [SERVICE]
 DIR_GUARD ?= mkdir -p $(@D)

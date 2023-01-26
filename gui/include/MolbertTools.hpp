@@ -31,13 +31,13 @@ public:
 
     ToolButton(Molbert& mlbrt, MolbertTool& tool, Point size, pixel_color color,
                const std::string& texture_name) : 
-        _mlbrt{mlbrt},
         LaButton{size, color},
+        _mlbrt{mlbrt},
         _tool{tool},
         _texture{texture_name, size}
     {}
 
-    virtual bool proc_click(const Point& pnt) override
+    virtual void proc_click(const Point& pnt) override
     {
         _mlbrt.set_tool(&_tool);
     }
@@ -73,7 +73,7 @@ public:
         _mlbrt.make_dot(pos, Colors::WHITE);
     }
 };
-
+#include <cstdlib>
 class Pourer : public MolbertTool
 {
 
@@ -84,9 +84,7 @@ public:
     // here we implement DFS-color spreading
     void apply(Point pos)
     {
-        pixel_color filler_clr = _mlbrt.get_color();
-
-        std::queue<Cell> cell_queue;
+        ParsedColor filler_clr = _mlbrt.get_color();
         Cell cur_cell = _mlbrt.get_cell(pos);
 
         if (cur_cell == ERROR_CELL)
@@ -95,37 +93,54 @@ public:
             return;
         }
 
-        pixel_color old_clr = pixel_color(_mlbrt[cur_cell.y][cur_cell.x]);
+        ParsedColor old_clr = _mlbrt[cur_cell.y][cur_cell.x];
+        std::queue<Cell> cell_queue;
 
         if (old_clr == filler_clr)
         {
             std::cout << "[INFO] Filler color is same as old color\n";
-
+            return;
         }
         else
+        {
             cell_queue.push(cur_cell);
+        }
 
         while (!cell_queue.empty())
         {
             cur_cell = cell_queue.front();
             cell_queue.pop();
 
-            for (auto shift : shifts)
+            // If have not already processed cell
+            if (_mlbrt[cur_cell.y][cur_cell.x] == old_clr)
             {
-                int new_x = cur_cell.x + shift.x;
-                int new_y = cur_cell.y + shift.y;
-                std::cout << "Applying to " << new_x << ' ' << new_y << '\n'
-                << old_clr << ' ' << filler_clr << '\n';
+                _mlbrt[cur_cell.y][cur_cell.x] = filler_clr;
+                std::cout << "Main cell: " << cur_cell.y << ' ' << cur_cell.x << '\n';
 
-                if (
-                    0 <= new_x < int(_mlbrt.get_width()) &&
-                    0 <= new_y < int(_mlbrt.get_height()) &&
-                    pixel_color(_mlbrt[new_y][new_x]) == old_clr
-                   )
-                    {
-                        _mlbrt[new_y][new_x] = filler_clr;
-                        cell_queue.push(Cell{new_x, new_y});
-                    }
+                for (auto shift : shifts)
+                {
+                    int new_x = cur_cell.x + shift.x;
+                    int new_y = cur_cell.y + shift.y;
+
+                    std::cout << "Process cell [ " << new_y << ", " << new_x << "]\n" <<
+                    "Cell color: " << _mlbrt[new_y][new_x] << "\n" <<
+                    "Old color: "  << ParsedColor{old_clr} << "\n" <<
+                    "Fill color: " << ParsedColor{filler_clr} << "\n";
+
+                    if (
+                        0 <= new_x && new_x < _mlbrt.iwidth() &&
+                        0 <= new_y && new_y < _mlbrt.iheight() &&
+                        pixel_color(_mlbrt[new_y][new_x]) == old_clr
+                    )
+                        {
+                            std::cout << "Push " << new_y << ' ' << new_x << '\n' <<
+                            "shift: " << shift.y << ' ' << shift.x << '\n'; 
+                            //_mlbrt[new_y][new_x] = ParsedColor{filler_clr};
+                            cell_queue.push(Cell{new_x, new_y});
+                        }
+
+                    std::cout << '\n';
+                }
             }
         }
     }

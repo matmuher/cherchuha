@@ -15,6 +15,9 @@
 
 int main()
 {
+    // std::cout << 0xFF0000FF << ' ' << pixel_color(ParsedColor(0xFF0000FF)) << '\n';
+    // exit(0);
+
     // Set button
     Point btn_size{80, 40};
 
@@ -23,9 +26,10 @@ int main()
     Molbert mlbrt{{0, 0}, {500, 500}, 10};
     Desktop.addChild(&mlbrt);
 
-    ColorButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
-    TexturedButton text_btn{test_btn, "textures/pourer.jpg"};
-    Desktop.addChild(&text_btn);
+    // ColorButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
+    // TexturedButton texture_btn{test_btn, "textures/pourer.jpg"};
+    // TextButton text_btn{texture_btn, "MEOW"};
+    // Desktop.addChild(&text_btn);
 
     Point color_bar_cntr{-80, 300}; 
     ColorButtonManager clr_plt{mlbrt, color_bar_cntr, btn_size}; // pallete
@@ -74,14 +78,14 @@ int main()
 
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                     mouse_pressed = true;
-                    std::cout << "Pressed" << std::endl;
+                std::cout << "Pressed" << std::endl;
                 break;
 
             case Event::EventType::MouseButtonReleased:
 
                 if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
                     mouse_pressed = false;
-                    std::cout << "Realeased" << std::endl;
+                std::cout << "Realeased" << std::endl;
                 break;
 
             default:

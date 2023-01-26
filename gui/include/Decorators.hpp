@@ -22,7 +22,7 @@ public:
 
     virtual bool is_in_area(const Point& pnt) { return _btn.is_in_area(pnt); }
 
-    virtual bool proc_click(const Point& pnt) { _btn.proc_click(pnt); }
+    virtual void proc_click(const Point& pnt) { _btn.proc_click(pnt); }
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const { _btn.draw(drwr, cnvs); }
 

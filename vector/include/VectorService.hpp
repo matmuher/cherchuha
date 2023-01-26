@@ -40,6 +40,30 @@ public:
                 (a << (bit_shift * 3));
     }
 
+    ParsedColor operator= (const ParsedColor& clr)
+    {
+        r = clr.r;
+        g = clr.g;
+        b = clr.b;
+        a = clr.a;
+
+        return clr;
+    }
+
+    bool operator== (const ParsedColor& clr)
+    {
+        return
+            r == clr.r &&
+            g == clr.g &&
+            b == clr.b &&
+            a == clr.a;
+    }
+
+    bool operator!= (const ParsedColor& clr)
+    {
+        return !(*this == clr);
+    }
+
     ParsedColor(pixel_color color)
     {
         color_component* color_ptr = (color_component*) &color;
@@ -59,7 +83,11 @@ public:
     }
 
     ParsedColor (char r_arg, char g_arg, char b_arg, char a_arg) :
-        r{r_arg}, g{g_arg}, b{b_arg}, a{a_arg} {};
+        r{static_cast<color_component>(r_arg)},
+        g{static_cast<color_component>(g_arg)},
+        b{static_cast<color_component>(b_arg)},
+        a{static_cast<color_component>(a_arg)}
+    {};
 
     ParsedColor () : ParsedColor(Colors::WHITE) {};
 
@@ -82,6 +110,8 @@ public:
         return *this;
     }
 };
+
+std::ostream& operator<< (std::ostream& cout, ParsedColor clr);
 
 // Implements transforamtion from user's coord system to window's
 

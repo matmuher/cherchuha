@@ -24,7 +24,7 @@ public:
         LaButton{center, size, clr}
     {}
 
-    bool proc_click(const Point& pnt) 
+    void proc_click(const Point& pnt) 
     {
         press();
         ManualColorButtonManager* mngr = static_cast<ManualColorButtonManager*>(getParent());

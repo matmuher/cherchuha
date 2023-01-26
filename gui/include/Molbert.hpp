@@ -23,6 +23,9 @@ public:
     Point get_center() const { return pxld_cnvs.get_center(); }
     float get_width()  const { return pxld_cnvs.get_width(); }
     float get_height() const { return pxld_cnvs.get_height(); }
+    int iwidth() const { return pxld_cnvs.iwidth(); }
+    int iheight() const { return pxld_cnvs.iheight(); }
+
     pixel_color get_color() const {return active_color;}
 
     const ParsedColor* get_array() const { return pxld_cnvs.get_array(); }
@@ -40,7 +43,7 @@ public:
 
     // [Functions]
 
-    virtual bool proc_click(const Point& pnt);
+    virtual void proc_click(const Point& pnt);
 
     virtual bool is_in_area(const Point& pnt) 
     {

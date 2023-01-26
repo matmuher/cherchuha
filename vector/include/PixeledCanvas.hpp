@@ -41,6 +41,8 @@ public:
     Point get_center() const;
     float get_width() const;
     float get_height() const;
+    int iwidth() const { return static_cast<int>(m_pixel_size.x()); }
+    int iheight() const { return static_cast<int>(m_pixel_size.y()); }
     const ParsedColor* get_array() const;
     Canvas get_canvas();
 

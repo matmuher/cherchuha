@@ -9,13 +9,13 @@ PixeledCanvas::PixeledCanvas(const Canvas& cnvs, int DotSize) :
     m_cnvs{cnvs},
     m_real_size{cnvs.get_real_size()},
     m_pixel_size{cnvs.get_pixel_size()},
-    m_resolution{cnvs.get_width() * cnvs.get_height()}
+    m_resolution{static_cast<size_t>(m_pixel_size.x() * m_pixel_size.y())}
 {
     std::cout << "Ordinary constructor" << std::endl;
 
     try
     {
-        m_pixels = new ParsedColor[ size_t{m_cnvs.get_width() * m_cnvs.get_height()}];
+        m_pixels = new ParsedColor[m_resolution];
     }
     catch(const std::exception& e)
     {
@@ -39,9 +39,9 @@ Cell PixeledCanvas::get_cell(Point dot)
     int x = dot_wc.x();
     int y = dot_wc.y();
 
-    if (0 <= x < m_cnvs.get_width() &&
-        0 <= y < m_cnvs.get_height())
-        return Cell(dot_wc.x(), dot_wc.y());
+    if (0 <= x && x < iwidth() &&
+        0 <= y && y < iheight())
+        return Cell(x, y);
     
     return ERROR_CELL;
 }

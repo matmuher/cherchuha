@@ -37,7 +37,7 @@ public:
 
     virtual bool is_in_area(const Point& pnt) = 0;
 
-    virtual bool proc_click(const Point& pnt) = 0;
+    virtual void proc_click(const Point& pnt) = 0;
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const = 0;
 };
@@ -45,12 +45,14 @@ public:
 // ConcreteButton
 class LaButton : public Button
 {
-    bool is_pressed = false;
-    pixel_color _clr;
-
 protected:
 
     Rectangle _rect;
+
+private:
+
+    bool is_pressed = false;
+    pixel_color _clr;
 
 public:
 
@@ -90,7 +92,7 @@ public:
         return _rect.is_in_area(pnt);
     }
 
-    virtual bool proc_click(const Point& pnt) override
+    virtual void proc_click(const Point& pnt) override
     {
         // is_pressed ? unpress() : press(); HOWTOFIX
         press();

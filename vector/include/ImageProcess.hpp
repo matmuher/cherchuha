@@ -6,6 +6,7 @@ struct Cell
     int y;
 
     Cell (float fx, float fy) : x{static_cast<int>(fx)}, y{static_cast<int>(fy)} {};
+    Cell (int ix, int iy) : x{ix}, y{iy} {};
 };
 
 extern const Cell shifts[4];
