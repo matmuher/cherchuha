@@ -29,6 +29,8 @@ public:
 
     virtual pixel_color get_color() = 0;
 
+    virtual Rectangle get_rect() const = 0;
+
     virtual void press() = 0;
 
     virtual void unpress() = 0;
@@ -66,7 +68,9 @@ public:
         _rect.set_edges(new_center, _rect.width(), _rect.height());
     }
 
-    pixel_color get_color() {return _clr;}
+    pixel_color get_color() { return _clr; }
+
+    virtual Rectangle get_rect() const { return _rect; }
 
     void press() 
     {

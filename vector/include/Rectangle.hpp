@@ -29,6 +29,7 @@ public:
     int iwidth() const { return static_cast<int>(std::floor(_width)); }
     int iheight() const { return static_cast<int>(std::floor(_height)); }
     Point left_up() const { return m_edges.left_up; }
+    Point right_down() const { return m_edges.right_down; }
 
 
     bool is_in_area(const Point& pnt) const;

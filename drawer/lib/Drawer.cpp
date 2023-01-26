@@ -61,7 +61,7 @@ void Drawer::draw(const Rectangle& rect)
 
     sf::RectangleShape rect_graphic(sf::Vector2f(width, height));
     rect_graphic.setFillColor(sf::Color((unsigned) rect.get_color()));
-    rect_graphic.setPosition(edges.left_up.get_x(), edges.left_up.get_y());
+    rect_graphic.setPosition(edges.right_down.get_x(), edges.right_down.get_y());
     m_window.draw(rect_graphic);
 }
 
@@ -101,9 +101,14 @@ void Drawer::draw(const Rectangle& rect, const Texture& rect_texture)
 
     sf::RectangleShape rect_graphic(sf::Vector2f(width, height));
     rect_graphic.setFillColor(sf::Color((unsigned) rect.get_color()));
-    rect_graphic.setPosition(edges.left_up.get_x(), edges.left_up.get_y());
+    rect_graphic.setPosition(edges.right_down.get_x(), edges.right_down.get_y());
     rect_graphic.setTexture(&rect_texture.get());
     m_window.draw(rect_graphic);
+}
+
+void draw(const Rectangle& rect, const std::string& text)
+{
+
 }
 
 bool Drawer::is_opened ()

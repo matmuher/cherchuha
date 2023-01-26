@@ -113,7 +113,11 @@ ConcreteVector to_window_coords(Canvas cnvs, ConcreteVector cvec)
 Rectangle to_window_coords(const Canvas& cnvs, const Rectangle& rect)
 {
     edge_type edges = rect.get_edges();
-    Rectangle new_rect{to_window_coords(cnvs, edges.left_up), to_window_coords(cnvs, edges.right_down), rect.get_color()};
+
+    // After coords translation left_up -> right_down and vice versa
+    Rectangle new_rect{to_window_coords(cnvs, edges.right_down), // left_up
+                       to_window_coords(cnvs, edges.left_up),  // right_down
+                       rect.get_color()};
 
     return new_rect;
 }

@@ -100,6 +100,7 @@ public:
     //void draw(const LaPintura& pintura);
     void draw(const Canvas& gui_cnvs, const PixeledCanvas& pxld_canvas);
     void draw(const Rectangle& rect, const Texture& texture);
+    void draw(const Rectangle& rect, const std::string& text);
     void display();
     void clear();
 
