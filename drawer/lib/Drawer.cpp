@@ -106,6 +106,18 @@ void Drawer::draw(const Canvas& gui_cnvs, const PixeledCanvas& pxl_canvas)
     pintura_sprite.setPosition(pintura_center.get_x(), pintura_center.get_y());
 
     m_window.draw(pintura_sprite);
+
+    sf::Font font;
+    if (!font.loadFromFile("fonts/default.ttf"))
+    {
+        std::cout << "Font error\n";
+    }
+
+    sf::Text text;
+    text.setString("Meow");
+    text.setFont(font);
+    text.setCharacterSize(25);
+    m_window.draw(text);
 }
 
 void Drawer::draw(const Rectangle& rect, const Texture& rect_texture)

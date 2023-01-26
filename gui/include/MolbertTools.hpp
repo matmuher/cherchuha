@@ -89,13 +89,21 @@ public:
         std::queue<Cell> cell_queue;
         Cell cur_cell = _mlbrt.get_cell(pos);
 
-        if (cur_cell != ERROR_CELL)
-            cell_queue.push(cur_cell);
+        if (cur_cell == ERROR_CELL)
+        {
+            std::cout << "[ERROR] Error cell in pourer\n";
+            return;
+        }
 
         pixel_color old_clr = pixel_color(_mlbrt[cur_cell.y][cur_cell.x]);
 
         if (old_clr == filler_clr)
-            return; // all work is done
+        {
+            std::cout << "[INFO] Filler color is same as old color\n";
+
+        }
+        else
+            cell_queue.push(cur_cell);
 
         while (!cell_queue.empty())
         {
@@ -106,7 +114,8 @@ public:
             {
                 int new_x = cur_cell.x + shift.x;
                 int new_y = cur_cell.y + shift.y;
-                std::cout << "Applying to " << new_x << ' ' << new_y << '\n';
+                std::cout << "Applying to " << new_x << ' ' << new_y << '\n'
+                << old_clr << ' ' << filler_clr << '\n';
 
                 if (
                     0 <= new_x < int(_mlbrt.get_width()) &&

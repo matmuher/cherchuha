@@ -17,3 +17,10 @@ inline bool operator!= (const Cell lhs, const Cell rhs)
 
     return false;
 }
+
+inline bool operator== (const Cell lhs, const Cell rhs)
+{
+    if (lhs.x == rhs.x && lhs.y == rhs.y) return true;
+
+    return false;
+}
