@@ -30,6 +30,7 @@ public:
     int iheight() const { return static_cast<int>(std::floor(_height)); }
     Point left_up() const { return m_edges.left_up; }
     Point right_down() const { return m_edges.right_down; }
+    Point center() const { return right_down() + Point{FreeVector{left_up() - right_down()} * 0.5}; }
 
 
     bool is_in_area(const Point& pnt) const;

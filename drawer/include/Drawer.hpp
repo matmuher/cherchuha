@@ -78,6 +78,7 @@ drwr.draw(cvec);
 
 class Drawer
 {
+    const std::string std_font_path = "fonts/default.ttf";
     const size_t defaultSize = 1000; // Dont use m_ with consts
     const float pointRadius = 2;    // cause there shouldn't be any mess with assignments
     const float lineWidth = 20;
@@ -85,6 +86,7 @@ class Drawer
     static std::queue<EventGUI> EventsQueue;
 
     sf::RenderWindow m_window{};
+    sf::Font font;
 
 public:
     // [Ctors]

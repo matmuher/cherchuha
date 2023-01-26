@@ -3,12 +3,22 @@
 Drawer::Drawer () : 
     m_window{sf::VideoMode(defaultSize, defaultSize), "Drawer window"} // redundant? can use default value
 {
+    if (!font.loadFromFile(std_font_path))
+    {
+        std::cout << "Font error\n";
+    }
+
     m_window.setKeyRepeatEnabled(false);
 }
 
 Drawer::Drawer(Point &screenSize) :
     m_window{sf::VideoMode(screenSize.get_x(), screenSize.get_y()), "Drawer window"} // redundant? can use default value
 {
+    if (!font.loadFromFile(std_font_path))
+    {
+        std::cout << "Font error\n";
+    }
+
     m_window.setKeyRepeatEnabled(false);
 }
 
@@ -80,17 +90,17 @@ void Drawer::draw(const Canvas& gui_cnvs, const PixeledCanvas& pxl_canvas)
 
     m_window.draw(pintura_sprite);
 
-    sf::Font font;
-    if (!font.loadFromFile("fonts/default.ttf"))
-    {
-        std::cout << "Font error\n";
-    }
+    // sf::Font font;
+    // if (!font.loadFromFile("fonts/default.ttf"))
+    // {
+    //     std::cout << "Font error\n";
+    // }
 
-    sf::Text text;
-    text.setString("Meow");
-    text.setFont(font);
-    text.setCharacterSize(25);
-    m_window.draw(text);
+    // sf::Text text;
+    // text.setString("Meow");
+    // text.setFont(font);
+    // text.setCharacterSize(25);
+    // m_window.draw(text);
 }
 
 void Drawer::draw(const Rectangle& rect, const Texture& rect_texture)
@@ -106,9 +116,25 @@ void Drawer::draw(const Rectangle& rect, const Texture& rect_texture)
     m_window.draw(rect_graphic);
 }
 
-void draw(const Rectangle& rect, const std::string& text)
+void Drawer::draw(const Rectangle& rect, const std::string& str)
 {
+    int len = str.length();
 
+    int char_size = std::min<int>(rect.width() / len, rect.height());
+    std::cout << "h: " << rect.iheight() << " w: " << rect.iwidth() << '\n';
+
+    sf::Text sf_text;
+    sf_text.setString(str);
+    sf_text.setFont(font);
+    sf_text.setCharacterSize(char_size);
+
+    sf::FloatRect global_bounds = sf_text.getLocalBounds();
+    sf_text.setOrigin(global_bounds.width / 2, char_size / 2.0);
+
+    sf_text.setPosition(rect.center().x(), rect.center().y());
+    m_window.draw(sf_text);
+    draw(rect.center());
+    std::cout << "Char size is " << char_size  << '\n';
 }
 
 bool Drawer::is_opened ()

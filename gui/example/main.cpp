@@ -11,6 +11,7 @@
 #include <ColorButton.hpp>
 #include <Molbert.hpp>
 #include <MolbertTools.hpp>
+#include <Decorators.hpp>
 
 int main()
 {
@@ -21,6 +22,10 @@ int main()
 
     Molbert mlbrt{{0, 0}, {500, 500}, 10};
     Desktop.addChild(&mlbrt);
+
+    ColorButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
+    TextButton text_btn{test_btn, "gray"};
+    Desktop.addChild(&text_btn);
 
     Point color_bar_cntr{-80, 300}; 
     ColorButtonManager clr_plt{mlbrt, color_bar_cntr, btn_size}; // pallete

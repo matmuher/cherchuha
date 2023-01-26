@@ -10,7 +10,7 @@ class DecoButton : public Button
 
 public:
 
-    DecoButton(LaButton& btn) : _btn{btn} {};
+    DecoButton(Button& btn) : _btn{btn} {};
 
     virtual void set_center(Point new_center) { _btn.set_center(new_center); }
 
@@ -20,14 +20,14 @@ public:
 
     virtual void unpress() { _btn.unpress(); }
 
-    virtual bool is_in_area(const Point& pnt) { return _btn.is_in_area(); }
+    virtual bool is_in_area(const Point& pnt) { return _btn.is_in_area(pnt); }
 
-    virtual bool proc_click(const Point& pnt) { _btn.proc_click(); }
+    virtual bool proc_click(const Point& pnt) { _btn.proc_click(pnt); }
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const { _btn.draw(drwr, cnvs); }
 
     virtual Rectangle get_rect() const { return _btn.get_rect(); }
-}
+};
 
 class TexturedButton : public DecoButton
 {
@@ -35,7 +35,7 @@ class TexturedButton : public DecoButton
 
 public:
 
-    TexturedWidget(Button& btn, Texture& texture) : DecoButton{btn}, _texture{texture} {};
+    TexturedButton(Button& btn, Texture& texture) : DecoButton{btn}, _texture{texture} {};
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const
     {

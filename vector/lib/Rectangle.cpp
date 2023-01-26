@@ -5,8 +5,8 @@
 Rectangle::Rectangle(const Point& left_up, const Point& right_down, Colors color) :
     m_edges{set_edges(left_up, right_down)},
     m_color{color},
-    _width{right_down.x() - left_up.x()},
-    _height{left_up.y() - right_down.x()}
+    _width{fabs(right_down.x() - left_up.x())},
+    _height{fabs(left_up.y() - right_down.y())}
 {}
 
 Rectangle::Rectangle(const Point& rect_center, float width, float height, Colors color) :
