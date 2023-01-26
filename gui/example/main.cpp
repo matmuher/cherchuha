@@ -24,7 +24,7 @@ int main()
     Desktop.addChild(&mlbrt);
 
     ColorButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
-    TextButton text_btn{test_btn, "gray"};
+    TexturedButton text_btn{test_btn, "textures/pourer.jpg"};
     Desktop.addChild(&text_btn);
 
     Point color_bar_cntr{-80, 300}; 

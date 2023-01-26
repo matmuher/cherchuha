@@ -31,11 +31,15 @@ public:
 
 class TexturedButton : public DecoButton
 {
-    Texture& _texture;
+    Texture _texture;
 
 public:
 
-    TexturedButton(Button& btn, Texture& texture) : DecoButton{btn}, _texture{texture} {};
+    TexturedButton(Button& btn, const std::string& texture_name)
+    :
+        DecoButton{btn}, 
+        _texture{texture_name, Point{get_rect().width(), get_rect().height()}}
+    {}
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const
     {

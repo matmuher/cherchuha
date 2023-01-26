@@ -133,7 +133,7 @@ void Drawer::draw(const Rectangle& rect, const std::string& str)
 
     sf_text.setPosition(rect.center().x(), rect.center().y());
     m_window.draw(sf_text);
-    draw(rect.center());
+
     std::cout << "Char size is " << char_size  << '\n';
 }
 
