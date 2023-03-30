@@ -108,19 +108,10 @@ void PixeledCanvas::load_from_file(const std::string& filename)
         for (int y = 0; y < height; ++y)
             for (int x = 0; x < width; ++x)
             {
-                // std::cout << y << ' ' << x << '\n'; 
                 ParsedColor color = ParsedColor(pixels[y * width + x]);
                 
                 int index = y * m_pixel_size.x() + x;
                 m_pixels[index] = color.vice_versa();
-
-                if (x == 30 && y == 30)
-                {
-                    sf::Color sf_color{pixels[y * width + x]};
-                    std::cout << int(sf_color.r) << '\n';
-                    std::cout << "Load color: " << color << '\n';
-                    exit(1);
-                }
             }
 }
 

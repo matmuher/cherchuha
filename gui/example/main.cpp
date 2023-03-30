@@ -33,18 +33,43 @@ int main()
     // TextButton text_btn{texture_btn, "MEOW"};
     Desktop.addChild(&input);
 
-    MolbertFilter box_blur_filter{mlbrt};
-    FilterButton filter_btn{box_blur_filter, Point{-300, -300}, btn_size, Colors::GREEN};
-    TextButton filter_btn_labeled{filter_btn, "Box blur"};
-    Desktop.addChild(&filter_btn_labeled);
+    Point filter_bar_center{320, 200};
+    ButtonBar filter_bar{filter_bar_center, btn_size, BarMode::V, 10};
+    Desktop.addChild(&filter_bar);
 
-    Point color_bar_cntr{-80, 300};
+    MolbertFilter box_blur_filter{mlbrt, box_blur};
+    MolbertFilter edge_filter{mlbrt, edge_detection};
+    MolbertFilter gauss_filter{mlbrt, gauss_blur};
+    MolbertFilter sharpen_filter{mlbrt, sharpen};
+
+    Point flt_btn_size{110, 40};
+
+    FilterButton box_blur_filter_btn{box_blur_filter, flt_btn_size, Colors::CYAN};
+    FilterButton edge_filter_btn{edge_filter, flt_btn_size, Colors::CYAN};
+    FilterButton gauss_filter_btn{gauss_filter, flt_btn_size, Colors::CYAN};
+    FilterButton sharpen_filter_btn{sharpen_filter, flt_btn_size, Colors::CYAN};
+
+    TextButton f1{box_blur_filter_btn, "Box blur"};
+    TextButton f2{edge_filter_btn, "Edge detect"};
+    TextButton f3{gauss_filter_btn, "Gauss blur"};
+    TextButton f4{sharpen_filter_btn, "Sharpen"};
+
+    filter_bar.add_button(&f1);
+    filter_bar.add_button(&f2);
+    filter_bar.add_button(&f3);
+    filter_bar.add_button(&f4);
+
+    Point color_bar_cntr{-240, 300};
     ColorButtonManager clr_plt{mlbrt, color_bar_cntr, btn_size}; // pallete
     Desktop.addChild(&clr_plt);
 
     clr_plt.add_color_button(Colors::RED);
     clr_plt.add_color_button(Colors::GREEN);
     clr_plt.add_color_button(Colors::BLUE);
+    clr_plt.add_color_button(Colors::GRAY);
+    clr_plt.add_color_button(Colors::CYAN);
+    clr_plt.add_color_button(Colors::YELLOW);
+    clr_plt.add_color_button(Colors::LAVENDER);
 
     Point tool_bar_center{-300, 200};
     ButtonBar tool_bar{tool_bar_center, btn_size, BarMode::V, 10};

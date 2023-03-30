@@ -14,7 +14,10 @@ enum Colors
     BLUE  = 0x0000FFFF,
     WHITE = 0xFFFFFFFF,
     BLACK = 0x000000FF,
-    GRAY  = 0x7D7D7DFF
+    GRAY  = 0x7D7D7DFF,
+    CYAN  = 0x00FFFFFF,
+    YELLOW = 0xFFFF00FF,
+    LAVENDER = 0xE6E6FAFF
 };
 
 struct Material

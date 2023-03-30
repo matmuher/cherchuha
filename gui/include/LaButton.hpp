@@ -184,7 +184,7 @@ public:
         _shift{shift}
     {}
     // TODO set button size = bar icon size
-    void add_button(LaButton* btn)
+    void add_button(Button* btn)
     {
         std::cout << "begunok is " << begunok << std::endl;
         if (_mode == BarMode::V)

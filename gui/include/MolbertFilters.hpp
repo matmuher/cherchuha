@@ -10,7 +10,7 @@ struct ImageKernel
     std::vector<std::vector<int>> kernel_matrix;
 };
 
-extern ImageKernel identity, box_blur;
+extern ImageKernel identity, box_blur, edge_detection, gauss_blur, sharpen;
 
 class MolbertFilter
 {
@@ -21,7 +21,7 @@ protected:
 
 public:
 
-    MolbertFilter(Molbert& mlbrt, const ImageKernel& kernel = box_blur)
+    MolbertFilter(Molbert& mlbrt, const ImageKernel& kernel)
     :
         _mlbrt{mlbrt},
         _kernel{kernel} {};
@@ -93,7 +93,11 @@ public:
     FilterButton(MolbertFilter& filter, Point center, Point size, pixel_color color) : 
         LaButton{center, size, color},
         _filter{filter}
-        // _texture{texture_name, size}
+    {}
+
+    FilterButton(MolbertFilter& filter, Point size, pixel_color color) : 
+        LaButton{size, color},
+        _filter{filter}
     {}
 
     virtual void proc_click(const Point& pnt) override

@@ -49,19 +49,18 @@ properties: size...
 apply(position)
 ```
 
-## ver 0.*: step-to-filters [@currently here]
+## ver 0.3.5: step-to-filters
 
 results:
 * textured widget
 * text on widget
-* load picture
+* load picture -> text input box (button that on click gets keyboard input)
 
 Use decorator pattern to implement decorations.
 
-## ver 0.4: filters
+## ver 0.4: filters [@currently here]
 
 results:
-* Drop-down menu when click on filter button
 * Apply filter to every pixel when click on concrete filter
 
 Filters:
@@ -69,6 +68,22 @@ Filters:
 - inverse [R=255-R ...]
 - Blur (check B2B1 video about convolution)
 
+## ver 0.5: Drop-down menu
+
+results:
+* Drop-down menu when click on filter button
+
+## ver 0.6: More tools
+
+results:
+* New tools (that need layering)
+
+Tools:
+- Line
+- Rectangle
+- Triangle
+- Polyline
+  
 ## ver ??: serialization
 
 Tree traverse and dump
@@ -97,3 +112,4 @@ should be considered - how to reverse them)
 * instruments to toolbox: line, rectangle (!!)
 * set properties for instruments (size for brush)
 * filters with curves
+* user can add new layers, choose one to draw on it
