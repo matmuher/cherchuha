@@ -8,6 +8,7 @@ Ok, patterns are nice, but overwhelming
 #include <Rectangle.hpp>
 #include <list>
 #include <chrono>
+#include <CoolDowner.hpp>
 
 enum ButtonMask
 {
@@ -52,8 +53,7 @@ protected:
 
 private:
 
-    double DEFAULT_COOLDOWN = 10;
-    decltype(std::chrono::steady_clock::now()) last_click_time;
+    CoolDowner cooldowner;
 
     bool is_pressed = false;
     pixel_color _clr;
@@ -63,7 +63,14 @@ public:
     LaButton(Point center, Point size, pixel_color clr) :
         _rect{center, size.x(), size.y(), static_cast<Colors>(clr)},
         _clr{clr}
-    {unpress();}
+    {
+        unpress();
+    }
+
+    LaButton(Point center, float height, size_t symbols_num, pixel_color clr)
+    :
+        LaButton{center, Point{compute_width_for_text(height, symbols_num), height}, clr}
+    {}
 
     LaButton(Point size, pixel_color clr) :
         LaButton{Point{0, 0}, size, clr}
@@ -78,14 +85,27 @@ public:
 
     virtual Rectangle get_rect() const { return _rect; }
 
-    void press() 
+    float get_width() const { return _rect.width();}
+    float get_height() const { return _rect.height();}
+
+    static float compute_width_for_text (float height, size_t symbols_num)
+    {
+        return height/2 * symbols_num;
+    }
+
+    Point right_center() const { return _rect.center() + Point{_rect.width() / 2, 0 }; }
+    Point left_center()  const { return _rect.center() - Point{_rect.width() / 2, 0 }; }
+    Point up_center()    const { return _rect.center() + Point{0, _rect.height() / 2}; }
+    Point down_center()  const { return _rect.center() - Point{0, _rect.height() / 2}; }
+
+    virtual void press() 
     {
         // upd model
         is_pressed = true;
         _rect.set_color(static_cast<Colors>(_clr | ButtonMask::PRESS));
     }
 
-    void unpress() 
+    virtual void unpress() 
     {
         is_pressed = false;
         _rect.set_color(static_cast<Colors>(_clr & ButtonMask::UN_PRESS));
@@ -98,22 +118,18 @@ public:
 
     virtual void proc_click(const Point& pnt) override
     {
-        auto click_time = std::chrono::steady_clock::now();
-        auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(click_time - last_click_time);
-
-        std::cout << "diff: " << diff.count() << '\n';
-        if (diff.count() > DEFAULT_COOLDOWN)
+        if (cooldowner.is_valid_action())
         {
             is_pressed ? unpress() : press(); // HOWTOFIX
         }
-
-        last_click_time = click_time;
     }
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const override
     {
         drwr.draw(to_window_coords(cnvs, _rect));
     }
+
+    bool get_press_status() {return is_pressed;}
 };
 
 // TODO optimize

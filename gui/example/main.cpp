@@ -1,17 +1,18 @@
 #include <iostream>
 #include <Chertila.hpp>
-//#include <MaButton.hpp>
-//#include <MaButtonManager.hpp>
-//#include <ButtonManager.hpp>
-//#include <LaPintura.hpp>
+// #include <MaButton.hpp>
+// #include <MaButtonManager.hpp>
+// #include <ButtonManager.hpp>
+// #include <LaPintura.hpp>
 #include <bitset>
-//#include <PinturaManager.hpp>
+// #include <PinturaManager.hpp>
 
 #include <LaButton.hpp>
 #include <ColorButton.hpp>
 #include <Molbert.hpp>
 #include <MolbertTools.hpp>
 #include <Decorators.hpp>
+#include <InputField.hpp>
 
 int main()
 {
@@ -21,16 +22,18 @@ int main()
     WidgetManager Desktop;
 
     Molbert mlbrt{{0, 0}, {500, 500}, 10};
-    mlbrt.load_from_file("test_car.jpg");
+    //mlbrt.load_from_file("test_car.jpg");
 
     Desktop.addChild(&mlbrt);
 
-    LaButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
-    TexturedButton texture_btn{test_btn, "textures/pourer.jpg"};
-    TextButton text_btn{texture_btn, "MEOW"};
-    Desktop.addChild(&text_btn);
+    LoadFileInputField input{mlbrt, Point{100, -300}, 40, 15};
 
-    Point color_bar_cntr{-80, 300}; 
+    // LaButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
+    // TexturedButton texture_btn{test_btn, "textures/pourer.jpg"};
+    // TextButton text_btn{texture_btn, "MEOW"};
+    Desktop.addChild(&input);
+
+    Point color_bar_cntr{-80, 300};
     ColorButtonManager clr_plt{mlbrt, color_bar_cntr, btn_size}; // pallete
     Desktop.addChild(&clr_plt);
 
@@ -51,7 +54,7 @@ int main()
     tool_bar.add_button(ersr_btn);
 
     // Set user system
-    Point real_size{1280,720};
+    Point real_size{1280, 720};
     Point pixel_resolution{real_size};
     Point window_resolution{real_size};
 
@@ -68,33 +71,39 @@ int main()
         drwr.poll_event(event);
         switch (event.type)
         {
-            case Event::EventType::Closed:
-                drwr.close();
-                break;
+        case Event::EventType::Closed:
+            drwr.close();
+            break;
 
-            // for smooth drawing
-            case Event::EventType::MouseButtonPressed:
+        // for smooth drawing
+        case Event::EventType::MouseButtonPressed:
 
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                    mouse_pressed = true;
-                std::cout << "Pressed" << std::endl;
-                break;
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                mouse_pressed = true;
+            std::cout << "Pressed" << std::endl;
+            break;
 
-            case Event::EventType::MouseButtonReleased:
+        case Event::EventType::MouseButtonReleased:
 
-                if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                    mouse_pressed = false;
-                std::cout << "Realeased" << std::endl;
-                break;
+            if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                mouse_pressed = false;
+            std::cout << "Realeased" << std::endl;
+            break;
 
-            default:
-                break;
+        case Event::EventType::TextEntered:
+
+            std::cout << "Entered: " << static_cast<int>(event.text.unicode) << '\n';
+            input.catch_char(static_cast<char>(event.text.unicode));
+            break;
+
+        default:
+            break;
         }
 
         if (mouse_pressed)
         {
-            Point mouse_pos_cnvs = to_canvas_coords(cnvs, drwr.get_mouse_pos()); 
-                    
+            Point mouse_pos_cnvs = to_canvas_coords(cnvs, drwr.get_mouse_pos());
+
             std::cout << mouse_pos_cnvs << std::endl;
 
             Desktop.catch_click(mouse_pos_cnvs);
@@ -107,5 +116,5 @@ int main()
         drwr.draw(cnvs);
         Desktop.draw(drwr, cnvs);
         drwr.display();
-    }   
+    }
 }

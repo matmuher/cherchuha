@@ -31,6 +31,9 @@ public:
     float get_y() const;
     float get_z() const;
 
+    static Point horizontal_shift(float x) { return Point{x, 0}; }
+    static Point vertical_shift(float y) { return Point{0, y}; }
+
     float x() const;
     float y() const;
     float z() const;

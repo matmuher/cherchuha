@@ -84,7 +84,15 @@ void PixeledCanvas::make_dot(const Point& dot, ParsedColor color)
 void PixeledCanvas::load_from_file(const std::string& filename)
 {
         sf::Texture texture;
-        texture.loadFromFile(filename, sf::IntRect{0, 0, m_pixel_size.x(), m_pixel_size.y()});
+        bool is_success =
+            texture.loadFromFile(filename, sf::IntRect{0, 0, m_pixel_size.x(), m_pixel_size.y()});
+
+        if (!is_success)
+        {
+            std::cout << "Failed to load: " << filename << '\n'; 
+            return;
+        }
+
         // std::cout << m_pixel_size.x() << ' ' << m_pixel_size.y() << '\n';
 
         sf::Image image = texture.copyToImage();
@@ -102,7 +110,7 @@ void PixeledCanvas::load_from_file(const std::string& filename)
             {
                 // std::cout << y << ' ' << x << '\n'; 
                 ParsedColor color = ParsedColor(pixels[y * width + x]);
-                int index = y * width + x;
+                int index = y * m_pixel_size.x() + x;
                 m_pixels[index] = color;
             }
 }

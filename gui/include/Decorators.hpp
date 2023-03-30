@@ -1,8 +1,9 @@
 #pragma once
 
+#include <cctype>
 #include <LaButton.hpp>
 #include <Texture.hpp>
-#include <SFML/Graphics.hpp>
+#include <CoolDowner.hpp>
 
 class DecoButton : public Button
 {
@@ -49,16 +50,52 @@ public:
 
 class TextButton : public DecoButton
 {
+    CoolDowner cooldowner;
+
     std::string _text;
+    size_t _max_len;
 
 public:
 
-    TextButton(Button& btn, const std::string& text)
+    TextButton(Button& btn, const std::string& text, size_t max_len = 20)
     :
         DecoButton{btn},
-        _text{text} {};
+        _text{text},
+        _max_len{max_len} {};
 
     void set_text(std::string text) { _text = text; }
+    std::string get_text() const { return _text; }
+    
+    enum ASCII_PROC { ENTER, NO_PROC, PROC };
+
+    ASCII_PROC process_ascii(char c)
+    {
+        if(cooldowner.is_valid_action())
+        {
+            if (c == 13) // enter
+            {
+                return ENTER;
+            }
+            if (std::isalnum(c) || std::ispunct(c))
+            {
+                if (_text.size() <= _max_len)
+                {
+                    _text.push_back(c);
+                }
+            }
+            else if (c == 8) // backspace
+            {
+                if (!_text.empty())
+                {
+                    _text.pop_back();
+                }
+            }
+
+            return PROC;
+        }
+
+        return NO_PROC;
+    }
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const
     {
@@ -66,3 +103,4 @@ public:
         drwr.draw(to_window_coords(cnvs, DecoButton::get_rect()), _text);
     }
 };
+

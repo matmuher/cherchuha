@@ -120,7 +120,7 @@ void Drawer::draw(const Rectangle& rect, const std::string& str)
 {
     int len = str.length();
 
-    int char_size = std::min<int>(rect.width() / len, rect.height());
+    int char_size = rect.height() / 2;
     // std::cout << "h: " << rect.iheight() << " w: " << rect.iwidth() << '\n';
 
     sf::Text sf_text;
