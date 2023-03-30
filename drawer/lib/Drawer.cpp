@@ -121,7 +121,7 @@ void Drawer::draw(const Rectangle& rect, const std::string& str)
     int len = str.length();
 
     int char_size = std::min<int>(rect.width() / len, rect.height());
-    std::cout << "h: " << rect.iheight() << " w: " << rect.iwidth() << '\n';
+    // std::cout << "h: " << rect.iheight() << " w: " << rect.iwidth() << '\n';
 
     sf::Text sf_text;
     sf_text.setString(str);
@@ -134,7 +134,7 @@ void Drawer::draw(const Rectangle& rect, const std::string& str)
     sf_text.setPosition(rect.center().x(), rect.center().y());
     m_window.draw(sf_text);
 
-    std::cout << "Char size is " << char_size  << '\n';
+    // std::cout << "Char size is " << char_size  << '\n';
 }
 
 bool Drawer::is_opened ()

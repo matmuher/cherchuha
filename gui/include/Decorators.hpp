@@ -49,11 +49,16 @@ public:
 
 class TextButton : public DecoButton
 {
-    const std::string _text;
+    std::string _text;
 
 public:
 
-    TextButton(Button& btn, const std::string& text) : DecoButton{btn}, _text{text} {};
+    TextButton(Button& btn, const std::string& text)
+    :
+        DecoButton{btn},
+        _text{text} {};
+
+    void set_text(std::string text) { _text = text; }
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const
     {
