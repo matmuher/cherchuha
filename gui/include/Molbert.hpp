@@ -5,6 +5,9 @@
 
 class MolbertTool; // Pretty nice problem with forward-declarations
 
+// From this point of view, I see that there are reasons
+// to inherit from PixeldCanvas to not create all this wrapper functions
+
 class Molbert : public Widget
 {
     PixeledCanvas pxld_cnvs;
@@ -59,5 +62,10 @@ public:
     virtual void draw(Drawer& drwr, Canvas& cnvs) const
     {
         drwr.draw(cnvs, pxld_cnvs);
+    }
+
+    void load_from_file(const std::string& filename)
+    {
+        pxld_cnvs.load_from_file(filename);
     }
 };

@@ -64,4 +64,5 @@ public:
 
     // [Functions]
     void make_dot(const Point& dot, ParsedColor color);
+    void load_from_file(const std::string& filename);
 };

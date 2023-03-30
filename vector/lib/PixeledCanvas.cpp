@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <ImageProcess.hpp>
 
+#include <SFML/Graphics.hpp>
+
 PixeledCanvas::PixeledCanvas(const Canvas& cnvs, int DotSize) :
 
     m_DotSize{DotSize},
@@ -78,6 +80,32 @@ void PixeledCanvas::make_dot(const Point& dot, ParsedColor color)
                         m_pixels[pixel_pos] = color;
                 }
     }
+
+void PixeledCanvas::load_from_file(const std::string& filename)
+{
+        sf::Texture texture;
+        texture.loadFromFile(filename, sf::IntRect{0, 0, m_pixel_size.x(), m_pixel_size.y()});
+        // std::cout << m_pixel_size.x() << ' ' << m_pixel_size.y() << '\n';
+
+        sf::Image image = texture.copyToImage();
+        // std::cout << image.getSize().x << ' ' << image.getSize().y << '\n';
+        
+        auto pixels = (const sf::Uint32*) image.getPixelsPtr();
+
+        int height = image.getSize().y;
+        int width  = image.getSize().x;
+
+        // std::cout << height << ' ' << width << '\n';
+
+        for (int y = 0; y < height; ++y)
+            for (int x = 0; x < width; ++x)
+            {
+                // std::cout << y << ' ' << x << '\n'; 
+                ParsedColor color = ParsedColor(pixels[y * width + x]);
+                int index = y * width + x;
+                m_pixels[index] = color;
+            }
+}
 
 // [GETTERS]
 
