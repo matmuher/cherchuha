@@ -15,21 +15,20 @@
 
 int main()
 {
-    // std::cout << 0xFF0000FF << ' ' << pixel_color(ParsedColor(0xFF0000FF)) << '\n';
-    // exit(0);
-
     // Set button
     Point btn_size{80, 40};
 
     WidgetManager Desktop;
 
     Molbert mlbrt{{0, 0}, {500, 500}, 10};
+    mlbrt.load_from_file("test_car.jpg");
+
     Desktop.addChild(&mlbrt);
 
-    // ColorButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
-    // TexturedButton texture_btn{test_btn, "textures/pourer.jpg"};
-    // TextButton text_btn{texture_btn, "MEOW"};
-    // Desktop.addChild(&text_btn);
+    LaButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
+    TexturedButton texture_btn{test_btn, "textures/pourer.jpg"};
+    TextButton text_btn{texture_btn, "MEOW"};
+    Desktop.addChild(&text_btn);
 
     Point color_bar_cntr{-80, 300}; 
     ColorButtonManager clr_plt{mlbrt, color_bar_cntr, btn_size}; // pallete

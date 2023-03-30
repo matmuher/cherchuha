@@ -7,11 +7,12 @@ Ok, patterns are nice, but overwhelming
 #include <WidgetManager.hpp>
 #include <Rectangle.hpp>
 #include <list>
+#include <chrono>
 
 enum ButtonMask
 {
-    PRESS    = 0xFFFFFF55,
-    UN_PRESS = 0x000000FF,
+    PRESS    = 0x000000FF,
+    UN_PRESS = 0xFFFFFF55,
 };
 
 enum BarMode
@@ -42,7 +43,7 @@ public:
     virtual void draw(Drawer& drwr, Canvas& cnvs) const = 0;
 };
 
-// ConcreteButton
+// ConcreteButton0x000000FF
 class LaButton : public Button
 {
 protected:
@@ -50,6 +51,9 @@ protected:
     Rectangle _rect;
 
 private:
+
+    double DEFAULT_COOLDOWN = 10;
+    decltype(std::chrono::steady_clock::now()) last_click_time;
 
     bool is_pressed = false;
     pixel_color _clr;
@@ -59,7 +63,7 @@ public:
     LaButton(Point center, Point size, pixel_color clr) :
         _rect{center, size.x(), size.y(), static_cast<Colors>(clr)},
         _clr{clr}
-    {}
+    {unpress();}
 
     LaButton(Point size, pixel_color clr) :
         LaButton{Point{0, 0}, size, clr}
@@ -78,13 +82,13 @@ public:
     {
         // upd model
         is_pressed = true;
-        _rect.set_color(static_cast<Colors>(_clr & ButtonMask::PRESS));
+        _rect.set_color(static_cast<Colors>(_clr | ButtonMask::PRESS));
     }
 
     void unpress() 
     {
         is_pressed = false;
-        _rect.set_color(static_cast<Colors>(_clr | ButtonMask::UN_PRESS));
+        _rect.set_color(static_cast<Colors>(_clr & ButtonMask::UN_PRESS));
     }
 
     bool is_in_area(const Point& pnt) override
@@ -94,8 +98,16 @@ public:
 
     virtual void proc_click(const Point& pnt) override
     {
-        // is_pressed ? unpress() : press(); HOWTOFIX
-        press();
+        auto click_time = std::chrono::steady_clock::now();
+        auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(click_time - last_click_time);
+
+        std::cout << "diff: " << diff.count() << '\n';
+        if (diff.count() > DEFAULT_COOLDOWN)
+        {
+            is_pressed ? unpress() : press(); // HOWTOFIX
+        }
+
+        last_click_time = click_time;
     }
 
     virtual void draw(Drawer& drwr, Canvas& cnvs) const override
