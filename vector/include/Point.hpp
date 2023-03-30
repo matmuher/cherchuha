@@ -25,6 +25,8 @@ public:
                                                                     // with freevector traslation
     friend Point operator+ (const Point& pnt1,const Point& pnt2);                                                                
     Point& operator= (const Point& pnt);
+    Point& operator+= (const Point& other);
+    Point& operator*= (float k);
 
     // Interface: both variants are left for reverse compatibility
     float get_x() const;

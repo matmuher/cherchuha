@@ -122,10 +122,10 @@ public:
                     int new_x = cur_cell.x + shift.x;
                     int new_y = cur_cell.y + shift.y;
 
-                    std::cout << "Process cell [ " << new_y << ", " << new_x << "]\n" <<
-                    "Cell color: " << _mlbrt[new_y][new_x] << "\n" <<
-                    "Old color: "  << ParsedColor{old_clr} << "\n" <<
-                    "Fill color: " << ParsedColor{filler_clr} << "\n";
+                    // std::cout << "Process cell [ " << new_y << ", " << new_x << "]\n" <<
+                    // "Cell color: " << _mlbrt[new_y][new_x] << "\n" <<
+                    // "Old color: "  << ParsedColor{old_clr} << "\n" <<
+                    // "Fill color: " << ParsedColor{filler_clr} << "\n";
 
                     if (
                         0 <= new_x && new_x < _mlbrt.iwidth() &&
@@ -133,8 +133,8 @@ public:
                         pixel_color(_mlbrt[new_y][new_x]) == old_clr
                     )
                         {
-                            std::cout << "Push " << new_y << ' ' << new_x << '\n' <<
-                            "shift: " << shift.y << ' ' << shift.x << '\n'; 
+                            // std::cout << "Push " << new_y << ' ' << new_x << '\n' <<
+                            // "shift: " << shift.y << ' ' << shift.x << '\n'; 
                             //_mlbrt[new_y][new_x] = ParsedColor{filler_clr};
                             cell_queue.push(Cell{new_x, new_y});
                         }

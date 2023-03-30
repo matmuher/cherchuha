@@ -29,6 +29,8 @@ Canvas cnvs{cnvs_center};
 draw(cnvs, cvek1); // we can implement striaght interaction with window object only here
 */
 
+class ParsedColor;
+
 class FreeVector
 {
     Point m_end {};
@@ -41,6 +43,7 @@ public:
     FreeVector (float x, float y); // by end point coords
     FreeVector (const FreeVector &vec); // cpy ctor
     FreeVector (float x, float y, float z); // by end point coords
+    FreeVector (const ParsedColor& color);
 
     // Overload
     friend std::ostream& operator<< (std::ostream &cout, FreeVector vec); // output: check shitty_error.txt
@@ -50,6 +53,8 @@ public:
     friend FreeVector operator* (FreeVector vec, float k); 
     friend FreeVector operator+ (FreeVector vec1, FreeVector vec2); // sum
     friend FreeVector operator- (FreeVector vec1, FreeVector vec2);
+    FreeVector& operator+= (const FreeVector& other);
+    FreeVector& operator*= (float k);
 
     FreeVector& operator-()
         {
@@ -62,9 +67,10 @@ public:
     void set_end(const Point& end);
     float get_len ();
     Point get_pos ();
-    float x() {return m_end.get_x();}
-    float y() {return m_end.get_y();}
-    float z() {return m_end.get_z();}
+    ParsedColor to_color() const;
+    float x() const {return m_end.get_x();}
+    float y() const {return m_end.get_y();}
+    float z() const {return m_end.get_z();}
 };
 
 FreeVector reflect_surface (FreeVector surface_norm, FreeVector ray);

@@ -8,6 +8,14 @@ ParsedColor::ParsedColor (FreeVector vec) :
                     std::numeric_limits<char>::max()}
     {}
 
+ParsedColor operator* (const ParsedColor& other, float k)
+{
+    ParsedColor tmp{other};
+    tmp *= k;
+
+    return tmp;
+}
+
 /*
     Clamp value to [0;1] range
 */
@@ -34,10 +42,10 @@ ParsedColor whitescale (float coef) // 1 - totally white, 0 - totally black
 std::ostream& operator<< (std::ostream& cout, ParsedColor clr)
 {
     cout  << '{' <<
-    int(clr.r) << ' ' <<
-    int(clr.g) << ' ' <<
-    int(clr.b) << ' ' <<
-    int(clr.a) << '}' << std::endl;
+    static_cast<unsigned int>(clr.r) << ' ' <<
+    static_cast<unsigned int>(clr.g) << ' ' <<
+    static_cast<unsigned int>(clr.b) << ' ' <<
+    static_cast<unsigned int>(clr.a) << '}';
 
     return cout;
 }

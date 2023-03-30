@@ -13,6 +13,7 @@
 #include <MolbertTools.hpp>
 #include <Decorators.hpp>
 #include <InputField.hpp>
+#include <MolbertFilters.hpp>
 
 int main()
 {
@@ -27,11 +28,15 @@ int main()
     Desktop.addChild(&mlbrt);
 
     LoadFileInputField input{mlbrt, Point{100, -300}, 40, 15};
-
     // LaButton test_btn{Point{300, -300}, btn_size, Colors::GRAY};
     // TexturedButton texture_btn{test_btn, "textures/pourer.jpg"};
     // TextButton text_btn{texture_btn, "MEOW"};
     Desktop.addChild(&input);
+
+    MolbertFilter box_blur_filter{mlbrt};
+    FilterButton filter_btn{box_blur_filter, Point{-300, -300}, btn_size, Colors::GREEN};
+    TextButton filter_btn_labeled{filter_btn, "Box blur"};
+    Desktop.addChild(&filter_btn_labeled);
 
     Point color_bar_cntr{-80, 300};
     ColorButtonManager clr_plt{mlbrt, color_bar_cntr, btn_size}; // pallete

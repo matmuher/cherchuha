@@ -55,6 +55,24 @@ Point operator+ (const Point& pnt1,const Point& pnt2)
     return Point(pnt1.m_x + pnt2.m_x, pnt1.m_y + pnt2.m_y, pnt1.m_z + pnt2.m_z);
 }
 
+Point& Point::operator+= (const Point& other)
+{
+    m_x += other.m_x;
+    m_y += other.m_y;
+    m_z += other.m_z;
+
+    return *this;
+}
+
+Point& Point::operator*= (float k)
+{
+    m_x *= k;
+    m_y *= k;
+    m_z *= k;
+
+    return *this;   
+}
+
 float Point::get_x () const
 {
     return m_x;

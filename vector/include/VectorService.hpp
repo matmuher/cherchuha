@@ -34,10 +34,10 @@ public:
     operator pixel_color()
     {
         unsigned int bit_shift = sizeof(color_component) * 8;
-        return  r + 
-                (g << bit_shift) +
-                (b << (bit_shift * 2)) +
-                (a << (bit_shift * 3));
+        return  a + 
+                (b << bit_shift) +
+                (g << (bit_shift * 2)) +
+                (r << (bit_shift * 3));
     }
 
     ParsedColor operator= (const ParsedColor& clr)
@@ -48,6 +48,24 @@ public:
         a = clr.a;
 
         return clr;
+    }
+
+    ParsedColor& operator+= (const ParsedColor& other)
+    {
+        r += other.r;
+        g += other.g;
+        b += other.b;
+
+        return *this;
+    }
+
+    ParsedColor& operator*= (const float k)
+    {
+        r *= k;
+        g *= k;
+        b *= k;
+
+        return *this;
     }
 
     bool operator== (const ParsedColor& clr)
@@ -66,11 +84,13 @@ public:
 
     ParsedColor(pixel_color color)
     {
+
         color_component* color_ptr = (color_component*) &color;
         a = color_ptr[0];
         b = color_ptr[1];
         g = color_ptr[2];
         r = color_ptr[3];
+
     }
 
     ParsedColor(Colors color)
@@ -89,6 +109,7 @@ public:
         a{static_cast<color_component>(a_arg)}
     {};
 
+    // It is important for right Molbert Init Color!
     ParsedColor () : ParsedColor(Colors::WHITE) {};
 
     ParsedColor (Material m) : ParsedColor{m.diffuse_color} {};
@@ -109,7 +130,15 @@ public:
 
         return *this;
     }
+
+    ParsedColor vice_versa()
+    {
+        return ParsedColor{a, b, g, r};
+    }
 };
+
+
+ParsedColor operator* (const ParsedColor& other, float k);
 
 std::ostream& operator<< (std::ostream& cout, ParsedColor clr);
 

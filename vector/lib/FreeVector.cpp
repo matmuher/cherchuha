@@ -1,6 +1,8 @@
 #include <FreeVector.hpp>
+#include <VectorService.hpp>
 
 // [CTORS]
+
 
 FreeVector::FreeVector () : m_end{} {};
 
@@ -23,6 +25,10 @@ FreeVector::FreeVector (const FreeVector &vec) // Copy constructor
     //std::cout << "[VectorCtor] cpy ctor" << std::endl; 
     m_end = vec.m_end;
 }
+
+FreeVector::FreeVector (const ParsedColor& color) :
+    FreeVector{Point{color.r, color.g, color.b}}
+{}
 
 // [OVERLOAD]
 
@@ -65,6 +71,18 @@ FreeVector operator- (FreeVector vec1, FreeVector vec2)
     return vec1 + (-1) * vec2;
 }
 
+FreeVector& FreeVector::operator+= (const FreeVector& other)
+{
+    m_end += other.m_end;
+    return *this;
+}
+
+FreeVector& FreeVector::operator*= (float k)
+{
+    m_end *= k;
+    return *this;
+}
+
 // [FUNCTIONS]
 
 float FreeVector::get_len () // I made it member function as it changes condition of object
@@ -75,6 +93,11 @@ float FreeVector::get_len () // I made it member function as it changes conditio
 float get_len (FreeVector vec)
 {
     return sqrt(vec * vec);
+}
+
+ParsedColor FreeVector::to_color() const
+{
+    return ParsedColor{m_end.x(), m_end.y(), m_end.z(), (char) 255};
 }
 
 Point FreeVector::get_pos () // Candidate to get out of member functions
